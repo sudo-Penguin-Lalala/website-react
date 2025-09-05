@@ -490,6 +490,7 @@ a {
 .button-discord {
 	--button-text:#ffffff;
 	--button-background:#5865F2;
+		--button-border:1px solid #FFFFFF;
 }
 .button-dribbble {
 	--button-text:#000000;
@@ -503,6 +504,17 @@ a {
 .button-faceb {
 	--button-text:#ffffff;
 	--button-background:#0866FF;
+	--button-border:1px solid #ffffff;
+}
+.button-vesktop {
+  --button-text: #ffffff;
+  --button-background: #d2869a;
+  --button-border: 1px solid #ffffff;
+}
+.button-metube {
+  --button-text: #ffffff;
+  --button-background: #282828;
+  --button-border: 1px solid #ffffff;
 }
 .button-messenger {
 	--button-text:#ffffff;
@@ -739,6 +751,7 @@ a {
 .button-telegram {
 	--button-text:#ffffff;
 	--button-background:#3faee8;
+	--button-border:1px solid #FFFFFF;
 }
 .button-threads {
 	--button-text:#FFFFFF;

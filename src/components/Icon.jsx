@@ -13,6 +13,8 @@ import github from '../assets/icons/github.svg';
 import messenger from '../assets/icons/messenger.svg';
 import steam from '../assets/icons/steam.svg';
 import telegram from '../assets/icons/telegram.svg';
+import vesktop from '../assets/icons/vesktop.png';
+import metube from '../assets/icons/metube.svg';
 const icons = {
   'discord': discord,
   'email': email,
@@ -28,6 +30,8 @@ const icons = {
   'messenger': messenger,
   'steam': steam,
   'telegram': telegram,
+  'vesktop': vesktop,
+  'metube': metube,
 };
 
 const Icon = ({ name, ...props }) => {
