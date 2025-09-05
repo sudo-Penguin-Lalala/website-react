@@ -20,6 +20,9 @@ class Home extends React.Component{
         <a className="button button-metube" href="https://metube.nnt25.net/" target="_blank" rel="noopener" title="Self-hosted Youtube downloader">
           <Icon name="metube" className="icon" />MeTube
         </a>
+        <a className="button button-proton" href="https://proton.me/" target="_blank" rel="noopener" title="Privacy by default">
+          <Icon name="proton" className="icon" />Proton
+        </a>
         <a className="button button-telegram" href="https://t.me/NNT2589" target="_blank" rel="noopener" title="Just DM me">
           <Icon name="telegram" className="icon" />Telegram
         </a>

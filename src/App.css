@@ -516,6 +516,11 @@ a {
   --button-background: #282828;
   --button-border: 1px solid #ffffff;
 }
+.button-proton {
+--button-text: #ffffff;
+  --button-background: #8a2ae2;
+  --button-border: 1px solid #ffffff;
+}
 .button-messenger {
 	--button-text:#ffffff;
 	--button-background:#0866FF;
