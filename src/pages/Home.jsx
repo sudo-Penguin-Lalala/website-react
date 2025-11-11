@@ -15,7 +15,7 @@ class Home extends React.Component {
             speed={0.5}
             squareSize={40}
             direction="diagonal"
-            borderColor="#554276"
+            borderColor="#183456"
             hoverFillColor="#222"
           />
         </div>
