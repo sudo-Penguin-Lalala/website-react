@@ -49,7 +49,7 @@ class Home extends React.Component {
                 Hack Club Flavourtown
               </a>
               <a
-                className="button button-faceb"
+                className="button button-hackclub"
                 href="https://www.facebook.com/NNT2589/"
                 target="_blank"
                 rel="noopener"
