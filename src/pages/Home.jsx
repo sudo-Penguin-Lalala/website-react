@@ -136,7 +136,7 @@ class Home extends React.Component {
               </a>
             </div>
             <footer>
-              <CurvedLoop marqueeText="© 2025 Thien Nguyen ✦ All Rights Reserved ✦" />
+              <CurvedLoop marqueeText="© 2026 Thien Nguyen ✦ All Rights Reserved ✦" />
             </footer>
           </div>
         </main>
