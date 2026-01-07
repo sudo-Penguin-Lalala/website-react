@@ -39,6 +39,16 @@ class Home extends React.Component {
             <p>The most annoying person :D</p>
             <div className="button-stack" role="navigation">
               <a
+                className="button button-hackclub"
+                href="https://flavortown.hackclub.com/"
+                target="_blank"
+                rel="noopener"
+                title="Hack Club Flavourtown"
+              >
+                <Icon name="facebook" className="icon" />
+                Hack Club Flavourtown
+              </a>
+              <a
                 className="button button-faceb"
                 href="https://www.facebook.com/NNT2589/"
                 target="_blank"
