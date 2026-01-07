@@ -45,11 +45,11 @@ class Home extends React.Component {
                 rel="noopener"
                 title="Hack Club Flavourtown"
               >
-                <Icon name="facebook" className="icon" />
+                <Icon name="hackclub" className="icon" />
                 Hack Club Flavourtown
               </a>
               <a
-                className="button button-hackclub"
+                className="button button-faceb"
                 href="https://www.facebook.com/NNT2589/"
                 target="_blank"
                 rel="noopener"
