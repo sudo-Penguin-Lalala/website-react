@@ -39,14 +39,14 @@ class Home extends React.Component {
             <p>The most annoying person :D</p>
             <div className="button-stack" role="navigation">
               <a
-                className="button button-hackclub"
-                href="https://flavortown.hackclub.com/"
+                className="button button-nitro"
+                href="https://e.acct.epicgames.com/click?EbmdvY3RoaWVuMTAxMkBwcm90b24ubWU/CeyJtaWQiOiIxNzY1NzAwNjU0MzUxNDIyMTZkNzM2OGQyIiwiY3QiOiJlcGljLXR4LXByb2QtYzNjM2EwYzU3YzM0MzI1YjAzODI3ZDUxY2JiZmQ0ODItMCIsInJkIjoicHJvdG9uLm1lIn0/VaHR0cHM6Ly9wcm9tb3MuZGlzY29yZC5nZy9VTndOVFM5ckFVWVByaEdUQkpyalZHOUQ/SWkhfYWNjdF9OTlRBTjEyMTQyMDI1YzEyODkzNDViMA/LYWUx/gaT50PQ/JMTIxNDIwMjVDMTI4OTM0NUIw/sdm02e29c03"
                 target="_blank"
                 rel="noopener"
-                title="Hack Club Flavourtown"
+                title="Free 1 month of Discord Nitro (limited time offer)"
               >
-                <Icon name="hackclub" className="icon" />
-                Hack Club Flavourtown
+                <Icon name="nitro" className="icon" />
+                Free 1 month of Discord Nitro (limited time offer)
               </a>
               <a
                 className="button button-faceb"
