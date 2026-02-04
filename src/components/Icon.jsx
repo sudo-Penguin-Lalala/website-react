@@ -16,7 +16,6 @@ import telegram from "../assets/icons/telegram.svg";
 import vesktop from "../assets/icons/vesktop.png";
 import metube from "../assets/icons/metube.svg";
 import proton from "../assets/icons/proton.svg";
-import nitro from "../assets/icons/nitro.svg";
 const icons = {
   discord: discord,
   email: email,
@@ -35,7 +34,6 @@ const icons = {
   vesktop: vesktop,
   metube: metube,
   proton: proton,
-  nitro: nitro,
 };
 
 const Icon = ({ name, ...props }) => {
