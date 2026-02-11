@@ -50,7 +50,7 @@ class Home extends React.Component {
               </a>
               <a
                 className="button button-faceb"
-                href="https://www.facebook.com/NNT2589/"
+                href="https://www.facebook.com/palera1nx/"
                 target="_blank"
                 rel="noopener"
                 title="My Facebook profile"
