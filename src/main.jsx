@@ -17,8 +17,13 @@ createRoot(document.getElementById("root")).render(
 
 loadAnalytics();
 
-if ("serviceWorker" in navigator && import.meta.env.PROD) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/sw.js").catch(() => {});
+// Unregister any previously installed service worker and purge its caches.
+// We removed the SW because aggressive caching was serving stale builds.
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.getRegistrations().then((regs) => {
+    regs.forEach((reg) => reg.unregister());
   });
+  if ("caches" in window) {
+    caches.keys().then((keys) => keys.forEach((key) => caches.delete(key)));
+  }
 }
