@@ -1,0 +1,48 @@
+.lang-toggle {
+  position: fixed;
+  top: var(--space-md);
+  right: var(--space-md);
+  z-index: 11;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 2.5rem;
+  padding: 0;
+  background: color-mix(in oklch, var(--color-paper-2) 78%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--color-rule);
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    border-color var(--dur-base) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.lang-toggle:hover { border-color: var(--color-accent-2); }
+.lang-toggle:active { transform: scale(0.94); }
+.lang-toggle:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.lang-toggle__flag {
+  font-size: 1.5rem;
+  line-height: 1;
+  letter-spacing: 0;
+  /* Force emoji presentation across fonts */
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji",
+    "Twemoji Mozilla", sans-serif;
+  /* Stable rendering for flag glyph variants */
+  font-variant-emoji: emoji;
+  transform: translateY(0.5px);
+  display: inline-block;
+  width: 1.75rem;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lang-toggle { transition: none; }
+  .lang-toggle:active { transform: none; }
+}

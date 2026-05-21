@@ -1,0 +1,30 @@
+.circular-text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem 0;
+}
+
+.circular-text {
+  position: relative;
+  animation: rotate 20s linear infinite;
+}
+
+.circular-char {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
