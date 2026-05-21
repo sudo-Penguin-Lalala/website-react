@@ -1,12 +1,12 @@
-import { Suspense, lazy, Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import Button from "../components/Button";
 import ClickSpark from "../components/ClickSpark";
 import ShinyText from "../components/ShinyText";
-import CircularText from "../components/CircularText";
 import Reveal from "../components/Reveal";
 import LanguageToggle from "../components/LanguageToggle";
 import NavTabs from "../components/NavTabs";
+import ShapeGrid from "../components/ShapeGrid";
 import { useI18n } from "../i18n/useI18n";
 import { detectDeviceTier } from "../lib/deviceTier";
 import "../components/Bento.css";
@@ -17,8 +17,6 @@ import avatar448Avif from "../assets/avatar-448.avif";
 import avatar224Webp from "../assets/avatar-224.webp";
 import avatar448Webp from "../assets/avatar-448.webp";
 import { socialLinks, profileData, sectionShapes } from "../config/links";
-
-const ShapeGrid = lazy(() => import("../components/ShapeGrid"));
 
 const Cell = ({ cell }) => {
   const titleClass = `cell__title${cell.titleBig ? " cell__title--big" : ""}`;
@@ -107,20 +105,10 @@ const BentoSection = ({ section }) => {
 
 const Home = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [showBackground, setShowBackground] = useState(false);
   const [activeTab, setActiveTab] = useState("links");
   const reduceMotion = useReducedMotion();
   const { t } = useI18n();
   const tier = detectDeviceTier();
-
-  useEffect(() => {
-    const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 200));
-    const id = schedule(() => setShowBackground(true));
-    return () => {
-      if (window.cancelIdleCallback) window.cancelIdleCallback(id);
-      else clearTimeout(id);
-    };
-  }, []);
 
   const aboutSection = buildSection(sectionShapes.about, t.about);
   const homelabSection = buildSection(sectionShapes.homelab, t.homelab);
@@ -133,11 +121,7 @@ const Home = () => {
       <LanguageToggle />
       <div className="home">
         <div className="background-squares" aria-hidden="true">
-          {showBackground && (
-            <Suspense fallback={null}>
-              <ShapeGrid />
-            </Suspense>
-          )}
+          <ShapeGrid />
         </div>
         <main className="container">
           <div className={`column${activeTab === "about" ? " column--wide" : ""}`}>
@@ -232,7 +216,10 @@ const Home = () => {
         </main>
 
         <footer className="page-footer">
-          <CircularText text="Made with ❤️ by NNT ✦ " radius={60} />
+          <div className="monogram" aria-label="Made by NNT, 2026">
+            <span className="monogram__name">NNT</span>
+            <span className="monogram__year">2026</span>
+          </div>
         </footer>
       </div>
     </Wrapper>
