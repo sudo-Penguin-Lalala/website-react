@@ -1,0 +1,36 @@
+[data-tier="low"] .lang-toggle,
+[data-tier="low"] .nav-tabs {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: color-mix(in oklch, var(--color-paper) 92%, transparent);
+}
+
+[data-tier="low"] .button {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+[data-tier="low"] .button::before {
+  display: none;
+}
+
+[data-tier="low"] .avatar--rounded {
+  animation: none;
+}
+
+[data-tier="low"] .cell {
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+
+[data-tier="low"] .cell:hover {
+  transform: none;
+}
+
+[data-tier="low"] .tab-panel--fade-in {
+  animation: none;
+}
+
+[data-tier="low"] .reveal {
+  transform: none;
+  transition: opacity var(--dur-base) var(--ease-out);
+}

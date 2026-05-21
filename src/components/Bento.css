@@ -1,0 +1,187 @@
+.bento-section {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-xl) 0 0;
+  text-align: left;
+}
+
+.bento-section + .bento-section {
+  padding-top: var(--space-2xl);
+}
+
+/* When the bento sits inside a tab panel, kill the leading padding on the first one */
+.tab-panel--about > .bento-section:first-child {
+  padding-top: var(--space-md);
+}
+
+.bento-section__eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent-2);
+  margin: 0 0 var(--space-sm);
+}
+
+.bento-section__title {
+  font-family: var(--font-display);
+  font-size: var(--text-display-s);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-lg);
+  overflow-wrap: anywhere;
+  min-width: 0;
+  text-wrap: balance;
+}
+
+.bento-section__lede {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  line-height: 1.55;
+  color: var(--color-ink-2);
+  margin: 0 0 var(--space-xl);
+  max-width: 42rem;
+  text-wrap: pretty;
+}
+
+.bento {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--space-sm);
+}
+
+@media (min-width: 48rem) {
+  .bento { gap: var(--space-md); }
+}
+
+.cell {
+  background: var(--color-paper-2);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  border: 1px solid var(--color-rule);
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+}
+
+.cell:hover {
+  border-color: var(--color-accent-2);
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell:hover { transform: none; }
+}
+
+.cell--accent {
+  background: linear-gradient(
+    155deg,
+    color-mix(in oklch, var(--color-accent) 18%, var(--color-paper-2)) 0%,
+    var(--color-paper-2) 60%
+  );
+  border-color: color-mix(in oklch, var(--color-accent) 35%, var(--color-rule));
+}
+
+.cell__kicker {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+  margin: 0 0 var(--space-sm);
+}
+
+.cell__title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-sm);
+  text-wrap: balance;
+}
+
+.cell__title--big {
+  font-size: var(--text-3xl);
+  line-height: 1;
+}
+
+.cell__body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.55;
+  color: var(--color-ink-2);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.cell__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+  color: var(--color-accent-2);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  border-bottom: 1px solid color-mix(in oklch, var(--color-accent-2) 50%, transparent);
+  padding-bottom: 1px;
+  width: fit-content;
+}
+
+.cell__link:hover,
+.cell__link:focus-visible {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+.cell__link:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.cell--2x1 { grid-column: span 6; }
+.cell--3x1 { grid-column: span 6; }
+.cell--4x1 { grid-column: span 6; }
+.cell--6x1 { grid-column: span 6; }
+.cell--2x2 { grid-column: span 6; }
+.cell--3x2 { grid-column: span 6; }
+
+@media (min-width: 48rem) {
+  .cell--2x1 { grid-column: span 2; }
+  .cell--3x1 { grid-column: span 3; }
+  .cell--4x1 { grid-column: span 4; }
+  .cell--2x2 { grid-column: span 2; grid-row: span 2; }
+  .cell--3x2 { grid-column: span 3; grid-row: span 2; }
+  .cell--6x1 { grid-column: span 6; }
+}
+
+.cell--stat .cell__title { font-size: var(--text-3xl); margin-bottom: 0; }
+.cell--stat .cell__kicker { margin-bottom: var(--space-xs); }
+.cell--stat .cell__body { margin-top: var(--space-sm); font-size: var(--text-sm); }
+
+.section-closer {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-ink-2);
+  margin: var(--space-xl) 0 0;
+  letter-spacing: -0.01em;
+  max-width: 38rem;
+  text-wrap: balance;
+}
+
+.section-closer em {
+  font-style: normal;
+  color: var(--color-accent-2);
+}
