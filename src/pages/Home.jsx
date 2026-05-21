@@ -112,17 +112,15 @@ const Home = () => {
   const reduceMotion = useReducedMotion();
   const { t } = useI18n();
   const tier = detectDeviceTier();
-  const allowBackground = tier !== "low";
 
   useEffect(() => {
-    if (!allowBackground) return;
     const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 200));
     const id = schedule(() => setShowBackground(true));
     return () => {
       if (window.cancelIdleCallback) window.cancelIdleCallback(id);
       else clearTimeout(id);
     };
-  }, [allowBackground]);
+  }, []);
 
   const aboutSection = buildSection(sectionShapes.about, t.about);
   const homelabSection = buildSection(sectionShapes.homelab, t.homelab);
@@ -135,7 +133,7 @@ const Home = () => {
       <LanguageToggle />
       <div className="home">
         <div className="background-squares" aria-hidden="true">
-          {allowBackground && showBackground && (
+          {showBackground && (
             <Suspense fallback={null}>
               <ShapeGrid />
             </Suspense>
