@@ -24,8 +24,8 @@ export const dictionary = {
       lede: "Most are open invitations — DM me on Telegram or Discord if you want access.",
       cells: {
         telecloud: { kicker: "Cloud", title: "TeleCloud", body: "Unlimited storage that piggybacks on Telegram. Free, no quota.", linkLabel: "Apply for access →" },
+        netcheck: { kicker: "Network", title: "NetCheck", body: "DNS, ping, traceroute, MTR, port check, reverse DNS, WHOIS, headers, SSL, HTTP — all in one page.", linkLabel: "Open NetCheck →" },
         metube: { kicker: "Media", title: "MeTube", body: "Paste almost any video link — TikTok, Facebook, YouTube, Instagram — get the file. Despite the name, it grabs from most of the planet.", linkLabel: "Open MeTube →" },
-        domains: { kicker: "Domains", title: "nnt25.io.vn", body: "One domain, one network, a handful of subdomain experiments." },
       },
     },
     now: {
@@ -64,8 +64,8 @@ export const dictionary = {
       lede: "Đa phần đều mở — DM Telegram hoặc Discord nếu muốn dùng thử.",
       cells: {
         telecloud: { kicker: "Lưu trữ", title: "TeleCloud", body: "Bộ nhớ không giới hạn dựa trên Telegram. Free, không quota.", linkLabel: "Đăng ký →" },
+        netcheck: { kicker: "Mạng", title: "NetCheck", body: "DNS, ping, traceroute, MTR, port check, reverse DNS, WHOIS, headers, SSL, HTTP — tất cả trong một trang.", linkLabel: "Mở NetCheck →" },
         metube: { kicker: "Media", title: "MeTube", body: "Dán link video gần như bất kỳ đâu — TikTok, Facebook, YouTube, Instagram — lấy về file. Tên là MeTube nhưng kéo được từ gần cả hành tinh.", linkLabel: "Mở MeTube →" },
-        domains: { kicker: "Tên miền", title: "nnt25.io.vn", body: "Một tên miền, một mạng lưới, vài thử nghiệm subdomain." },
       },
     },
     now: {
