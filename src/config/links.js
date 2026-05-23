@@ -8,6 +8,14 @@ export const socialLinks = [
     title: 'Apply for TeleCloud access - Free unlimited cloud storage'
   },
   {
+    id: 'netcheck',
+    label: 'NetCheck',
+    url: 'https://netcheck.nnt25.io.vn/',
+    icon: 'netcheck',
+    className: 'button-netcheck',
+    title: 'Network diagnostic toolkit - DNS, ping, traceroute, MTR, and more'
+  },
+  {
     id: 'facebook',
     label: 'Facebook',
     url: 'https://www.facebook.com/palera1nx/',
@@ -108,8 +116,8 @@ export const sectionShapes = {
   ],
   homelab: [
     { span: '2x1', key: 'telecloud', href: 'https://forms.gle/NTE74mGLUJRa6omK7', accent: true },
+    { span: '2x1', key: 'netcheck', href: 'https://netcheck.nnt25.io.vn/' },
     { span: '2x1', key: 'metube', href: 'https://metube.nnt25.io.vn/' },
-    { span: '2x1', key: 'domains' },
   ],
   now: [
     { span: '2x1', key: 'playing', href: 'https://steamcommunity.com/id/NNT_25' },
