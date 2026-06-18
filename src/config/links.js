@@ -86,7 +86,8 @@ export const socialLinks = [
     icon: 'generic-email',
     className: 'button-default',
     title: 'Send me an email'
-  },;
+  },
+];
 
 export const profileData = {
   name: 'Thien Nguyen',
