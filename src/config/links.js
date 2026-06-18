@@ -82,20 +82,12 @@ export const socialLinks = [
   {
     id: 'email',
     label: 'Email',
-    url: 'mailto:bravo@nnt25.net',
+    url: 'mailto:contact@nnt25.io.vn',
     icon: 'generic-email',
     className: 'button-default',
     title: 'Send me an email'
   },
-  {
-    id: 'phone',
-    label: 'Phone',
-    url: 'tel:+84911094416',
-    icon: 'generic-phone',
-    className: 'button-default',
-    title: 'Give me a call'
-  }
-];
+  {;
 
 export const profileData = {
   name: 'Thien Nguyen',
