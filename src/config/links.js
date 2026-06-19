@@ -1,13 +1,5 @@
 export const socialLinks = [
   {
-    id: 'telecloud',
-    label: 'Apply for TeleCloud',
-    url: 'https://forms.gle/NTE74mGLUJRa6omK7',
-    icon: 'generic-cloud',
-    className: 'button-telecloud',
-    title: 'Apply for TeleCloud access - Free unlimited cloud storage'
-  },
-  {
     id: 'netcheck',
     label: 'NetCheck',
     url: 'https://netcheck.nnt25.io.vn/',
