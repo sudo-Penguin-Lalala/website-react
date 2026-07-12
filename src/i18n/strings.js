@@ -5,7 +5,7 @@ export const dictionary = {
     nav: { links: "Links", about: "About" },
     profile: {
       name: "Thien Nguyen",
-      tagline: "The most annoying person :D",
+      tagline: "Random internet nerd",
     },
     socialLinksLabel: "Social links",
     about: {
@@ -45,7 +45,7 @@ export const dictionary = {
     nav: { links: "Liên kết", about: "Giới thiệu" },
     profile: {
       name: "Ngọc Thiện",
-      tagline: "Người phiền nhất quả đất :D",
+      tagline: "Thằng ất ơ ngẫu nhiên trên internet",
     },
     socialLinksLabel: "Liên kết mạng xã hội",
     about: {
