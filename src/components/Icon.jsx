@@ -13,10 +13,8 @@ import github from "../assets/icons/github.svg";
 import messenger from "../assets/icons/messenger.svg";
 import steam from "../assets/icons/steam.svg";
 import telegram from "../assets/icons/telegram.svg";
-import vesktop from "../assets/icons/vesktop.png";
 import metube from "../assets/icons/metube.svg";
 import proton from "../assets/icons/proton.svg";
-import nitro from "../assets/icons/nitro.svg";
 import netcheck from "../assets/icons/netcheck.svg";
 const icons = {
   discord: discord,
@@ -33,7 +31,6 @@ const icons = {
   messenger: messenger,
   steam: steam,
   telegram: telegram,
-  vesktop: vesktop,
   metube: metube,
   proton: proton,
   netcheck: netcheck,

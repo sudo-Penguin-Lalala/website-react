@@ -8,22 +8,6 @@ export const socialLinks = [
     title: 'Network diagnostic toolkit - DNS, ping, traceroute, MTR, and more'
   },
   {
-    id: 'facebook',
-    label: 'Facebook',
-    url: 'https://www.facebook.com/palera1nx/',
-    icon: 'facebook',
-    className: 'button-faceb',
-    title: 'My Facebook profile'
-  },
-  {
-    id: 'vesktop',
-    label: 'Vesktop',
-    url: 'https://vesktop.vencord.dev/',
-    icon: 'vesktop',
-    className: 'button-vesktop',
-    title: "Vencord's custom client for Discord"
-  },
-  {
     id: 'metube',
     label: 'MeTube',
     url: 'https://metube.nnt25.io.vn/',
@@ -32,20 +16,12 @@ export const socialLinks = [
     title: 'Self-hosted Youtube downloader'
   },
   {
-    id: 'proton',
-    label: 'Proton',
-    url: 'https://proton.me/',
-    icon: 'proton',
-    className: 'button-proton',
-    title: 'Privacy by default'
-  },
-  {
-    id: 'telegram',
-    label: 'Telegram',
-    url: 'https://t.me/NNT2589',
-    icon: 'telegram',
-    className: 'button-telegram',
-    title: 'Just DM me'
+    id: 'facebook',
+    label: 'Facebook',
+    url: 'https://www.facebook.com/palera1nx/',
+    icon: 'facebook',
+    className: 'button-faceb',
+    title: 'My Facebook profile'
   },
   {
     id: 'discord',
@@ -56,12 +32,12 @@ export const socialLinks = [
     title: 'Just DM me'
   },
   {
-    id: 'github',
-    label: 'GitHub',
-    url: 'https://github.com/sudo-Penguin-Lalala',
-    icon: 'github',
-    className: 'button-github',
-    title: 'My code repos'
+    id: 'telegram',
+    label: 'Telegram',
+    url: 'https://t.me/NNT2589',
+    icon: 'telegram',
+    className: 'button-telegram',
+    title: 'Just DM me'
   },
   {
     id: 'steam',
@@ -70,6 +46,22 @@ export const socialLinks = [
     icon: 'steam',
     className: 'button-steam-alt',
     title: 'Gaming stuff'
+  },
+  {
+    id: 'github',
+    label: 'GitHub',
+    url: 'https://github.com/sudo-Penguin-Lalala',
+    icon: 'github',
+    className: 'button-github',
+    title: 'My code repos'
+  },
+  {
+    id: 'proton',
+    label: 'Proton',
+    url: 'https://proton.me/',
+    icon: 'proton',
+    className: 'button-proton',
+    title: 'Privacy by default'
   },
   {
     id: 'email',
