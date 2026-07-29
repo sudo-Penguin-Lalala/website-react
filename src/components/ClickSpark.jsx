@@ -38,19 +38,23 @@ const ClickSpark = ({ children }) => {
   };
 
   useEffect(() => {
+    if (sparks.length === 0) return;
+
     const interval = setInterval(() => {
       setSparks((prev) =>
-        prev.map((spark) => ({
-          ...spark,
-          x: spark.x + spark.vx,
-          y: spark.y + spark.vy,
-          life: spark.life - 0.02,
-        }))
+        prev
+          .map((spark) => ({
+            ...spark,
+            x: spark.x + spark.vx,
+            y: spark.y + spark.vy,
+            life: spark.life - 0.04,
+          }))
+          .filter((spark) => spark.life > 0)
       );
     }, 16);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [sparks.length]);
 
   return (
     <div ref={containerRef} onClick={handleClick} className="click-spark-container">

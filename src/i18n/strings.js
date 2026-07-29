@@ -25,7 +25,7 @@ export const dictionary = {
       cells: {
         telecloud: { kicker: "Cloud", title: "TeleCloud", body: "Unlimited storage that piggybacks on Telegram. Free, no quota.", linkLabel: "Apply for access →" },
         netcheck: { kicker: "Network", title: "NetCheck", body: "DNS, ping, traceroute, MTR, port check, reverse DNS, WHOIS, headers, SSL, HTTP — all in one page.", linkLabel: "Open NetCheck →" },
-        metube: { kicker: "Media", title: "MeTube", body: "Paste almost any video link — TikTok, Facebook, YouTube, Instagram — get the file. Despite the name, it grabs from most of the planet.", linkLabel: "Open MeTube →" },
+        metube: { kicker: "Media", title: "MeTube", body: "Paste almost any video link — TikTok, Facebook, YouTube, Instagram — and download it. The name says YouTube, but it works with most sites.", linkLabel: "Open MeTube →" },
       },
     },
     now: {
@@ -45,38 +45,38 @@ export const dictionary = {
     nav: { links: "Liên kết", about: "Giới thiệu" },
     profile: {
       name: "Ngọc Thiện",
-      tagline: "Thằng ất ơ ngẫu nhiên trên internet",
+      tagline: "Một thằng nerd lạc trôi trên internet",
     },
     socialLinksLabel: "Liên kết mạng xã hội",
     about: {
       eyebrow: "Giới thiệu",
-      title: "Vọc vạch, chơi game, và self‑host từ Việt Nam.",
-      lede: "Mình chạy một đám dịch vụ nhỏ cho bạn bè, chơi game nhiều hơn nên chơi, và phá đồ có chủ đích để học cách sửa lại.",
+      title: "Nghịch máy, chơi game, và tự host mọi thứ từ Việt Nam.",
+      lede: "Mình chạy vài dịch vụ nhỏ cho bạn bè, chơi game hơi nhiều hơn mức nên, và thích phá rồi tìm cách sửa lại.",
       cells: {
-        homelab: { kicker: "Một câu", title: "Homelab là sở thích, không phải công việc.", body: "Linux, container, một tủ mạng cứ lớn dần. Phần lớn dịch vụ mình host đều miễn phí cho ai mình đủ tin để gửi link." },
-        location: { kicker: "Đang ở", title: "Việt Nam · UTC+7", body: "Thường online ban đêm." },
-        care: { kicker: "Quan tâm", title: "Quyền riêng tư, làm chủ.", body: "Proton cho email. Tự host cho mọi thứ còn lại." },
+        homelab: { kicker: "Gói gọn", title: "Homelab là đam mê, không phải nghề.", body: "Linux, container, một góc mạng cứ phình ra. Phần lớn dịch vụ mình host đều free cho ai mình tin tưởng." },
+        location: { kicker: "Đang ở", title: "Việt Nam · UTC+7", body: "Hay online khuya." },
+        care: { kicker: "Quan tâm", title: "Quyền riêng tư, tự chủ.", body: "Proton cho email. Tự host cho phần còn lại." },
       },
     },
     homelab: {
       eyebrow: "Mình host gì",
       title: "Vài dịch vụ mình đang chạy.",
-      lede: "Đa phần đều mở — DM Telegram hoặc Discord nếu muốn dùng thử.",
+      lede: "Đa phần ai cũng dùng được — DM Telegram hoặc Discord nếu muốn thử.",
       cells: {
-        telecloud: { kicker: "Lưu trữ", title: "TeleCloud", body: "Bộ nhớ không giới hạn dựa trên Telegram. Free, không quota.", linkLabel: "Đăng ký →" },
-        netcheck: { kicker: "Mạng", title: "NetCheck", body: "DNS, ping, traceroute, MTR, port check, reverse DNS, WHOIS, headers, SSL, HTTP — tất cả trong một trang.", linkLabel: "Mở NetCheck →" },
-        metube: { kicker: "Media", title: "MeTube", body: "Dán link video gần như bất kỳ đâu — TikTok, Facebook, YouTube, Instagram — lấy về file. Tên là MeTube nhưng kéo được từ gần cả hành tinh.", linkLabel: "Mở MeTube →" },
+        telecloud: { kicker: "Lưu trữ", title: "TeleCloud", body: "Dung lượng không giới hạn, chạy trên nền Telegram. Free, không quota.", linkLabel: "Đăng ký dùng →" },
+        netcheck: { kicker: "Mạng", title: "NetCheck", body: "DNS, ping, traceroute, MTR, port check, reverse DNS, WHOIS, headers, SSL, HTTP — gom hết vào một trang.", linkLabel: "Mở NetCheck →" },
+        metube: { kicker: "Media", title: "MeTube", body: "Dán link video từ TikTok, Facebook, YouTube, Instagram — tải về luôn. Tên là MeTube nhưng hỗ trợ hầu hết các trang.", linkLabel: "Mở MeTube →" },
       },
     },
     now: {
       eyebrow: "Hiện tại",
-      title: "Đang ở đâu đó giữa bàn phím và tay cầm.",
+      title: "Đang lơ lửng đâu đó giữa bàn phím và tay cầm.",
       cells: {
-        playing: { kicker: "Đang chơi", title: "Thứ gì Steam bảo mình chơi thì chơi.", body: "Library cập nhật nhanh hơn tốc độ mình chơi xong game.", linkLabel: "Steam của mình →" },
-        building: { kicker: "Đang code", title: "Repo nhỏ, kế hoạch to.", body: "Phần lớn là code cuối tuần. Một ít sống sót sang thứ Hai.", linkLabel: "Xem trên GitHub →" },
-        talking: { kicker: "Đang nói chuyện", title: "Telegram, Discord, ở đâu cũng được.", body: "Mình rep nhanh hơn email tưởng tượng.", linkLabel: "DM mình →" },
+        playing: { kicker: "Đang chơi", title: "Steam bảo chơi gì thì chơi nấy.", body: "Library mua nhanh hơn tốc độ chơi.", linkLabel: "Steam của mình →" },
+        building: { kicker: "Đang code", title: "Repo nhỏ, mộng lớn.", body: "Code cuối tuần là chính. Đôi khi sống sót tới thứ Hai.", linkLabel: "Xem trên GitHub →" },
+        talking: { kicker: "Liên hệ", title: "Telegram, Discord, đâu cũng được.", body: "Mình rep nhanh hơn bạn nghĩ.", linkLabel: "Nhắn mình →" },
       },
-      closer: "Hình dạng trang này sẽ thay đổi. Cách liên hệ với mình thì không.",
+      closer: "Trang này sẽ thay đổi. Cách liên hệ với mình thì không.",
     },
   },
 };
