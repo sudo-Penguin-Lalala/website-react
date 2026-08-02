@@ -63,14 +63,6 @@ export const socialLinks = [
     className: 'button-proton',
     title: 'Privacy by default'
   },
-  {
-    id: 'email',
-    label: 'Email',
-    url: 'mailto:contact@nnt25.io.vn',
-    icon: 'generic-email',
-    className: 'button-default',
-    title: 'Send me an email'
-  },
 ];
 
 export const profileData = {
