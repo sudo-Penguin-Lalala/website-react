@@ -225,17 +225,18 @@ const Home = () => {
   </div>
 
   <div className="dmca-wrapper">
-    <a
-      href="https://www.dmca.com/Protection/Status.aspx?ID=ac99d596-92ec-444f-bfd5-07ade133f1b9"
-      title="DMCA.com Protection Status"
-      className="dmca-badge"
-    >
-      <img
-        src="https://images.dmca.com/Badges/dmca-badge-w250-5x1-01.png?ID=ac99d596-92ec-444f-bfd5-07ade133f1b9"
-        alt="DMCA.com Protection Status"
-      />
-    </a>
-  </div>
+  <a
+    href="https://www.dmca.com/Protection/Status.aspx?ID=ac99d596-92ec-444f-bfd5-07ade133f1b9"
+    title="DMCA.com Protection Status"
+    className="dmca-badge"
+  >
+    <img
+      src="https://images.dmca.com/Badges/dmca-badge-w150-5x1-02.png?ID=ac99d596-92ec-444f-bfd5-07ade133f1b9"
+      alt="DMCA.com Protection Status"
+    />
+  </a>
+</div>
+
 </footer>
 
       </div>
