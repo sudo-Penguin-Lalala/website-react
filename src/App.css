@@ -313,17 +313,25 @@ ul li { margin-bottom: 0.6rem; color: rgba(255, 255, 255, 0.8); }
 }
 
 .monogram__name {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 800;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.12em;
   color: rgba(255, 255, 255, 0.92);
 }
 
 .monogram__year {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 500;
   letter-spacing: 0.22em;
   color: rgba(255, 255, 255, 0.5);
+}
+
+.monogram__legal {
+  font-size: 0.55rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: lowercase;
 }
 
 @media (prefers-reduced-motion: reduce) {
