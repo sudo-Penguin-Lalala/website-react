@@ -153,8 +153,13 @@ h1 {
   }
 }
 
-.button,
-button {
+.button {
+  --btn-brand: rgba(255, 255, 255, 0.12);
+  --btn-brand-mid: rgba(255, 255, 255, 0.05);
+  --btn-border-top: rgba(255, 255, 255, 0.5);
+  --btn-border-top-hover: rgba(255, 255, 255, 0.85);
+  --btn-hover-glow: rgba(135, 206, 250, 0.35);
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -168,17 +173,17 @@ button {
   white-space: normal;
 
   background: linear-gradient(180deg,
-    rgba(255, 255, 255, 0.12) 0%,
-    rgba(255, 255, 255, 0.05) 45%,
-    rgba(255, 255, 255, 0.02) 100%) !important;
+    var(--btn-brand) 0%,
+    var(--btn-brand-mid) 50%,
+    rgba(255, 255, 255, 0.02) 100%);
 
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 
   color: #ffffff;
 
-  border: 0.5px solid rgba(255, 255, 255, 0.15) !important;
-  border-top: 1.2px solid rgba(255, 255, 255, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-top: 1.2px solid var(--btn-border-top);
   border-radius: 24px;
 
   cursor: pointer;
@@ -190,10 +195,13 @@ button {
   box-shadow:
     inset 0 1px 1px 0 rgba(255, 255, 255, 0.3),
     inset 0 -1px 20px 0 rgba(255, 255, 255, 0.02),
-    0 15px 30px -10px rgba(0, 0, 0, 0.8),
-    0 0 0 0 rgba(135, 206, 250, 0);
+    0 15px 30px -10px rgba(0, 0, 0, 0.8);
 
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
 }
@@ -205,7 +213,7 @@ button {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
   transition: left 0.5s;
 }
 
@@ -213,24 +221,26 @@ button {
   left: 100%;
 }
 
-.button:hover,
-button:hover {
+.button:hover {
   background: linear-gradient(180deg,
-    rgba(255, 255, 255, 0.18) 0%,
-    rgba(255, 255, 255, 0.08) 45%,
-    rgba(255, 255, 255, 0.04) 100%) !important;
-  border-top-color: rgba(255, 255, 255, 0.8) !important;
+    var(--btn-brand) 0%,
+    var(--btn-brand-mid) 45%,
+    rgba(255, 255, 255, 0.05) 100%);
+  border-top-color: var(--btn-border-top-hover);
 
   box-shadow:
-    inset 0 1px 2px 0 rgba(255, 255, 255, 0.5),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.45),
     0 20px 40px -10px rgba(0, 0, 0, 0.9),
-    0 0 20px rgba(255, 255, 255, 0.05),
-    0 0 30px 2px rgba(135, 206, 250, 0.4);
+    0 0 25px 2px var(--btn-hover-glow);
 }
 
-.button:active,
-button:active {
+.button:active {
   transform: scale(0.98);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
 }
 
 .icon {
@@ -240,34 +250,76 @@ button:active {
   flex-shrink: 0;
 }
 
-.button-nitro {
-  background: linear-gradient(180deg, rgba(255, 115, 250, 0.18) 0%, rgba(255, 115, 250, 0.05) 50%, transparent 100%) !important;
-  border-top-color: rgba(255, 115, 250, 0.7) !important;
+.button-netcheck {
+  --btn-brand: rgba(255, 122, 0, 0.22);
+  --btn-brand-mid: rgba(255, 122, 0, 0.07);
+  --btn-border-top: rgba(255, 122, 0, 0.75);
+  --btn-border-top-hover: rgba(255, 145, 30, 0.95);
+  --btn-hover-glow: rgba(255, 122, 0, 0.45);
 }
-.button-discord {
-  background: linear-gradient(180deg, rgba(88, 101, 242, 0.18) 0%, rgba(88, 101, 242, 0.05) 50%, transparent 100%) !important;
-  border-top-color: rgba(88, 101, 242, 0.7) !important;
-}
-.button-faceb {
-  background: linear-gradient(180deg, rgba(8, 102, 255, 0.18) 0%, rgba(8, 102, 255, 0.05) 50%, transparent 100%) !important;
-  border-top-color: rgba(8, 102, 255, 0.7) !important;
-}
+
 .button-metube {
-  background: linear-gradient(180deg, rgba(255, 0, 0, 0.15) 0%, rgba(255, 0, 0, 0.05) 50%, transparent 100%) !important;
-  border-top-color: rgba(255, 0, 0, 0.6) !important;
+  --btn-brand: rgba(255, 30, 30, 0.22);
+  --btn-brand-mid: rgba(255, 30, 30, 0.07);
+  --btn-border-top: rgba(255, 40, 40, 0.75);
+  --btn-border-top-hover: rgba(255, 70, 70, 0.95);
+  --btn-hover-glow: rgba(255, 30, 30, 0.45);
 }
-.button-proton {
-  background: linear-gradient(180deg, rgba(138, 42, 226, 0.18) 0%, rgba(138, 42, 226, 0.05) 50%, transparent 100%) !important;
-  border-top-color: rgba(138, 42, 226, 0.7) !important;
+
+.button-facebook {
+  --btn-brand: rgba(8, 102, 255, 0.22);
+  --btn-brand-mid: rgba(8, 102, 255, 0.07);
+  --btn-border-top: rgba(8, 102, 255, 0.75);
+  --btn-border-top-hover: rgba(40, 130, 255, 0.95);
+  --btn-hover-glow: rgba(8, 102, 255, 0.45);
 }
+
+.button-discord {
+  --btn-brand: rgba(88, 101, 242, 0.22);
+  --btn-brand-mid: rgba(88, 101, 242, 0.07);
+  --btn-border-top: rgba(88, 101, 242, 0.75);
+  --btn-border-top-hover: rgba(115, 125, 255, 0.95);
+  --btn-hover-glow: rgba(88, 101, 242, 0.45);
+}
+
 .button-telegram {
-  background: linear-gradient(180deg, rgba(63, 174, 232, 0.18) 0%, rgba(63, 174, 232, 0.05) 50%, transparent 100%) !important;
-  border-top-color: rgba(63, 174, 232, 0.7) !important;
+  --btn-brand: rgba(36, 161, 222, 0.22);
+  --btn-brand-mid: rgba(36, 161, 222, 0.07);
+  --btn-border-top: rgba(36, 161, 222, 0.75);
+  --btn-border-top-hover: rgba(60, 185, 245, 0.95);
+  --btn-hover-glow: rgba(36, 161, 222, 0.45);
+}
+
+.button-steam {
+  --btn-brand: rgba(102, 192, 244, 0.22);
+  --btn-brand-mid: rgba(27, 40, 56, 0.35);
+  --btn-border-top: rgba(102, 192, 244, 0.75);
+  --btn-border-top-hover: rgba(135, 215, 255, 0.95);
+  --btn-hover-glow: rgba(102, 192, 244, 0.45);
+}
+
+.button-github {
+  --btn-brand: rgba(240, 246, 252, 0.16);
+  --btn-brand-mid: rgba(110, 118, 129, 0.08);
+  --btn-border-top: rgba(240, 246, 252, 0.70);
+  --btn-border-top-hover: rgba(255, 255, 255, 0.95);
+  --btn-hover-glow: rgba(240, 246, 252, 0.35);
+}
+
+.button-proton {
+  --btn-brand: rgba(109, 74, 255, 0.22);
+  --btn-brand-mid: rgba(109, 74, 255, 0.07);
+  --btn-border-top: rgba(109, 74, 255, 0.75);
+  --btn-border-top-hover: rgba(140, 110, 255, 0.95);
+  --btn-hover-glow: rgba(109, 74, 255, 0.45);
 }
 
 .button-telecloud {
-  background: linear-gradient(180deg, rgba(139, 92, 246, 0.18) 0%, rgba(139, 92, 246, 0.05) 50%, transparent 100%) !important;
-  border-top-color: rgba(139, 92, 246, 0.7) !important;
+  --btn-brand: rgba(139, 92, 246, 0.22);
+  --btn-brand-mid: rgba(139, 92, 246, 0.07);
+  --btn-border-top: rgba(139, 92, 246, 0.75);
+  --btn-border-top-hover: rgba(165, 125, 255, 0.95);
+  --btn-hover-glow: rgba(139, 92, 246, 0.45);
 }
 
 nav, section { margin: 2.5rem 0; text-align: left; }
@@ -279,7 +331,7 @@ ul li { margin-bottom: 0.6rem; color: rgba(255, 255, 255, 0.8); }
 .page-footer {
   margin: var(--space-3xl) 0 calc(8rem + env(safe-area-inset-bottom, 0px));
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.65);
   text-align: center;
   position: relative;
   z-index: 1;
@@ -316,21 +368,21 @@ ul li { margin-bottom: 0.6rem; color: rgba(255, 255, 255, 0.8); }
   font-size: 0.95rem;
   font-weight: 800;
   letter-spacing: 0.12em;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .monogram__year {
   font-size: 0.65rem;
   font-weight: 500;
   letter-spacing: 0.22em;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .monogram__legal {
   font-size: 0.55rem;
   font-weight: 400;
   letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.65);
   text-transform: lowercase;
 }
 
@@ -342,7 +394,7 @@ ul li { margin-bottom: 0.6rem; color: rgba(255, 255, 255, 0.8); }
 footer {
   margin: 5rem 0 2rem 0;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.65);
   text-align: center;
 }
 
