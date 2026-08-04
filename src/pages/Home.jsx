@@ -12,8 +12,6 @@ import { detectDeviceTier } from "../lib/deviceTier";
 import "../components/Bento.css";
 import avatar224 from "../assets/avatar-224.png";
 import avatar448 from "../assets/avatar-448.png";
-import avatar224Avif from "../assets/avatar-224.avif";
-import avatar448Avif from "../assets/avatar-448.avif";
 import avatar224Webp from "../assets/avatar-224.webp";
 import avatar448Webp from "../assets/avatar-448.webp";
 import { socialLinks, profileData, sectionShapes } from "../config/links";
@@ -135,10 +133,6 @@ const Home = () => {
               className="avatar-wrap"
             >
               <picture>
-                <source
-                  type="image/avif"
-                  srcSet={`${avatar224Avif} 1x, ${avatar448Avif} 2x`}
-                />
                 <source
                   type="image/webp"
                   srcSet={`${avatar224Webp} 1x, ${avatar448Webp} 2x`}

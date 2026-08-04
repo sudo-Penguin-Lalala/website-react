@@ -20,7 +20,7 @@ export const socialLinks = [
     label: 'Facebook',
     url: 'https://www.facebook.com/palera1nx/',
     icon: 'facebook',
-    className: 'button-faceb',
+    className: 'button-facebook',
     title: 'My Facebook profile'
   },
   {
@@ -44,7 +44,7 @@ export const socialLinks = [
     label: 'Steam',
     url: 'https://steamcommunity.com/id/NNT_25',
     icon: 'steam',
-    className: 'button-steam-alt',
+    className: 'button-steam',
     title: 'Gaming stuff'
   },
   {
