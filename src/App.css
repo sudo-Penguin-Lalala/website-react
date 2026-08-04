@@ -27,6 +27,8 @@ html {
   width: 100vw;
   height: 100vh;
   z-index: -1;
+  pointer-events: none;
+  transform: translateZ(0);
 }
 
 .container {
@@ -200,8 +202,7 @@ h1 {
   transition:
     background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
 }

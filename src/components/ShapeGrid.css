@@ -6,4 +6,6 @@
   z-index: -1;
   background-color: #000;
   display: block;
+  pointer-events: none;
+  transform: translateZ(0);
 }
