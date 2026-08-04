@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import Button from "../components/Button";
 import ClickSpark from "../components/ClickSpark";
@@ -107,7 +107,17 @@ const Home = () => {
   const reduceMotion = useReducedMotion();
   const { t } = useI18n();
   const tier = detectDeviceTier();
-
+  useEffect(() => {
+  const script = document.createElement("script");
+  script.src = "https://images.dmca.com/Badges/DMCABadgeHelper.min.js";
+  script.async = true;
+  document.body.appendChild(script);
+  return () => {
+    if (document.body.contains(script)) {
+      document.body.removeChild(script);
+    }
+  };
+}, []);
   const aboutSection = buildSection(sectionShapes.about, t.about);
   const homelabSection = buildSection(sectionShapes.homelab, t.homelab);
   const nowSection = buildSection(sectionShapes.now, t.now);
@@ -208,12 +218,26 @@ const Home = () => {
         </main>
 
         <footer className="page-footer">
-          <div className="monogram" aria-label="© 2026 Thien Nguyen. All rights reserved.">
-            <span className="monogram__year">© 2026</span>
-            <span className="monogram__name">Thien Nguyen</span>
-            <span className="monogram__legal">All rights reserved.</span>
-          </div>
-        </footer>
+  <div className="monogram" aria-label="© 2026 Thien Nguyen. All rights reserved.">
+    <span className="monogram__year">© 2026</span>
+    <span className="monogram__name">Thien Nguyen</span>
+    <span className="monogram__legal">All rights reserved.</span>
+  </div>
+
+  <div className="dmca-wrapper">
+    <a
+      href="https://www.dmca.com/Protection/Status.aspx?ID=ac99d596-92ec-444f-bfd5-07ade133f1b9"
+      title="DMCA.com Protection Status"
+      className="dmca-badge"
+    >
+      <img
+        src="https://images.dmca.com/Badges/dmca-badge-w250-5x1-01.png?ID=ac99d596-92ec-444f-bfd5-07ade133f1b9"
+        alt="DMCA.com Protection Status"
+      />
+    </a>
+  </div>
+</footer>
+
       </div>
     </Wrapper>
   );
