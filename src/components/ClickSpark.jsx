@@ -14,14 +14,19 @@ const ClickSpark = ({ children }) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    let width = 0;
+    let height = 0;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
     const updateSize = () => {
       const container = containerRef.current;
       if (!container || !canvas) return;
       const rect = container.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
+      width = rect.width;
+      height = rect.height;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     updateSize();
@@ -34,22 +39,16 @@ const ClickSpark = ({ children }) => {
     const colors = ['#60a5fa', '#a78bfa', '#38bdf8', '#c084fc', '#93c5fd'];
 
     const render = () => {
-      const container = containerRef.current;
-      if (!container || !canvas) return;
-
-      ctx.save();
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.restore();
+      ctx.clearRect(0, 0, width, height);
 
       const sparks = sparksRef.current;
       for (let i = sparks.length - 1; i >= 0; i--) {
         const s = sparks[i];
         s.x += s.vx;
         s.y += s.vy;
-        s.vx *= 0.96;
-        s.vy *= 0.96;
-        s.life -= 0.025;
+        s.vx *= 0.94;
+        s.vy *= 0.94;
+        s.life -= 0.035;
 
         if (s.life <= 0) {
           sparks.splice(i, 1);
@@ -60,17 +59,16 @@ const ClickSpark = ({ children }) => {
         ctx.arc(s.x, s.y, s.radius * s.life, 0, Math.PI * 2);
         ctx.fillStyle = s.color;
         ctx.globalAlpha = Math.max(0, s.life);
-        ctx.shadowColor = s.color;
-        ctx.shadowBlur = 6;
         ctx.fill();
-        ctx.globalAlpha = 1;
-        ctx.shadowBlur = 0;
       }
+
+      ctx.globalAlpha = 1;
 
       if (sparks.length > 0) {
         animFrameIdRef.current = requestAnimationFrame(render);
       } else {
         animFrameIdRef.current = null;
+        ctx.clearRect(0, 0, width, height);
       }
     };
 
@@ -85,17 +83,17 @@ const ClickSpark = ({ children }) => {
       const rect = container.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      const count = 10;
+      const count = 8;
 
       for (let i = 0; i < count; i++) {
         const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
-        const speed = 1.8 + Math.random() * 2.8;
+        const speed = 1.5 + Math.random() * 2.5;
         sparksRef.current.push({
           x,
           y,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
-          radius: 2 + Math.random() * 2,
+          radius: 2 + Math.random() * 1.5,
           color: colors[Math.floor(Math.random() * colors.length)],
           life: 1,
         });
