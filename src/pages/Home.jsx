@@ -226,9 +226,11 @@ const Home = () => {
 
   <div className="dmca-wrapper">
   <a
-    href="https://www.dmca.com/Protection/Status.aspx?ID=ac99d596-92ec-444f-bfd5-07ade133f1b9"
+    href="https://www.dmca.com/Protection/Status.aspx?ID=ac99d596-92ec-444f-bfd5-07ade133f1b9&refurl=https://nnt25.io.vn/"
     title="DMCA.com Protection Status"
     className="dmca-badge"
+    target="_blank"
+    rel="noopener noreferrer"
   >
     <img
       src="https://images.dmca.com/Badges/dmca-badge-w150-5x1-02.png?ID=ac99d596-92ec-444f-bfd5-07ade133f1b9"
@@ -236,6 +238,7 @@ const Home = () => {
     />
   </a>
 </div>
+
 
 </footer>
 
