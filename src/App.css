@@ -19,18 +19,6 @@ html {
   overflow: visible;
 }
 
-.background-squares {
-  background-color: #000;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  pointer-events: none;
-  transform: translateZ(0);
-}
-
 .container {
   position: relative;
   width: 100%;

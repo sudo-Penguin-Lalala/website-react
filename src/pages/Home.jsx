@@ -6,7 +6,7 @@ import ShinyText from "../components/ShinyText";
 import Reveal from "../components/Reveal";
 import LanguageToggle from "../components/LanguageToggle";
 import NavTabs from "../components/NavTabs";
-import ShapeGrid from "../components/ShapeGrid";
+import AmbientBackground from "../components/AmbientBackground";
 import { useI18n } from "../i18n/useI18n";
 import { detectDeviceTier } from "../lib/deviceTier";
 import "../components/Bento.css";
@@ -118,9 +118,7 @@ const Home = () => {
     <Wrapper>
       <LanguageToggle />
       <div className="home">
-        <div className="background-squares" aria-hidden="true">
-          <ShapeGrid />
-        </div>
+        <AmbientBackground />
         <main className="container">
           <div className={`column${activeTab === "about" ? " column--wide" : ""}`}>
             <motion.div
