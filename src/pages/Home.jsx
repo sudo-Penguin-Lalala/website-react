@@ -1,116 +1,26 @@
 import { Fragment, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
-import Button from "../components/Button";
 import ClickSpark from "../components/ClickSpark";
-import ShinyText from "../components/ShinyText";
-import Reveal from "../components/Reveal";
 import LanguageToggle from "../components/LanguageToggle";
 import NavTabs from "../components/NavTabs";
 import AmbientBackground from "../components/AmbientBackground";
-import { useI18n } from "../i18n/useI18n";
+import TeleCloudModal from "../components/TeleCloudModal";
+import ProfileHeader from "../components/ProfileHeader";
+import LinksPanel from "../components/LinksPanel";
+import AboutPanel from "../components/AboutPanel";
+import Footer from "../components/Footer";
 import { detectDeviceTier } from "../lib/deviceTier";
-import "../components/Bento.css";
-import avatar224 from "../assets/avatar-224.png";
-import avatar448 from "../assets/avatar-448.png";
-import avatar224Webp from "../assets/avatar-224.webp";
-import avatar448Webp from "../assets/avatar-448.webp";
-import { socialLinks, profileData, sectionShapes } from "../config/links";
-
-const Cell = ({ cell }) => {
-  const titleClass = `cell__title${cell.titleBig ? " cell__title--big" : ""}`;
-  return (
-    <article
-      className={
-        `cell cell--${cell.span}` +
-        (cell.accent ? " cell--accent" : "") +
-        (cell.stat ? " cell--stat" : "")
-      }
-    >
-      {cell.kicker && <p className="cell__kicker">{cell.kicker}</p>}
-      {cell.title && <h3 className={titleClass}>{cell.title}</h3>}
-      {cell.body && <p className="cell__body">{cell.body}</p>}
-      {cell.href && cell.linkLabel && (
-        <a
-          className="cell__link"
-          href={cell.href}
-          target={cell.href.startsWith("http") ? "_blank" : undefined}
-          rel={cell.href.startsWith("http") ? "noopener noreferrer" : undefined}
-        >
-          {cell.linkLabel}
-        </a>
-      )}
-    </article>
-  );
-};
-
-function buildSection(shape, translation) {
-  return {
-    eyebrow: translation.eyebrow,
-    title: translation.title,
-    lede: translation.lede,
-    closer: translation.closer,
-    cells: shape.map((entry) => {
-      const text = translation.cells?.[entry.key] || {};
-      return {
-        span: entry.span,
-        accent: entry.accent,
-        href: entry.href,
-        kicker: text.kicker,
-        title: text.title,
-        body: text.body,
-        linkLabel: text.linkLabel,
-      };
-    }),
-  };
-}
-
-const BentoSection = ({ section }) => {
-  const slug = section.eyebrow
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .replace(/\s+/g, "-");
-  return (
-    <section className="bento-section" aria-labelledby={`section-${slug}`}>
-      <Reveal>
-        <p className="bento-section__eyebrow">{section.eyebrow}</p>
-        <h2
-          id={`section-${slug}`}
-          className="bento-section__title"
-          spellCheck={false}
-        >
-          {section.title}
-        </h2>
-        {section.lede && (
-          <p className="bento-section__lede" spellCheck={false}>
-            {section.lede}
-          </p>
-        )}
-      </Reveal>
-      <Reveal className="bento" delay={120}>
-        {section.cells.map((cell, i) => (
-          <Cell key={i} cell={cell} />
-        ))}
-      </Reveal>
-      {section.closer && (
-        <Reveal>
-          <p className="section-closer">{section.closer}</p>
-        </Reveal>
-      )}
-    </section>
-  );
-};
 
 const Home = () => {
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(true);
   const [activeTab, setActiveTab] = useState("links");
-  const reduceMotion = useReducedMotion();
-  const { t } = useI18n();
+  const [isTeleCloudOpen, setIsTeleCloudOpen] = useState(false);
   const tier = detectDeviceTier();
 
-  const aboutSection = buildSection(sectionShapes.about, t.about);
-  const homelabSection = buildSection(sectionShapes.homelab, t.homelab);
-  const nowSection = buildSection(sectionShapes.now, t.now);
+  const handleAction = (action) => {
+    if (action === "telecloudModal") {
+      setIsTeleCloudOpen(true);
+    }
+  };
 
   const Wrapper = tier === "low" ? Fragment : ClickSpark;
 
@@ -121,100 +31,32 @@ const Home = () => {
         <AmbientBackground />
         <main className="container">
           <div className={`column${activeTab === "about" ? " column--wide" : ""}`}>
-            <motion.div
-              initial={reduceMotion ? false : { opacity: 0, scale: 0.92 }}
-              animate={{
-                opacity: imageLoaded ? 1 : 0,
-                scale: imageLoaded ? 1 : 0.92,
-              }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="avatar-wrap"
-            >
-              <picture>
-                <source
-                  type="image/webp"
-                  srcSet={`${avatar224Webp} 1x, ${avatar448Webp} 2x`}
-                />
-                <img
-                  className="avatar avatar--rounded"
-                  src={avatar224}
-                  srcSet={`${avatar448} 2x`}
-                  width="128"
-                  height="128"
-                  alt={profileData.avatar.alt}
-                  fetchpriority="high"
-                  decoding="async"
-                  onLoad={() => setImageLoaded(true)}
-                  onError={() => setImageLoaded(true)}
-                />
-              </picture>
-            </motion.div>
-
-            <motion.h1
-              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <ShinyText text={t.profile.name} />
-              <span style={{ color: "#2457f5" }}>.</span>
-            </motion.h1>
-
-            <motion.p
-              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {t.profile.tagline}
-            </motion.p>
+            <ProfileHeader
+              imageLoaded={imageLoaded}
+              onImageLoaded={() => setImageLoaded(true)}
+            />
 
             <NavTabs active={activeTab} onChange={setActiveTab} />
 
-            <div
-              key={activeTab}
-              id="panel-links"
-              role="tabpanel"
-              aria-labelledby="tab-links"
-              hidden={activeTab !== "links"}
-              className="tab-panel tab-panel--fade-in"
-            >
-              <nav className="button-stack" aria-label={t.socialLinksLabel}>
-                {socialLinks.map((link, index) => (
-                  <Button
-                    key={link.id}
-                    href={link.url}
-                    icon={link.icon}
-                    label={link.label}
-                    className={link.className}
-                    title={link.title}
-                    index={index}
-                  />
-                ))}
-              </nav>
-            </div>
+            <LinksPanel
+              key={`links-${activeTab}`}
+              active={activeTab === "links"}
+            />
 
-            <div
+            <AboutPanel
               key={`about-${activeTab}`}
-              id="panel-about"
-              role="tabpanel"
-              aria-labelledby="tab-about"
-              hidden={activeTab !== "about"}
-              className="tab-panel tab-panel--fade-in tab-panel--about"
-            >
-              <BentoSection section={aboutSection} />
-              <BentoSection section={homelabSection} />
-              <BentoSection section={nowSection} />
-            </div>
+              active={activeTab === "about"}
+              onAction={handleAction}
+            />
           </div>
         </main>
 
-        <footer className="page-footer">
-          <div className="monogram" aria-label="© 2026 Thien Nguyen. All rights reserved.">
-            <span className="monogram__year">© 2026</span>
-            <span className="monogram__name">Thien Nguyen</span>
-            <span className="monogram__legal">All rights reserved.</span>
-          </div>
-        </footer>
+        <Footer />
       </div>
+      <TeleCloudModal
+        isOpen={isTeleCloudOpen}
+        onClose={() => setIsTeleCloudOpen(false)}
+      />
     </Wrapper>
   );
 };

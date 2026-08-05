@@ -6,173 +6,67 @@
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
-  background-color: #030408;
-  transform: translateZ(0);
-  --mouse-x: 50vw;
-  --mouse-y: 25vh;
+  background-color: #060813;
 }
 
-/* Deep gradient base */
-.ambient-bg__base {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 0%, #0c1022 0%, #030408 65%);
-}
-
-/* Ambient glow orbs */
-.ambient-bg__glow {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  will-change: transform, opacity;
-  pointer-events: none;
-}
-
-/* Primary hero spotlight behind avatar/name */
-.ambient-bg__glow--primary {
-  top: -12vw;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60vw;
-  height: 48vw;
-  max-width: 750px;
-  max-height: 580px;
-  min-width: 320px;
-  min-height: 300px;
-  background: radial-gradient(
-    circle,
-    rgba(36, 87, 245, 0.24) 0%,
-    rgba(99, 102, 241, 0.14) 40%,
-    rgba(36, 87, 245, 0) 70%
-  );
-  animation: ambient-breathe 9s ease-in-out infinite alternate;
-}
-
-/* Cyan accent orb top right */
-.ambient-bg__glow--cyan {
-  top: 15vh;
-  right: 10vw;
-  width: 35vw;
-  height: 35vw;
-  max-width: 450px;
-  max-height: 450px;
-  background: radial-gradient(
-    circle,
-    rgba(6, 182, 212, 0.12) 0%,
-    rgba(14, 165, 233, 0.05) 50%,
-    transparent 70%
-  );
-  animation: ambient-float-right 12s ease-in-out infinite alternate;
-}
-
-/* Violet accent orb lower left */
-.ambient-bg__glow--violet {
-  top: 40vh;
-  left: 5vw;
-  width: 40vw;
-  height: 40vw;
-  max-width: 500px;
-  max-height: 500px;
-  background: radial-gradient(
-    circle,
-    rgba(139, 92, 246, 0.11) 0%,
-    rgba(168, 85, 247, 0.04) 50%,
-    transparent 70%
-  );
-  animation: ambient-float-left 14s ease-in-out infinite alternate;
-}
-
-/* Interactive subtle cursor spotlight */
-.ambient-bg__spotlight {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    650px circle at var(--mouse-x) var(--mouse-y),
-    rgba(36, 87, 245, 0.08) 0%,
-    rgba(56, 189, 248, 0.03) 35%,
-    transparent 70%
-  );
-  opacity: 0.9;
-}
-
-/* Masked Linear/Raycast Dot Matrix */
-.ambient-bg__dot-grid {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(
-    rgba(255, 255, 255, 0.18) 1.25px,
-    transparent 1.25px
-  );
-  background-size: 32px 32px;
-  background-position: center center;
-  -webkit-mask-image: radial-gradient(
-    ellipse 75% 65% at 50% 30%,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.65) 45%,
-    rgba(0, 0, 0, 0) 80%
-  );
-  mask-image: radial-gradient(
-    ellipse 75% 65% at 50% 30%,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.65) 45%,
-    rgba(0, 0, 0, 0) 80%
-  );
-}
-
-/* Top accent horizon glow beam */
-.ambient-bg__top-beam {
+/* Top Horizon Glow Line */
+.ambient-bg__top-line {
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 70%;
-  max-width: 700px;
+  width: 80%;
+  max-width: 900px;
   height: 1px;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(36, 87, 245, 0.3) 20%,
-    rgba(99, 102, 241, 0.8) 50%,
-    rgba(56, 189, 248, 0.3) 80%,
+    rgba(56, 189, 248, 0.3) 20%,
+    rgba(129, 140, 248, 0.8) 50%,
+    rgba(192, 132, 252, 0.3) 80%,
     transparent 100%
   );
-  box-shadow: 0 0 25px 2px rgba(99, 102, 241, 0.45);
+  box-shadow: 0 0 16px 2px rgba(99, 102, 241, 0.4);
 }
 
-/* Fluid glow animations */
-@keyframes ambient-breathe {
-  0% {
-    transform: translateX(-50%) scale(1);
-    opacity: 0.85;
-  }
-  100% {
-    transform: translateX(-50%) scale(1.08);
-    opacity: 1;
-  }
+/* Hero Ambient Glow (Pure CSS radial gradients, GPU-friendly) */
+.ambient-bg__hero-glow {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 550px;
+  background: radial-gradient(
+    circle at 50% 30%,
+    rgba(79, 70, 229, 0.25) 0%,
+    rgba(59, 130, 246, 0.15) 35%,
+    rgba(6, 182, 212, 0.05) 60%,
+    transparent 75%
+  );
+  filter: blur(60px);
 }
 
-@keyframes ambient-float-right {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  100% {
-    transform: translate(-30px, 35px) scale(1.08);
-  }
-}
-
-@keyframes ambient-float-left {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  100% {
-    transform: translate(35px, -25px) scale(1.06);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ambient-bg__glow--primary,
-  .ambient-bg__glow--cyan,
-  .ambient-bg__glow--violet {
-    animation: none;
-  }
+/* Crisp Subtle Modern Dot Grid with smooth radial mask */
+.ambient-bg__dot-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.15) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+  background-position: center center;
+  -webkit-mask-image: radial-gradient(
+    ellipse 80% 70% at 50% 35%,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    transparent 80%
+  );
+  mask-image: radial-gradient(
+    ellipse 80% 70% at 50% 35%,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    transparent 80%
+  );
 }

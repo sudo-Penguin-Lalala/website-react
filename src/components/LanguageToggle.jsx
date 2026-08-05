@@ -6,32 +6,54 @@ const UsFlag = () => (
     className="lang-toggle__flag-svg"
     viewBox="0 0 24 16"
     width="20"
-    height="13.3"
+    height="13.33"
     aria-hidden="true"
   >
-    <clipPath id="us-flag-clip">
-      <rect width="24" height="16" rx="2.5" />
-    </clipPath>
+    <defs>
+      <clipPath id="us-flag-clip">
+        <rect width="24" height="16" rx="2" />
+      </clipPath>
+      <polygon
+        id="us-star"
+        points="0,-0.6 0.18,-0.19 0.6,-0.19 0.25,0.06 0.38,0.48 0,0.2 -0.38,0.48 -0.25,0.06 -0.6,-0.19 -0.18,-0.19"
+        fill="#ffffff"
+      />
+    </defs>
     <g clipPath="url(#us-flag-clip)">
+      {/* 13 Stripes */}
       <rect width="24" height="16" fill="#b22234" />
-      <path
-        d="M0 2.46h24v1.23H0zm0 2.46h24v1.23H0zm0 2.46h24v1.23H0zm0 2.46h24v1.23H0zm0 2.46h24v1.23H0z"
-        fill="#ffffff"
-      />
-      <rect width="10.2" height="8.6" fill="#3c3b6e" />
-      {/* 5-pointed star cluster */}
-      <polygon
-        points="2.8,1.4 3.2,2.6 4.4,2.6 3.4,3.3 3.8,4.5 2.8,3.8 1.8,4.5 2.2,3.3 1.2,2.6 2.4,2.6"
-        fill="#ffffff"
-      />
-      <polygon
-        points="7.4,1.4 7.8,2.6 9.0,2.6 8.0,3.3 8.4,4.5 7.4,3.8 6.4,4.5 6.8,3.3 5.8,2.6 7.0,2.6"
-        fill="#ffffff"
-      />
-      <polygon
-        points="5.1,4.2 5.5,5.4 6.7,5.4 5.7,6.1 6.1,7.3 5.1,6.6 4.1,7.3 4.5,6.1 3.5,5.4 4.7,5.4"
-        fill="#ffffff"
-      />
+      <rect y="1.23" width="24" height="1.23" fill="#ffffff" />
+      <rect y="3.69" width="24" height="1.23" fill="#ffffff" />
+      <rect y="6.15" width="24" height="1.23" fill="#ffffff" />
+      <rect y="8.62" width="24" height="1.23" fill="#ffffff" />
+      <rect y="11.08" width="24" height="1.23" fill="#ffffff" />
+      <rect y="13.54" width="24" height="1.23" fill="#ffffff" />
+      {/* Blue Canton */}
+      <rect width="9.6" height="8.62" fill="#3c3b6e" />
+      {/* Star Grid */}
+      <use href="#us-star" x="1.6" y="1.4" />
+      <use href="#us-star" x="3.2" y="1.4" />
+      <use href="#us-star" x="4.8" y="1.4" />
+      <use href="#us-star" x="6.4" y="1.4" />
+      <use href="#us-star" x="8.0" y="1.4" />
+      <use href="#us-star" x="2.4" y="2.8" />
+      <use href="#us-star" x="4.0" y="2.8" />
+      <use href="#us-star" x="5.6" y="2.8" />
+      <use href="#us-star" x="7.2" y="2.8" />
+      <use href="#us-star" x="1.6" y="4.3" />
+      <use href="#us-star" x="3.2" y="4.3" />
+      <use href="#us-star" x="4.8" y="4.3" />
+      <use href="#us-star" x="6.4" y="4.3" />
+      <use href="#us-star" x="8.0" y="4.3" />
+      <use href="#us-star" x="2.4" y="5.7" />
+      <use href="#us-star" x="4.0" y="5.7" />
+      <use href="#us-star" x="5.6" y="5.7" />
+      <use href="#us-star" x="7.2" y="5.7" />
+      <use href="#us-star" x="1.6" y="7.2" />
+      <use href="#us-star" x="3.2" y="7.2" />
+      <use href="#us-star" x="4.8" y="7.2" />
+      <use href="#us-star" x="6.4" y="7.2" />
+      <use href="#us-star" x="8.0" y="7.2" />
     </g>
   </svg>
 );
@@ -41,16 +63,16 @@ const VnFlag = () => (
     className="lang-toggle__flag-svg"
     viewBox="0 0 24 16"
     width="20"
-    height="13.3"
+    height="13.33"
     aria-hidden="true"
   >
     <clipPath id="vn-flag-clip">
-      <rect width="24" height="16" rx="2.5" />
+      <rect width="24" height="16" rx="2" />
     </clipPath>
     <g clipPath="url(#vn-flag-clip)">
       <rect width="24" height="16" fill="#da251d" />
       <polygon
-        points="12,2.8 13.5,7.3 18.2,7.3 14.4,10.1 15.9,14.6 12,11.8 8.1,14.6 9.6,10.1 5.8,7.3 10.5,7.3"
+        points="12,3.2 13.08,6.52 16.57,6.52 13.74,8.57 14.82,11.88 12,9.83 9.18,11.88 10.26,8.57 7.43,6.52 10.92,6.52"
         fill="#ffff00"
       />
     </g>

@@ -7,7 +7,11 @@ import App from "./App.jsx";
 import { loadAnalytics } from "./lib/analytics";
 import { applyDeviceTier } from "./lib/deviceTier";
 
-applyDeviceTier();
+try {
+  applyDeviceTier();
+} catch (e) {
+  console.warn("Failed to apply device tier:", e);
+}
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -15,15 +19,34 @@ createRoot(document.getElementById("root")).render(
   </StrictMode>
 );
 
-loadAnalytics();
+try {
+  loadAnalytics();
+} catch (e) {
+  console.warn("Failed to load analytics:", e);
+}
 
 // Unregister any previously installed service worker and purge its caches.
 // We removed the SW because aggressive caching was serving stale builds.
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.getRegistrations().then((regs) => {
-    regs.forEach((reg) => reg.unregister());
-  });
-  if ("caches" in window) {
-    caches.keys().then((keys) => keys.forEach((key) => caches.delete(key)));
+if (typeof navigator !== "undefined" && "serviceWorker" in navigator) {
+  try {
+    navigator.serviceWorker.getRegistrations().then((regs) => {
+      regs.forEach((reg) => reg.unregister());
+    }).catch(() => {
+      /* ignore */
+    });
+  } catch {
+    /* ignore */
+  }
+}
+
+if (typeof window !== "undefined" && "caches" in window) {
+  try {
+    caches.keys().then((keys) => {
+      keys.forEach((key) => caches.delete(key));
+    }).catch(() => {
+      /* ignore */
+    });
+  } catch {
+    /* ignore */
   }
 }

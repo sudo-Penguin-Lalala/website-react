@@ -1,70 +1,97 @@
 import { useEffect, useRef } from 'react';
 import './ClickSpark.css';
 
+const SPARK_COLORS = ['#60a5fa', '#38bdf8', '#a78bfa', '#c084fc', '#ffffff'];
+const RAY_COUNT = 8; // Classic 8-point fixed '*' starburst
+const DURATION = 380; // Animation duration in ms
+const MAX_DISTANCE = 26; // Maximum spread distance in px
+const SPARK_LENGTH = 10; // Spark line length in px
+const LINE_WIDTH = 2; // Spark line stroke width in px
+
 const ClickSpark = ({ children }) => {
-  const containerRef = useRef(null);
   const canvasRef = useRef(null);
-  const sparksRef = useRef([]);
+  const burstsRef = useRef([]);
   const animFrameIdRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    let ctx = null;
+    try {
+      ctx = canvas.getContext('2d', { alpha: true });
+    } catch {
+      return;
+    }
     if (!ctx) return;
 
     let width = 0;
     let height = 0;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     const updateSize = () => {
-      const container = containerRef.current;
-      if (!container || !canvas) return;
-      const rect = container.getBoundingClientRect();
-      width = rect.width;
-      height = rect.height;
-      canvas.width = Math.floor(width * dpr);
-      canvas.height = Math.floor(height * dpr);
+      if (!canvas) return;
+      // Use window viewport dimensions instead of full scroll container to avoid canvas size overflow on iOS
+      const w = window.innerWidth || document.documentElement.clientWidth || 360;
+      const h = window.innerHeight || document.documentElement.clientHeight || 640;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2 to stay well within iOS GPU limits
+
+      width = w;
+      height = h;
+      canvas.width = Math.max(1, Math.floor(w * dpr));
+      canvas.height = Math.max(1, Math.floor(h * dpr));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     updateSize();
+    window.addEventListener('resize', updateSize, { passive: true });
 
-    const resizeObserver = new ResizeObserver(updateSize);
-    if (containerRef.current) {
-      resizeObserver.observe(containerRef.current);
-    }
-
-    const colors = ['#60a5fa', '#a78bfa', '#38bdf8', '#c084fc', '#93c5fd'];
-
-    const render = () => {
+    const render = (now) => {
+      if (!ctx) return;
       ctx.clearRect(0, 0, width, height);
 
-      const sparks = sparksRef.current;
-      for (let i = sparks.length - 1; i >= 0; i--) {
-        const s = sparks[i];
-        s.x += s.vx;
-        s.y += s.vy;
-        s.vx *= 0.94;
-        s.vy *= 0.94;
-        s.life -= 0.035;
+      const bursts = burstsRef.current;
+      for (let i = bursts.length - 1; i >= 0; i--) {
+        const b = bursts[i];
+        const elapsed = now - b.startTime;
+        const progress = Math.min(1, elapsed / DURATION);
 
-        if (s.life <= 0) {
-          sparks.splice(i, 1);
+        if (progress >= 1) {
+          bursts.splice(i, 1);
           continue;
         }
 
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.radius * s.life, 0, Math.PI * 2);
-        ctx.fillStyle = s.color;
-        ctx.globalAlpha = Math.max(0, s.life);
-        ctx.fill();
+        // Ease-out cubic for a fast snappy burst that slows down gracefully
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const dist = ease * MAX_DISTANCE;
+        const currentLength = SPARK_LENGTH * (1 - progress);
+        const alpha = Math.max(0, 1 - progress);
+
+        ctx.save();
+        ctx.strokeStyle = b.color;
+        ctx.lineWidth = LINE_WIDTH;
+        ctx.lineCap = 'round';
+        ctx.globalAlpha = alpha;
+
+        for (let r = 0; r < RAY_COUNT; r++) {
+          const angle = (Math.PI * 2 * r) / RAY_COUNT;
+          const cos = Math.cos(angle);
+          const sin = Math.sin(angle);
+
+          const x1 = b.x + cos * dist;
+          const y1 = b.y + sin * dist;
+          const x2 = b.x + cos * (dist + currentLength);
+          const y2 = b.y + sin * (dist + currentLength);
+
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          ctx.stroke();
+        }
+
+        ctx.restore();
       }
 
-      ctx.globalAlpha = 1;
-
-      if (sparks.length > 0) {
+      if (bursts.length > 0) {
         animFrameIdRef.current = requestAnimationFrame(render);
       } else {
         animFrameIdRef.current = null;
@@ -72,48 +99,38 @@ const ClickSpark = ({ children }) => {
       }
     };
 
-    const handleClick = (e) => {
-      if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
-        return;
-      }
+    const handlePointerDown = (e) => {
+      try {
+        if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+          return;
+        }
 
-      const container = containerRef.current;
-      if (!container) return;
+        // Use viewport coordinates directly since canvas is fixed to viewport
+        const x = e.clientX;
+        const y = e.clientY;
 
-      const rect = container.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const count = 8;
+        if (typeof x !== 'number' || typeof y !== 'number') return;
 
-      for (let i = 0; i < count; i++) {
-        const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
-        const speed = 1.5 + Math.random() * 2.5;
-        sparksRef.current.push({
+        burstsRef.current.push({
           x,
           y,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          radius: 2 + Math.random() * 1.5,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          life: 1,
+          startTime: performance.now(),
+          color: SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)],
         });
-      }
 
-      if (!animFrameIdRef.current) {
-        animFrameIdRef.current = requestAnimationFrame(render);
+        if (!animFrameIdRef.current) {
+          animFrameIdRef.current = requestAnimationFrame(render);
+        }
+      } catch {
+        // Safe failover
       }
     };
 
-    const containerEl = containerRef.current;
-    if (containerEl) {
-      containerEl.addEventListener('click', handleClick);
-    }
+    window.addEventListener('pointerdown', handlePointerDown, { passive: true });
 
     return () => {
-      resizeObserver.disconnect();
-      if (containerEl) {
-        containerEl.removeEventListener('click', handleClick);
-      }
+      window.removeEventListener('resize', updateSize);
+      window.removeEventListener('pointerdown', handlePointerDown);
       if (animFrameIdRef.current) {
         cancelAnimationFrame(animFrameIdRef.current);
       }
@@ -121,12 +138,11 @@ const ClickSpark = ({ children }) => {
   }, []);
 
   return (
-    <div ref={containerRef} className="click-spark-container">
+    <>
       <canvas ref={canvasRef} className="click-spark-canvas" aria-hidden="true" />
       {children}
-    </div>
+    </>
   );
 };
 
 export default ClickSpark;
-

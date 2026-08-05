@@ -133,9 +133,14 @@
   text-decoration: none;
   font-weight: 600;
   font-size: var(--text-sm);
+  border: none;
   border-bottom: 1px solid color-mix(in oklch, var(--color-accent-2) 50%, transparent);
+  background: none;
+  padding: 0;
   padding-bottom: 1px;
   width: fit-content;
+  font-family: inherit;
+  cursor: pointer;
 }
 
 .cell__link:hover,
@@ -148,6 +153,15 @@
   outline: 2px solid var(--color-focus);
   outline-offset: 4px;
   border-radius: 2px;
+}
+
+.cell--interactive {
+  cursor: pointer;
+}
+
+.cell--interactive:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 .cell--2x1 { grid-column: span 6; }
