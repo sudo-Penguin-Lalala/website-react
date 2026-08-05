@@ -8,8 +8,12 @@ function detectInitialLang() {
   if (typeof window === "undefined") return "en";
 
   // 1. User's explicit prior choice always wins.
-  const stored = window.localStorage.getItem(STORAGE_KEY);
-  if (stored && supportedLanguages.includes(stored)) return stored;
+  try {
+    const stored = window.localStorage?.getItem(STORAGE_KEY);
+    if (stored && supportedLanguages.includes(stored)) return stored;
+  } catch {
+    // Safari Private Browsing or restricted WebView might throw SecurityError
+  }
 
   // 2. Walk the browser's full language preference list, in order.
   //    A user with ["vi-VN", "en-US"] expects Vietnamese; ["en-US", "vi-VN"] expects English.
@@ -39,8 +43,12 @@ export function I18nProvider({ children }) {
     if (typeof document !== "undefined") {
       document.documentElement.setAttribute("lang", lang);
     }
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem(STORAGE_KEY, lang);
+    try {
+      if (typeof window !== "undefined" && window.localStorage) {
+        window.localStorage.setItem(STORAGE_KEY, lang);
+      }
+    } catch {
+      // Ignore write errors in restricted storage environments
     }
   }, [lang]);
 
