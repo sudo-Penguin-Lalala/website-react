@@ -34,7 +34,7 @@ export const socialLinks = [
   {
     id: 'telegram',
     label: 'Telegram',
-    url: 'https://t.me/NNT2589',
+    url: 'https://t.me/palera1nx',
     icon: 'telegram',
     className: 'button-telegram',
     title: 'Just DM me'
