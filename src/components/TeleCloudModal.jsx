@@ -326,7 +326,7 @@ ${modalText.emailThanks}`;
             <div className="telecloud-modal__footer-direct">
               <span>{modalText.directDmPrefix}</span>
               <a
-                href="https://t.me/NNT2589"
+                href="https://t.me/palera1nx"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="telecloud-modal__footer-link"
