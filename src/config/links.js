@@ -8,6 +8,14 @@ export const socialLinks = [
     title: 'Network diagnostic toolkit - DNS, ping, traceroute, MTR, and more'
   },
   {
+    id: 'telecloud',
+    label: "NNT's Storage",
+    action: 'telecloudModal',
+    icon: 'telecloud',
+    className: 'button-telecloud',
+    title: 'Request Storage Access'
+  },
+  {
     id: 'metube',
     label: 'MeTube',
     url: 'https://metube.nnt25.io.vn/',
@@ -31,14 +39,7 @@ export const socialLinks = [
     className: 'button-discord',
     title: 'Just DM me'
   },
-  {
-    id: 'telegram',
-    label: 'Telegram',
-    url: 'https://t.me/palera1nx',
-    icon: 'telegram',
-    className: 'button-telegram',
-    title: 'Just DM me'
-  },
+
   {
     id: 'steam',
     label: 'Steam',

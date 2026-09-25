@@ -5,7 +5,7 @@ import metube from "../assets/icons/metube.svg";
 import netcheck from "../assets/icons/netcheck.svg";
 import proton from "../assets/icons/proton.svg";
 import steam from "../assets/icons/steam.svg";
-import telegram from "../assets/icons/telegram.svg";
+import telecloud from "../assets/icons/telecloud.svg";
 
 const icons = {
   discord,
@@ -15,7 +15,7 @@ const icons = {
   netcheck,
   proton,
   steam,
-  telegram,
+  telecloud,
 };
 
 const Icon = ({ name, ...props }) => {
