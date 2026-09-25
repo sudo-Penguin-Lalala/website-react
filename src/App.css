@@ -304,11 +304,11 @@ h1 {
 }
 
 .button-telecloud {
-  --btn-brand: rgba(139, 92, 246, 0.22);
-  --btn-brand-mid: rgba(139, 92, 246, 0.07);
-  --btn-border-top: rgba(139, 92, 246, 0.75);
-  --btn-border-top-hover: rgba(165, 125, 255, 0.95);
-  --btn-hover-glow: rgba(139, 92, 246, 0.45);
+  --btn-brand: rgba(0, 130, 201, 0.22);
+  --btn-brand-mid: rgba(0, 130, 201, 0.07);
+  --btn-border-top: rgba(0, 130, 201, 0.75);
+  --btn-border-top-hover: rgba(0, 160, 240, 0.95);
+  --btn-hover-glow: rgba(0, 130, 201, 0.45);
 }
 
 nav, section { margin: 2.5rem 0; text-align: left; }
