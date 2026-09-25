@@ -41,6 +41,7 @@ const Home = () => {
             <LinksPanel
               key={`links-${activeTab}`}
               active={activeTab === "links"}
+              onAction={handleAction}
             />
 
             <AboutPanel

