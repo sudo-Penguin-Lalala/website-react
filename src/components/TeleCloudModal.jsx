@@ -9,7 +9,6 @@ const TeleCloudModal = ({ isOpen, onClose }) => {
 
   const [formData, setFormData] = useState({
     username: "",
-    password: "",
     email: "",
     reason: "",
   });
@@ -54,7 +53,6 @@ const TeleCloudModal = ({ isOpen, onClose }) => {
 
   const generateFormattedMessage = () => {
     const username = formData.username.trim();
-    const password = formData.password.trim();
     const email = formData.email.trim();
     const reason = formData.reason.trim();
 
@@ -63,7 +61,6 @@ const TeleCloudModal = ({ isOpen, onClose }) => {
 ${modalText.emailIntro}
 
 • ${modalText.emailUsernameField}: ${username}
-• ${modalText.emailPasswordField}: ${password}
 • ${modalText.emailContactField}: ${email}
 • ${modalText.emailReasonField}: ${reason || "N/A"}
 
@@ -73,10 +70,6 @@ ${modalText.emailThanks}`;
   const validate = () => {
     if (!formData.username.trim()) {
       setError(modalText.validationErrorUsername);
-      return false;
-    }
-    if (!formData.password.trim()) {
-      setError(modalText.validationErrorPassword);
       return false;
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -251,28 +244,6 @@ ${modalText.emailThanks}`;
                       spellCheck="false"
                     />
                     <span className="telecloud-modal__hint">{modalText.usernameHint}</span>
-                  </div>
-
-                  <div className="telecloud-modal__field">
-                    <label htmlFor="telecloud-password" className="telecloud-modal__label">
-                      <span>{modalText.passwordLabel}</span>
-                      <span className="telecloud-modal__required-mark" aria-hidden="true">*</span>
-                    </label>
-                    <input
-                      id="telecloud-password"
-                      type="text"
-                      required
-                      placeholder={modalText.passwordPlaceholder}
-                      className={`telecloud-modal__input ${
-                        error && !formData.password.trim() ? "telecloud-modal__input--error" : ""
-                      }`}
-                      value={formData.password}
-                      onChange={(e) => handleChange("password", e.target.value)}
-                      autoComplete="off"
-                      autoCapitalize="none"
-                      spellCheck="false"
-                    />
-                    <span className="telecloud-modal__hint">{modalText.passwordHint}</span>
                   </div>
 
                   <div className="telecloud-modal__field">
