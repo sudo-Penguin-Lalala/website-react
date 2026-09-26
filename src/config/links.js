@@ -10,10 +10,10 @@ export const socialLinks = [
   {
     id: 'telecloud',
     label: "NNT's Storage",
-    action: 'telecloudModal',
+    url: 'https://storage.nnt25.io.vn/apps/registration/',
     icon: 'telecloud',
     className: 'button-telecloud',
-    title: 'Request Storage Access'
+    title: 'Register for Storage Access'
   },
   {
     id: 'metube',
@@ -84,7 +84,7 @@ export const sectionShapes = {
     { span: '3x1', key: 'care' },
   ],
   homelab: [
-    { span: '2x1', key: 'telecloud', action: 'telecloudModal', accent: true },
+    { span: '2x1', key: 'telecloud', href: 'https://storage.nnt25.io.vn/apps/registration/', accent: true },
     { span: '2x1', key: 'netcheck', href: 'https://netcheck.nnt25.io.vn/' },
     { span: '2x1', key: 'metube', href: 'https://metube.nnt25.io.vn/' },
   ],
