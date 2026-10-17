@@ -204,7 +204,7 @@ const HomeV2 = () => {
                     
 %c[ nnt@reactor ] %c— Linux Tinkerer & Self-Hosted Infrastructure
 %cLooking under the hood? Source: https://github.com/sudo-Penguin-Lalala/website-react
-Contact: contact@nnt25.io.vn | Discord: palera1nx
+Contact: contact@nnt25.io.vn | Discord: nnt2589
 `;
     console.log(
       banner,
@@ -224,7 +224,7 @@ Contact: contact@nnt25.io.vn | Discord: palera1nx
 
   const handleCopyDiscord = (e) => {
     e?.preventDefault();
-    navigator.clipboard?.writeText("palera1nx");
+    navigator.clipboard?.writeText("nnt2589");
     setCopiedDiscord(true);
     setTimeout(() => setCopiedDiscord(false), 2000);
   };
@@ -821,13 +821,13 @@ Contact: contact@nnt25.io.vn | Discord: palera1nx
                 {isSudo && (
                   <>
                     <span className="nc-ff-label nc-ff-label-root">Privileges:</span>
-                    <span className="nc-ff-val nc-ff-val-root">ALL=(ALL:ALL) NOPASSWD: ALL (Operator mode 🛡️)</span>
+                    <span className="nc-ff-val nc-ff-val-root">ALL=(ALL:ALL) NOPASSWD: ALL (NO PASSWORD NEEDED 🔓)</span>
 
                     <span className="nc-ff-label nc-ff-label-root">Kernel Defense:</span>
                     <span className="nc-ff-val nc-ff-val-root">SELinux disabled (living on the edge 💀)</span>
 
                     <span className="nc-ff-label nc-ff-label-root">Reactor Core Temp:</span>
-                    <span className="nc-ff-val nc-ff-val-root">9001°C (Over 9000! Operator alert ⚠️)</span>
+                    <span className="nc-ff-val nc-ff-val-root">9001°C (CRITICAL CORE MELTDOWN IMMINENT 🚨 EVACUATE FACILITY 🔥)</span>
                   </>
                 )}
               </div>
@@ -1004,7 +1004,7 @@ Contact: contact@nnt25.io.vn | Discord: palera1nx
                 </div>
                 <div className="nc-service-desc">
                   {isVi ? "Tên người dùng: " : "Username: "}
-                  <strong style={{ color: "var(--accent)" }}>palera1nx</strong>
+                  <strong style={{ color: "var(--accent)" }}>nnt2589</strong>
                   <p style={{ margin: "0.25rem 0 0", fontSize: "0.76rem", color: "var(--text-dim)" }}>
                     {isVi ? "Thêm bạn hoặc gửi tin nhắn trực tiếp." : "Add me directly or send a direct message."}
                   </p>

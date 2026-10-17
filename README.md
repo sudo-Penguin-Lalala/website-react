@@ -1,6 +1,6 @@
 # website-react
 
-Personal portfolio & links hub ([nnt25.net](https://nnt25.net/)), inspired by NetCheck and terminal aesthetics.
+Personal portfolio & links hub ([nnt25.io.vn](https://nnt25.io.vn/)), inspired by NetCheck and terminal aesthetics.
 
 ## Features
 
