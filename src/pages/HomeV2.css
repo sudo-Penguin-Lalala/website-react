@@ -1,0 +1,1077 @@
+/* ============================================================
+ * HomeV2: NetCheck-Flavored Terminal Portfolio
+ * Sharp corners, amber accents, deep charcoal dark palette,
+ * JetBrains Mono monospace throughout, ASCII decoration.
+ * ============================================================ */
+
+.nc-term {
+  --bg:            #0a0e14;
+  --bg-elev:       #11161e;
+  --bg-input:      #0d1218;
+  --bg-hover:      #182030;
+  --border:        #1c2532;
+  --border-strong: #2d3a4e;
+  --text:          #d8dee6;
+  --text-muted:    #98a1ad;
+  --text-dim:      #8891a0;
+  --accent:        #ffb454;
+  --accent-soft:   rgba(255, 180, 84, 0.14);
+  --success:       #6ad27f;
+  --danger:        #ff6b6b;
+  --warning:       #f0883e;
+  --info:          #58a6ff;
+  --radius:        3px;
+  --radius-lg:     4px;
+
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  padding: 1.25rem 1rem 4rem;
+  box-sizing: border-box;
+
+  transform: rotate(0deg) scale(1);
+  filter: invert(0) hue-rotate(0deg);
+  transition:
+    transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1),
+    filter 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.4s ease,
+    color 0.4s ease;
+}
+
+.nc-term *, .nc-term *::before, .nc-term *::after {
+  box-sizing: border-box;
+}
+
+.nc-container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* Header & Brand */
+.nc-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.nc-brand-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.nc-brand {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nc-brand-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-decoration: none;
+}
+
+/* Hover: pops up */
+.nc-brand-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* Active / click: pushes back */
+.nc-brand-btn:active {
+  transform: translateY(2px) scale(0.96);
+}
+
+.nc-brand-root {
+  color: var(--danger);
+  text-shadow: 0 0 10px rgba(255, 107, 107, 0.4);
+}
+
+.nc-cursor-root {
+  color: var(--danger) !important;
+}
+
+.nc-sudo-hint {
+  font-size: 0.74rem;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid rgba(255, 180, 84, 0.35);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius);
+  animation: nc-pop 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  letter-spacing: 0.02em;
+}
+
+@keyframes nc-pop {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.nc-bracket {
+  color: var(--border-strong);
+}
+
+.nc-cursor {
+  color: var(--accent);
+  animation: nc-blink 1.06s steps(1) infinite;
+}
+
+@keyframes nc-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.nc-hdr-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.nc-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+.nc-btn-accent {
+  background: var(--accent-soft);
+  border-color: rgba(255, 180, 84, 0.35);
+  color: var(--accent);
+}
+
+.nc-btn-accent:hover {
+  background: rgba(255, 180, 84, 0.22);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.nc-btn-danger {
+  background: rgba(255, 107, 107, 0.14);
+  border-color: rgba(255, 107, 107, 0.4);
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.nc-btn-danger:hover {
+  background: rgba(255, 107, 107, 0.26);
+  border-color: var(--danger);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+}
+
+/* Sudo Escalation Banner */
+.nc-sudo-banner {
+  background: rgba(255, 107, 107, 0.08);
+  border: 1px solid rgba(255, 107, 107, 0.45);
+  box-shadow: 0 0 18px rgba(255, 107, 107, 0.15), inset 0 0 0 1px rgba(255, 107, 107, 0.1);
+  border-radius: var(--radius-lg);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  animation: nc-pop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nc-sudo-banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.84rem;
+}
+
+.nc-sudo-badge {
+  background: var(--danger);
+  color: #0a0e14;
+  font-weight: 800;
+  padding: 0.18rem 0.5rem;
+  border-radius: var(--radius);
+  letter-spacing: 0.06em;
+  font-size: 0.76rem;
+}
+
+.nc-status-root {
+  color: var(--danger) !important;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(255, 107, 107, 0.35);
+}
+
+.nc-user-root {
+  color: var(--danger) !important;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(255, 107, 107, 0.3);
+}
+
+/* Status Banner */
+.nc-telemetry-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1.25rem;
+  font-size: 0.82rem;
+}
+
+.nc-status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nc-dot-online {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 8px var(--success);
+}
+
+.nc-clock-val {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+/* Card System */
+/* Card System — NetCheck Signature Amber Outlines */
+.nc-card {
+  background: var(--bg-elev);
+  border: 1px solid rgba(255, 180, 84, 0.28);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 180, 84, 0.08);
+  border-radius: var(--radius-lg);
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+  transition: all 0.15s ease;
+}
+
+.nc-card:hover {
+  border-color: rgba(255, 180, 84, 0.55);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--accent-soft);
+}
+
+.nc-card.is-root-card {
+  border-color: rgba(255, 107, 107, 0.45);
+  box-shadow: 0 2px 12px rgba(255, 107, 107, 0.15), 0 0 0 1px rgba(255, 107, 107, 0.1);
+}
+
+.nc-card.is-root-card:hover {
+  border-color: var(--danger);
+  box-shadow: 0 4px 20px rgba(255, 107, 107, 0.25), 0 0 0 1px rgba(255, 107, 107, 0.2);
+}
+
+.nc-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1rem;
+  background: rgba(13, 18, 24, 0.9);
+  border-bottom: 1px dashed rgba(255, 180, 84, 0.25);
+  font-size: 0.84rem;
+}
+
+.nc-card-title {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.nc-prompt-glyph {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.nc-card-status {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.nc-card-body {
+  padding: 1.15rem 1rem;
+}
+
+/* Profile / Identity Card */
+.nc-profile-layout {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+@media (max-width: 600px) {
+  .nc-profile-layout {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.nc-avatar-frame {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.nc-avatar-frame img {
+  width: 88px;
+  height: 88px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-strong);
+  object-fit: cover;
+  display: block;
+}
+
+.nc-profile-text h2 {
+  margin: 0 0 0.35rem 0;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.nc-profile-bio {
+  color: var(--text-muted);
+  margin: 0 0 0.85rem 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.nc-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+@media (max-width: 600px) {
+  .nc-tag-list {
+    justify-content: center;
+  }
+}
+
+/* All tags have NetCheck amber outlines by default */
+.nc-tag {
+  font-size: 0.74rem;
+  padding: 0.2rem 0.55rem;
+  background: rgba(255, 180, 84, 0.06);
+  border: 1px solid rgba(255, 180, 84, 0.32);
+  box-shadow: 0 0 0 1px rgba(255, 180, 84, 0.06);
+  border-radius: var(--radius);
+  color: var(--accent);
+  font-family: inherit;
+  display: inline-block;
+  transition: all 0.15s ease;
+}
+
+.nc-tag:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+  color: #fff;
+}
+
+.nc-tag-accent {
+  border-color: var(--accent);
+  color: #fff;
+  background: rgba(255, 180, 84, 0.18);
+  font-weight: 600;
+}
+
+.nc-tag-interactive {
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.nc-tag-interactive:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  background: rgba(255, 180, 84, 0.25);
+  box-shadow: 0 0 0 2px var(--accent-soft);
+  color: #fff;
+}
+
+.nc-tag-interactive:active {
+  transform: translateY(1px) scale(0.96);
+}
+
+/* Fastfetch Interactive Fish */
+.nc-fish-btn {
+  background: transparent;
+  border: none;
+  padding: 0 0.2rem;
+  font-size: 1.05rem;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  line-height: 1;
+  display: inline-block;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nc-fish-btn:hover {
+  transform: scale(1.35) rotate(-6deg);
+}
+
+.nc-fish-btn.wiggling {
+  animation: nc-fish-swim 0.4s ease;
+}
+
+@keyframes nc-fish-swim {
+  0% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.35) rotate(-15deg) translateY(-2px); }
+  50% { transform: scale(1.25) rotate(15deg) translateY(2px); }
+  75% { transform: scale(1.3) rotate(-5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Fastfetch Terminal Output */
+.nc-fastfetch-block {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.85rem 1rem;
+  font-family: inherit;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  overflow-x: auto;
+}
+
+.nc-term-prompt {
+  color: var(--success);
+  margin-bottom: 0.75rem;
+}
+
+.nc-term-prompt .nc-path {
+  color: var(--info);
+}
+
+.nc-term-prompt .nc-user {
+  color: var(--accent);
+}
+
+.nc-ff-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  row-gap: 0.35rem;
+  column-gap: 1.5rem;
+  font-size: 0.84rem;
+}
+
+@media (max-width: 520px) {
+  .nc-ff-grid {
+    grid-template-columns: 1fr;
+    row-gap: 0.2rem;
+  }
+  .nc-ff-label {
+    margin-top: 0.25rem;
+  }
+}
+
+.nc-ff-label {
+  color: var(--accent);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.nc-ff-val {
+  color: var(--text);
+  word-break: break-word;
+}
+
+/* Services / Container Grid */
+.nc-services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 0.85rem;
+}
+
+.nc-service-cell {
+  background: var(--bg-input);
+  border: 1px solid rgba(255, 180, 84, 0.28);
+  box-shadow: 0 0 0 1px rgba(255, 180, 84, 0.06), 0 2px 6px rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius);
+  padding: 0.95rem;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.15s ease;
+}
+
+/* NetCheck signature yellow outline on hover for all cells */
+.nc-service-cell:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent), 0 6px 20px rgba(255, 180, 84, 0.2);
+  transform: translateY(-2px);
+}
+
+/* NetCheck featured card has permanent prominent signature outline */
+.nc-service-cell-netcheck {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 2px 12px rgba(255, 180, 84, 0.18);
+}
+
+.nc-service-cell-netcheck:hover {
+  border-color: #fff;
+  box-shadow: 0 0 0 2px var(--accent), 0 6px 24px rgba(255, 180, 84, 0.3);
+}
+
+.nc-badge-netcheck {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  font-weight: 700;
+}
+
+/* Global focus outline in signature NetCheck yellow */
+.nc-term button:focus-visible,
+.nc-term a:focus-visible,
+.nc-term [tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Root Console & Command Line */
+.nc-root-cli {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed rgba(255, 107, 107, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.nc-root-cmd-line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #06090e;
+  border: 1px solid rgba(255, 107, 107, 0.4);
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius);
+  font-size: 0.82rem;
+}
+
+.nc-root-cmd-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.82rem;
+  outline: none;
+}
+
+.nc-root-cmd-input::placeholder {
+  color: #7a5050;
+  font-style: italic;
+}
+
+.nc-root-chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.nc-cmd-chip {
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.35);
+  color: #ff9999;
+  font-family: inherit;
+  font-size: 0.75rem;
+  padding: 0.18rem 0.55rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.nc-cmd-chip:hover {
+  background: rgba(255, 107, 107, 0.25);
+  border-color: var(--danger);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.nc-cmd-chip:active {
+  transform: translateY(1px);
+}
+
+.nc-root-output {
+  background: #06090e;
+  border: 1px solid rgba(255, 107, 107, 0.45);
+  box-shadow: 0 0 12px rgba(255, 107, 107, 0.15);
+  border-radius: var(--radius);
+  padding: 0.65rem 0.85rem;
+  margin-top: 0.65rem;
+  font-family: inherit;
+  font-size: 0.78rem;
+  color: #ff9999;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  animation: nc-pop 0.2s ease;
+}
+
+.nc-avatar-root-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--danger);
+  color: #0a0e14;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.1rem 0.35rem;
+  border-radius: var(--radius);
+  box-shadow: 0 0 10px rgba(255, 107, 107, 0.7);
+  letter-spacing: 0.04em;
+  z-index: 2;
+}
+
+.nc-avatar-frame.is-root img {
+  border-color: var(--danger);
+  box-shadow: 0 0 16px rgba(255, 107, 107, 0.5);
+}
+
+.nc-ff-label-root {
+  color: var(--danger) !important;
+  font-weight: 700;
+}
+
+.nc-ff-val-root {
+  color: #ff9999 !important;
+  font-weight: 600;
+}
+
+.nc-sushi-notice {
+  font-size: 0.76rem;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid rgba(255, 180, 84, 0.35);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius);
+  margin-left: 0.5rem;
+  font-weight: 600;
+  display: inline-block;
+  vertical-align: middle;
+  animation: nc-sushi-stay 5s ease forwards;
+}
+
+@keyframes nc-sushi-stay {
+  0% {
+    opacity: 0;
+    transform: translateY(-2px) scale(0.95);
+  }
+  3% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  88% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+}
+
+.nc-service-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.65rem;
+}
+
+.nc-service-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nc-service-icon img {
+  width: 22px;
+  height: 22px;
+}
+
+.nc-badge-running {
+  font-size: 0.7rem;
+  color: var(--success);
+  background: rgba(106, 210, 127, 0.12);
+  border: 1px solid rgba(106, 210, 127, 0.25);
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--radius);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.nc-badge-running::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--success);
+}
+
+.nc-service-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.35rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nc-arrow {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.nc-service-cell:hover .nc-arrow {
+  color: var(--accent);
+  transform: translate(2px, -2px);
+}
+
+.nc-service-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin: 0 0 0.85rem 0;
+  flex: 1;
+}
+
+.nc-service-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 0.55rem;
+  font-size: 0.74rem;
+  color: var(--text-dim);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* Contacts & Links Table */
+.nc-links-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+}
+
+.nc-links-table tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s ease;
+}
+
+.nc-links-table tr:last-child {
+  border-bottom: none;
+}
+
+.nc-links-table tr:hover {
+  background: var(--bg-hover);
+}
+
+.nc-links-table td {
+  padding: 0.65rem 0.75rem;
+}
+
+.nc-link-icon-cell {
+  width: 32px;
+  text-align: center;
+}
+
+.nc-link-icon-cell img {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+}
+
+.nc-link-name {
+  font-weight: 600;
+  color: #fff;
+}
+
+.nc-link-url {
+  color: var(--text-dim);
+  font-size: 0.78rem;
+}
+
+.nc-link-action-cell {
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Footer */
+.nc-footer {
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.nc-footer a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.nc-footer a:hover {
+  color: var(--accent);
+}
+
+.nc-footer-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.nc-footer-logo-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+  vertical-align: middle;
+}
+
+.nc-footer-logo-btn img {
+  width: 1.25rem;
+  height: 1.25rem;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+.nc-footer-logo-btn:hover {
+  filter: drop-shadow(0 0 6px var(--accent));
+}
+
+.nc-footer-logo-btn:active {
+  transform: scale(0.92);
+}
+
+.nc-spin-badge {
+  font-size: 0.72rem;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid rgba(255, 180, 84, 0.3);
+  padding: 0.12rem 0.5rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  letter-spacing: 0.02em;
+}
+
+.nc-spin-badge.is-leaving {
+  opacity: 0;
+  transform: translateY(2px);
+  pointer-events: none;
+}
+
+.nc-footer-repo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.nc-footer-repo-link img {
+  width: 0.95rem;
+  height: 0.95rem;
+  display: inline-block;
+  vertical-align: middle;
+  opacity: 0.8;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.nc-footer-repo-link:hover img {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* ============================================================
+ * Page Altering Visual Effects (Triggered via Root Shell)
+ * ============================================================ */
+.nc-term.effect-matrix {
+  --accent: #00ff66;
+  --accent-soft: rgba(0, 255, 102, 0.16);
+  --text: #c0ffce;
+  --border-strong: #008833;
+  --border: #00441a;
+  text-shadow: 0 0 4px rgba(0, 255, 102, 0.35);
+}
+
+.nc-term.effect-matrix .nc-card,
+.nc-term.effect-matrix .nc-service-cell,
+.nc-term.effect-matrix .nc-tag {
+  border-color: rgba(0, 255, 102, 0.35);
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.12);
+}
+
+.nc-matrix-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nc-matrix-canvas.is-active {
+  opacity: 0.35;
+}
+
+.nc-matrix-canvas.is-leaving {
+  opacity: 0;
+}
+
+.nc-term.effect-invert {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.nc-term.effect-glitch .nc-container {
+  animation: nc-glitch-anim 0.3s steps(2) infinite;
+}
+
+@keyframes nc-glitch-anim {
+  0% { transform: translate(0); }
+  20% { transform: translate(-3px, 2px); filter: drop-shadow(2px 0 #ff0055) drop-shadow(-2px 0 #00ffff); }
+  40% { transform: translate(3px, -2px); }
+  60% { transform: translate(-2px, -1px); filter: drop-shadow(-2px 0 #ff0055) drop-shadow(2px 0 #00ffff); }
+  80% { transform: translate(2px, 1px); }
+  100% { transform: translate(0); }
+}
+
+.nc-term.effect-flip {
+  transform: rotate(180deg);
+}
+
+.nc-term.effect-party {
+  animation: nc-party-strobe 1.5s linear infinite;
+}
+
+@keyframes nc-party-strobe {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+/* Visual Reverting CRT Calibrate Pulse */
+.nc-term.is-reverting {
+  animation: nc-revert-pulse 0.85s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes nc-revert-pulse {
+  0% {
+    box-shadow: inset 0 0 50px rgba(255, 180, 84, 0.45);
+  }
+  35% {
+    box-shadow: inset 0 0 70px rgba(106, 210, 127, 0.35);
+  }
+  100% {
+    box-shadow: inset 0 0 0px transparent;
+  }
+}
+
+.nc-pre-output {
+  margin: 0;
+  font-family: inherit;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.nc-root-executing {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.85rem;
+  background: rgba(255, 180, 84, 0.08);
+  border: 1px dashed var(--accent);
+  border-radius: var(--radius);
+  margin-top: 0.75rem;
+  font-size: 0.82rem;
+  color: var(--accent);
+}
+
+.nc-spinner-glyph {
+  display: inline-block;
+  animation: nc-spin 1s linear infinite;
+}
+
+@keyframes nc-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

@@ -6,6 +6,7 @@ import netcheck from "../assets/icons/netcheck.svg";
 import proton from "../assets/icons/proton.svg";
 import steam from "../assets/icons/steam.svg";
 import telecloud from "../assets/icons/telecloud.svg";
+import nnt from "../assets/icons/nnt.svg";
 
 const icons = {
   discord,
@@ -16,6 +17,7 @@ const icons = {
   proton,
   steam,
   telecloud,
+  nnt,
 };
 
 const Icon = ({ name, ...props }) => {
