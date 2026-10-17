@@ -23,7 +23,7 @@ export const dictionary = {
       title: "A few of the services I host.",
       lede: "Most are open invitations — DM me on Discord if you want access.",
       cells: {
-        telecloud: { kicker: "Cloud", title: "NNT's Storage", body: "More RAM than your laptop. More privacy than Google Drive.", linkLabel: "Request access →" },
+        telecloud: { kicker: "Cloud", title: "NNT's Storage", body: "A safe home for all your data.", linkLabel: "Request access →" },
         netcheck: { kicker: "Network", title: "NetCheck", body: "DNS, ping, traceroute, MTR, port check, reverse DNS, WHOIS, headers, SSL, HTTP — all in one page.", linkLabel: "Open NetCheck →" },
         metube: { kicker: "Media", title: "MeTube", body: "Paste almost any video link — TikTok, Facebook, YouTube, Instagram — and download it. The name says YouTube, but it works with most sites.", linkLabel: "Open MeTube →" },
       },
@@ -96,7 +96,7 @@ export const dictionary = {
       title: "Vài dịch vụ mình đang chạy.",
       lede: "Đa phần ai cũng dùng được — DM Discord nếu muốn thử.",
       cells: {
-        telecloud: { kicker: "Lưu trữ", title: "NNT's Storage", body: "Nhiều RAM hơn laptop của bạn. Riêng tư hơn Google Drive.", linkLabel: "Yêu cầu cấp quyền →" },
+        telecloud: { kicker: "Lưu trữ", title: "NNT's Storage", body: "Nơi an toàn cho mọi dữ liệu của bạn.", linkLabel: "Yêu cầu cấp quyền →" },
         netcheck: { kicker: "Mạng", title: "NetCheck", body: "DNS, ping, traceroute, MTR, port check, reverse DNS, WHOIS, headers, SSL, HTTP — gom hết vào một trang.", linkLabel: "Mở NetCheck →" },
         metube: { kicker: "Media", title: "MeTube", body: "Dán link video từ TikTok, Facebook, YouTube, Instagram — tải về luôn. Tên là MeTube nhưng hỗ trợ hầu hết các trang.", linkLabel: "Mở MeTube →" },
       },
