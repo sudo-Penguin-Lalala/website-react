@@ -814,7 +814,7 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                     <span className="nc-ff-val nc-ff-val-root">SELinux disabled (living on the edge 💀)</span>
 
                     <span className="nc-ff-label nc-ff-label-root">Reactor Core Temp:</span>
-                    <span className="nc-ff-val nc-ff-val-root">9001 K (CRITICAL MELTDOWN 💥💥💥💥💥💥💥💥💥)</span>
+                    <span className="nc-ff-val nc-ff-val-root">9001 K (💥💥💥💥💥💥💥💥💥)</span>
                   </>
                 )}
               </div>
