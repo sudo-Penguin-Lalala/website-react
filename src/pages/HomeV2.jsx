@@ -414,18 +414,13 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
       ) {
         output =
           `[root@reactor ~]# cat classified.env\n` +
-          `# ============================================================\n` +
-          `# TOP SECRET REACTOR OPERATOR SECRETS (100% FICTIONAL MEMES)\n` +
-          `# Real homelab infrastructure & keys are 100% encrypted & safe\n` +
-          `# ============================================================\n` +
-          `OPERATOR_CAFFEINE_LEVEL=0% (CRITICAL: operator needs espresso immediately)\n` +
+          `OPERATOR_CAFFEINE_LEVEL=0%\n` +
           `FAVORITE_DISTRO=arch_linux_btw\n` +
           `PIZZA_ORDERING_API=extra_cheese_pepperoni_enabled\n` +
           `DNS_ROOT_CAUSE=always_the_dns\n` +
           `YAML_INDENTATION_ERRORS=4294967295\n` +
           `CAT_SLEEPING_ON_KEYBOARD=true\n` +
-          `WHY_SELF_HOST=because_the_cloud_is_just_someone_elses_computer\n` +
-          `REAL_SECRETS_LEAKED=0 (zero leaks, privacy first 🛡️)`;
+          `WHY_SELF_HOST=because_the_cloud_is_just_someone_elses_computer`;
       } else if (normalized === "cat /etc/shadow") {
         output =
           `[root@reactor ~]# cat /etc/shadow\n` +
@@ -720,21 +715,13 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                     title={isVi ? "Bấm để đổi danh hiệu!" : "Click to cycle titles!"}
                     style={{ verticalAlign: "middle", fontWeight: 600 }}
                   >
-                    {isSudo ? "OPERATOR 🛡️" : PERSON_TAGS[tagIndex]}
+                    {isSudo ? "OPERATOR" : PERSON_TAGS[tagIndex]}
                   </button>
                 </h2>
                 <p className="nc-profile-bio">
-                  {isSudo ? (
-                    <span style={{ color: "#ff9999" }}>
-                      {isVi
-                        ? "⚡ QUYỀN ROOT ĐÃ KÍCH HOẠT! Đặc quyền tối cao: không cần nhớ cú pháp cờ lệnh Docker Compose. Operator đang kiểm soát toàn cụm reactor."
-                        : "⚡ ROOT PRIVILEGES ACTIVE! Ultimate perk: zero obligation to remember Docker flags. Operator access active across the reactor fleet."}
-                    </span>
-                  ) : (
-                    isVi
-                      ? "Linux tinkerer & đam mê hạ tầng tự host mã nguồn mở từ năm 14 tuổi. Mình tự host để bảo vệ quyền riêng tư, xây dựng hệ thống, phá nó rồi tìm cách làm nó chạy nhanh hơn."
-                      : "Linux tinkerer & open-source infrastructure enjoyer. Native Linux user since 14. I focus on building privacy-first network architectures, containerised deployments, and automated self-hosted setups."
-                  )}
+                  {isVi
+                    ? "Linux tinkerer & đam mê hạ tầng tự host mã nguồn mở từ năm 14 tuổi. Mình tự host để bảo vệ quyền riêng tư, xây dựng hệ thống, phá nó rồi tìm cách làm nó chạy nhanh hơn."
+                    : "Linux tinkerer & open-source infrastructure enjoyer. Native Linux user since 14. I focus on building privacy-first network architectures, containerised deployments, and automated self-hosted setups."}
                 </p>
                 <div className="nc-tag-list">
                   {isSudo && (
