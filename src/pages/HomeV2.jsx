@@ -8,17 +8,30 @@ import avatar448Webp from "../assets/avatar-448.webp";
 import { profileData } from "../config/links";
 import "./HomeV2.css";
 
-const PERSON_TAGS = [
-  "the most annoying person :D",
-  "DNS was the problem, again",
-  "breaking prod on Friday :)",
-  "self-hosting everything just because",
-  "rm -rf /* survivor",
-  "yaml indentation sufferer",
-  "docker restart always",
-  "still stuck in vim",
-  "ping -c 4 1.1.1.1 addict",
-];
+const PERSON_TAGS = {
+  vi: [
+    "the most annoying person :D",
+    "lại do DNS chứ gì",
+    "thích chọc prod vào thứ Sáu",
+    "tự host cho vui thôi",
+    "sống sót sau rm -rf /*",
+    "nạn nhân của thụt lề YAML",
+    "docker restart always",
+    "vẫn chưa thoát được vim",
+    "ping 1.1.1.1 thay cơm",
+  ],
+  en: [
+    "the most annoying person :D",
+    "DNS was the problem, again",
+    "breaking prod on Friday :)",
+    "self-hosting everything just because",
+    "rm -rf /* survivor",
+    "yaml indentation sufferer",
+    "docker restart always",
+    "still stuck in vim",
+    "ping -c 4 1.1.1.1 addict",
+  ],
+};
 
 const FISH_SPECIES = [
   { emoji: "🐟", name: "fish" },
@@ -272,7 +285,7 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
   };
 
   const handleTagClick = () => {
-    setTagIndex((prev) => (prev + 1) % PERSON_TAGS.length);
+    setTagIndex((prev) => (prev + 1) % PERSON_TAGS.en.length);
   };
 
   const handleFishClick = () => {
@@ -284,14 +297,14 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
       const nextEats = sushiEats + 1;
       setSushiEats(nextEats);
       const msgsVi = [
-        "*mlem mlem* 🍣 Cá đã thành sushi cá hồi tươi roi rói!",
-        "*nhai nhai* 🍣 Thêm miếng nữa! Càng ăn càng cuốn!",
-        "*ợ* 🍣 No căng bụng rồi! Hết cá rồi bạn ơi :D",
+        "*nhai* 🍣 Cá thành sushi hồi rồi.",
+        "*nhai tiếp* 🍣 Thêm miếng nữa, ăn dính phết.",
+        "*ợ* 🍣 Hết cá rồi, no căng bụng.",
       ];
       const msgsEn = [
-        "*nom nom* 🍣 The fish turned into fresh salmon nigiri!",
-        "*chew chew* 🍣 Another delicious bite! Can't stop!",
-        "*burp* 🍣 Belly is full! No more fish left, you ate them all :D",
+        "*nom nom* 🍣 Fresh salmon nigiri.",
+        "*chew chew* 🍣 Another piece, can't stop.",
+        "*burp* 🍣 That's all the fish, belly's full.",
       ];
       const msgList = lang === "vi" ? msgsVi : msgsEn;
       setFishNotice(msgList[(nextEats - 1) % msgList.length]);
@@ -379,12 +392,8 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
           `Swap:          512Ti        0.0B       512Ti\n\n` +
           `Notice: 128 TiB RAM successfully downloaded from downloadmoreram.com 🚀\n\n` +
           (lang === "vi"
-            ? `⚠️ [CẢNH BÁO BẢO MẬT & ĐÍNH CHÍNH]:\n` +
-              `Đây là trò đùa (meme) kinh điển của giới sysadmin — RAM là linh kiện phần cứng, KHÔNG THỂ tải qua mạng!\n` +
-              `TUYỆT ĐỐI KHÔNG bấm tải hoặc chạy file từ các website "download RAM" ngoài đời thực. Chúng là lừa đảo hoặc cài mã độc!`
-            : `⚠️ [CRITICAL WARNING & DISCLAIMER]:\n` +
-              `This is an ancient sysadmin meme — RAM is physical hardware, you CANNOT download it from the internet!\n` +
-              `DO NOT download or run executable files from "free RAM" websites in real life. They are scam or malware traps!`);
+            ? `Meme đấy, đừng có lên mạng tìm web tải RAM thật nhé. RAM là thanh phần cứng cắm trên bo mạch, không có chuyện bấm download về được đâu.`
+            : `Classic internet meme. RAM is physical hardware, you can't download it through a browser. Don't run executable files from fake RAM sites.`);
       } else if (
         normalized === "ls" ||
         normalized === "ls -la" ||
@@ -434,11 +443,9 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
       ) {
         output = lang === "vi"
           ? `[root@reactor /]# ${cleanCmd}\n` +
-            `⚠️ rm: cannot remove '/': Permission denied by Reactor Homelab Safety Guard 🛡️\n` +
-            `Nice try hacker! Toàn bộ container, cấu hình và dữ liệu của Thien vẫn an toàn nguyên vẹn :)`
+            `rm: cannot remove '/': Bị chặn rồi nhé. Toàn bộ container với dữ liệu vẫn nguyên vẹn, phá sao được.`
           : `[root@reactor /]# ${cleanCmd}\n` +
-            `⚠️ rm: cannot remove '/': Permission denied by Reactor Homelab Safety Guard 🛡️\n` +
-            `Nice try hacker! All containers, configs, and storage are safe and sound :)`;
+            `rm: cannot remove '/': Permission denied. All containers and configs are fine, nice try though.`;
       } else if (
         normalized === "systemctl reboot" ||
         normalized === "reboot" ||
@@ -448,11 +455,11 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
           ? `[root@reactor ~]# ${cleanCmd}\n` +
             `Broadcast message from root@reactor (pts/0):\n` +
             `The system is going down for reboot NOW!\n` +
-            `... Khởi động lại thành công! Uptime: 0 days, 0 hours, 1 second (ảo ma Canada ✨)`
+            `... Khởi động lại xong. Uptime: 0 ngày, 0 giờ, 1 giây. Nói đùa thôi chứ server vẫn online.`
           : `[root@reactor ~]# ${cleanCmd}\n` +
             `Broadcast message from root@reactor (pts/0):\n` +
             `The system is going down for reboot NOW!\n` +
-            `... System rebooted cleanly! Uptime: 0 days, 0 hours, 1 second (just kidding ✨)`;
+            `... Rebooted cleanly. Uptime: 0 days, 0 hours, 1 second. Just kidding, still online.`;
       } else if (normalized === "matrix") {
         setPageEffect((prev) => (prev === "matrix" ? "none" : "matrix"));
         output =
@@ -568,12 +575,7 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
         {isSudo && (
           <div className="nc-sudo-banner">
             <div className="nc-sudo-banner-inner">
-              <div style={{ display: "flex", alignItems: "center", gap: "0.55rem" }}>
-                <span className="nc-sudo-badge"># root@reactor</span>
-                <span style={{ color: "#ff9999", fontSize: "0.82rem" }}>
-                  {isVi ? "chế độ superuser đang bật" : "superuser mode active"}
-                </span>
-              </div>
+              <span className="nc-sudo-badge"># root@reactor</span>
               <button
                 type="button"
                 className="nc-btn nc-btn-danger"
@@ -715,29 +717,24 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                     title={isVi ? "Bấm để đổi danh hiệu!" : "Click to cycle titles!"}
                     style={{ verticalAlign: "middle", fontWeight: 600 }}
                   >
-                    {isSudo ? "OPERATOR" : PERSON_TAGS[tagIndex]}
+                    {isSudo ? "OPERATOR" : (PERSON_TAGS[isVi ? "vi" : "en"] || PERSON_TAGS.en)[tagIndex % PERSON_TAGS.en.length]}
                   </button>
                 </h2>
                 <p className="nc-profile-bio">
                   {isVi
-                    ? "Linux tinkerer & đam mê hạ tầng tự host mã nguồn mở từ năm 14 tuổi. Mình tự host để bảo vệ quyền riêng tư, xây dựng hệ thống, phá nó rồi tìm cách làm nó chạy nhanh hơn."
-                    : "Linux tinkerer & open-source infrastructure enjoyer. Native Linux user since 14. I focus on building privacy-first network architectures, containerised deployments, and automated self-hosted setups."}
+                    ? "Nghịch Linux từ năm 14 tuổi. Thích tự host đồ chơi ở nhà thay vì cúng dữ liệu cho Google hay Microsoft. Tự dựng tự phá, lúc nào rảnh thì ngồi tối ưu cho nó chạy nhanh hơn một tí."
+                    : "Tinkering with Linux since 14. I self-host stuff at home just to keep my data off big tech's hard drives. Mostly I break things on purpose, then spend weekends making them faster."}
                 </p>
-                <div className="nc-tag-list">
-                  {isSudo && (
+                {isSudo && (
+                  <div className="nc-tag-list">
                     <span
                       className="nc-tag"
                       style={{ borderColor: "var(--danger)", color: "var(--danger)", background: "rgba(255,107,107,0.15)", fontWeight: 700 }}
                     >
                       # SUDOER
                     </span>
-                  )}
-                  <span className="nc-tag nc-tag-accent">Oracle Linux 10</span>
-                  <span className="nc-tag">WireGuard / HY2</span>
-                  <span className="nc-tag">Stalwart Mail</span>
-                  <span className="nc-tag">Cloudflare Zero Trust</span>
-                  <span className="nc-tag">Docker Infrastructure</span>
-                </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -828,9 +825,6 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
             <h2 className="nc-card-title">
               <span className="nc-prompt-glyph">&gt;</span> projects_and_connect {isSudo ? "--root-access" : ""}
             </h2>
-            {isSudo && (
-              <span className="nc-card-status nc-status-root">[ALL PORTS UNRESTRICTED]</span>
-            )}
           </header>
           <div className="nc-card-body">
             <div className="nc-services-grid">
@@ -859,8 +853,8 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                 </div>
                 <div className="nc-service-desc">
                   {isVi
-                    ? "Bộ công cụ chẩn đoán mạng tự host all-in-one: DNS, ping, traceroute, MTR, WHOIS, port check, headers & SSL."
-                    : "Self-hosted network diagnostic toolkit. IP, DNS, ping, traceroute, MTR, port check, reverse DNS, WHOIS, SSL — one page."}
+                    ? "Gom hết mấy trò test mạng vào một trang cho đỡ phải mở chục tab terminal mỗi khi Wi-Fi giở chứng."
+                    : "Every network test on one page: DNS, ping, traceroute, ports. Handy whenever the Wi-Fi acts weird."}
                 </div>
                 <div className="nc-service-footer">
                   <span>netcheck.nnt25.io.vn</span>
@@ -893,8 +887,8 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                 </div>
                 <div className="nc-service-desc">
                   {isVi
-                    ? "Nơi an toàn cho mọi dữ liệu của bạn. Lưu trữ riêng tư chạy trên Nextcloud, đăng ký miễn phí nhận 10GB quota."
-                    : "A safe home for all your data. Powered by Nextcloud with end-to-end encryption. Instant registration with 10GB free quota."}
+                    ? "Ổ đám mây tự chạy bằng Nextcloud cho bạn bè lưu ảnh với file linh tinh. Đăng ký cái là có sẵn 10GB xài luôn."
+                    : "Personal Nextcloud box for backups and random files. Instant 10GB quota for friends."}
                 </div>
                 <div className="nc-service-footer">
                   <span>storage.nnt25.io.vn</span>
@@ -927,8 +921,8 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                 </div>
                 <div className="nc-service-desc">
                   {isVi
-                    ? "Dán link video từ YouTube, TikTok, Facebook, Instagram và tải trực tiếp về thiết bị sạch sẽ không quảng cáo."
-                    : "Self-hosted web GUI for youtube-dl / yt-dlp. Download videos cleanly from YouTube, TikTok, Facebook, Instagram."}
+                    ? "Cứ dán link YouTube, TikTok hay Facebook vào là kéo video về máy. Không quảng cáo, không chuyển hướng rác."
+                    : "Paste any video link from YouTube, TikTok, or Facebook and grab the file cleanly. No junk ads."}
                 </div>
                 <div className="nc-service-footer">
                   <span>metube.nnt25.io.vn</span>
@@ -961,8 +955,8 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                 </div>
                 <div className="nc-service-desc">
                   {isVi
-                    ? "Nơi lưu trữ các dự án mã nguồn mở: NetCheck, Jane-Clanker, hạ tầng tự host, và các thử nghiệm cuối tuần."
-                    : "Home of open-source projects: NetCheck, Jane-Clanker, homelab infrastructure, and weekend tinkering repos."}
+                    ? "Mấy món mã nguồn mở với đống repo nghịch cuối tuần. Có cái xài được, có cái sống sót qua ngày thứ Hai."
+                    : "Open-source stuff and weekend code experiments. Some work, some barely made it past Monday."}
                 </div>
                 <div className="nc-service-footer">
                   <span>github.com/sudo-Penguin-Lalala</span>
@@ -990,10 +984,9 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                   <span>Discord</span>
                 </div>
                 <div className="nc-service-desc">
-                  {isVi ? "Tên người dùng: " : "Username: "}
                   <strong style={{ color: "var(--accent)" }}>nnt2589</strong>
                   <p style={{ margin: "0.25rem 0 0", fontSize: "0.76rem", color: "var(--text-dim)" }}>
-                    {isVi ? "Thêm bạn hoặc gửi tin nhắn trực tiếp." : "Add me directly or send a direct message."}
+                    {isVi ? "Chỗ dễ lôi đầu tôi ra nhất. Cứ ping hoặc ném tin nhắn thẳng vào DM." : "Best place to reach me. Just ping or drop a message in DMs."}
                   </p>
                 </div>
                 <div className="nc-service-footer">
@@ -1033,7 +1026,7 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                 <div className="nc-service-desc">
                   <strong style={{ color: "#fff" }}>contact@nnt25.io.vn</strong>
                   <p style={{ margin: "0.25rem 0 0", fontSize: "0.76rem", color: "var(--text-dim)" }}>
-                    {isVi ? "Hộp thư liên hệ chính, phản hồi nhanh." : "Primary contact inbox, fast response."}
+                    {isVi ? "Dành cho chuyện gì đó cần nghiêm túc hơn Discord. Thường check mail mỗi ngày." : "For anything that actually needs to be an email. I usually check it daily."}
                   </p>
                 </div>
                 <div className="nc-service-footer">
