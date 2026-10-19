@@ -6,6 +6,7 @@ export function getHelpOutput() {
     `  • uname -a            Print kernel version & CPU architecture\n` +
     `  • whoami              Show current operator privileges & UID/GID\n` +
     `  • free -h             Check system memory & swap statistics\n` +
+    `  • power / dynamo      Check homelab kinetic reactor energy stats\n` +
     `  • ls -la              List directory contents and file modes\n` +
     `  • cat flag.txt        Read homelab privilege escalation flag\n` +
     `  • cat classified.env  Inspect sanitized reactor environment vars\n\n` +
@@ -109,3 +110,30 @@ export function getRebootOutput(cleanCmd, isVi) {
       `The system is going down for reboot NOW!\n` +
       `... Rebooted cleanly. Uptime: 0 days, 0 hours, 1 second. Just kidding, still online.`;
 }
+
+export function getPowerOutput(isVi) {
+  let lifetime = 0;
+  let record = 0;
+  try {
+    lifetime = parseInt(localStorage.getItem("nnt:power_lifetime") || "0", 10) || 0;
+    record = parseInt(localStorage.getItem("nnt:power_record") || "0", 10) || 0;
+  } catch {
+    // Ignore
+  }
+
+  const estWh = (lifetime * 1.5).toFixed(1);
+  return (
+    `[root@reactor ~]# power\n` +
+    `=== HOMELAB KINETIC DYNAMO GRID ===\n` +
+    (isVi
+      ? `Điện năng tích lũy:     ${estWh} Wh (${lifetime} vòng quay rotor)\n` +
+        `Kỷ lục phiên liên tục:  ${record} vòng quay\n` +
+        `Trạng thái máy phát:    ${record >= 300 ? "[Tổ máy số 1] Đủ sạc xe máy điện đi chợ về 🔋" : record >= 50 ? "[Ổn định] Đủ điện nuôi server homelab 🖥️" : "[Standby] Đang chờ thêm lực quay tay 🌀"}\n\n` +
+        `Tip: Chạm vào logo NNT ở footer để tiếp tục phát điện nuôi server.`
+      : `Lifetime Grid Energy:   ${estWh} Wh (${lifetime} rotor revs)\n` +
+        `Peak Continuous Streak: ${record} revs\n` +
+        `Dynamo Status:          ${record >= 300 ? "[Turbine Unit 1] Enough juice for an e-scooter run 🔋" : record >= 50 ? "[Nominal] Powering homelab mini-PC 🖥️" : "[Standby] Waiting for kinetic force 🌀"}\n\n` +
+        `Tip: Tap the NNT logo at the footer to feed kinetic energy into the server.`)
+  );
+}
+

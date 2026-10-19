@@ -1360,24 +1360,46 @@
 }
 
 .nc-spin-badge {
-  font-size: 0.72rem;
+  font: inherit;
+  font-size: 0.76rem;
   color: var(--accent);
   background: var(--accent-soft);
   border: 1px solid var(--accent);
-  padding: 0.2rem 0.55rem;
+  padding: 0.35rem 0.65rem;
   border-radius: var(--radius);
   font-weight: 600;
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.45rem;
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease, background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
   letter-spacing: 0.02em;
   white-space: normal;
   max-width: 100%;
   line-height: 1.35;
   flex-shrink: 0;
+  cursor: pointer;
+  user-select: none;
+  text-align: left;
+}
+
+.nc-spin-badge:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent);
+  box-shadow: 0 0 10px var(--accent-soft);
+  color: #fff;
+}
+
+.nc-spin-badge:active {
+  transform: scale(0.97);
+}
+
+.nc-spin-badge.is-copied {
+  border-color: var(--success);
+  color: var(--success);
+  background: rgba(163, 190, 140, 0.18);
+  box-shadow: 0 0 10px rgba(163, 190, 140, 0.25);
 }
 
 .nc-spin-badge.is-leaving {
