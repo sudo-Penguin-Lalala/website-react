@@ -147,7 +147,7 @@
 }
 
 .nc-brand {
-  font-size: 1.35rem;
+  font-size: 1.5rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   margin: 0;
@@ -215,11 +215,11 @@
   }
 
   .nc-brand {
-    font-size: 1.12rem;
+    font-size: 1.35rem;
   }
 
   .nc-brand-root {
-    font-size: 0.98rem;
+    font-size: 1.12rem;
   }
 
   .nc-sudo-hint {
@@ -284,21 +284,19 @@
 }
 
 .nc-lang-btn {
-  min-height: 44px;
-  min-width: 44px;
-  padding: 0.45rem 0.85rem;
-  font-size: 0.85rem;
-  font-weight: 700;
-  gap: 0.45rem;
+  min-height: 32px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  gap: 0.35rem;
 }
 
 .nc-theme-btn {
-  min-height: 44px;
-  min-width: 44px;
-  padding: 0.45rem 0.85rem;
-  font-size: 0.82rem;
-  font-weight: 700;
-  gap: 0.45rem;
+  min-height: 32px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  gap: 0.35rem;
   background: var(--bg-input);
   border: 1px solid var(--border-strong);
   color: var(--accent);
@@ -319,10 +317,10 @@
 
   .nc-lang-btn,
   .nc-theme-btn {
-    min-height: 40px;
-    padding: 0.35rem 0.6rem;
-    font-size: 0.78rem;
-    gap: 0.3rem;
+    min-height: 32px;
+    padding: 0.22rem 0.5rem;
+    font-size: 0.74rem;
+    gap: 0.25rem;
   }
 }
 
