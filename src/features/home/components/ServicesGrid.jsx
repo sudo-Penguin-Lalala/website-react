@@ -202,7 +202,9 @@ const ServicesGrid = ({ isSudo, isVi }) => {
             <div className="nc-service-footer nc-service-footer-actions">
               <button
                 type="button"
-                className="nc-btn nc-svc-action-btn"
+                className={`nc-btn nc-svc-action-btn nc-svc-copy-btn nc-svc-copy-discord ${
+                  copiedDiscord ? "is-copied" : ""
+                }`}
                 onClick={handleCopyDiscord}
                 aria-label={
                   isVi
@@ -254,7 +256,9 @@ const ServicesGrid = ({ isSudo, isVi }) => {
             <div className="nc-service-footer nc-service-footer-actions">
               <button
                 type="button"
-                className="nc-btn nc-svc-action-btn"
+                className={`nc-btn nc-svc-action-btn nc-svc-copy-btn nc-svc-copy-email ${
+                  copiedEmail ? "is-copied" : ""
+                }`}
                 onClick={handleCopyEmail}
                 aria-label={
                   isVi
