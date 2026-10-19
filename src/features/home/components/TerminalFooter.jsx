@@ -23,15 +23,11 @@ const TerminalFooter = ({ isVi }) => {
           className="nc-footer-logo-btn"
           onClick={handleSpinLogo}
           style={{ transform: `rotate(${spinDeg}deg)` }}
-          title={
-            isVi
-              ? "Bấm để quay rotor tạo điện nuôi server! :D"
-              : "Click to spin rotor and power the server! :D"
-          }
+          title={isVi ? "Bấm để quay logo chơi :D" : "Click to spin logo :D"}
           aria-label={
             isVi
-              ? `Logo NNT, máy phát điện homelab, đã quay ${spinCount} vòng`
-              : `NNT logo, homelab kinetic generator, spun ${spinCount} times`
+              ? `Logo NNT, đã quay ${spinCount} vòng`
+              : `NNT logo, spun ${spinCount} times`
           }
         >
           <Icon name="nnt" />
@@ -42,27 +38,23 @@ const TerminalFooter = ({ isVi }) => {
             type="button"
             className={`nc-spin-badge ${isSpinBadgeLeaving ? "is-leaving" : ""} ${copied ? "is-copied" : ""}`}
             onClick={() => copyReceipt(isVi)}
-            title={
-              isVi
-                ? "Chạm để sao chép kết quả khoe Discord!"
-                : "Tap to copy receipt to Discord!"
-            }
+            title={isVi ? "Chạm để sao chép kết quả" : "Tap to copy"}
             aria-label={
               isVi
-                ? `Đạt ${achievement.badge}: ${achievement.title}. Chạm để sao chép kết quả.`
-                : `Achieved ${achievement.badge}: ${achievement.title}. Tap to copy receipt.`
+                ? `Đạt ${achievement.badge}: ${achievement.title}. Chạm để sao chép.`
+                : `Achieved ${achievement.badge}: ${achievement.title}. Tap to copy.`
             }
           >
             <span aria-hidden="true">{copied ? "📋" : achievement.icon}</span>
             <span style={{ opacity: 0.8 }}>
-              [{spinCount} revs · {achievement.wh}]
+              [{spinCount} · {achievement.wh}]
             </span>
             <span style={{ color: "var(--accent)", fontWeight: 700 }}>
               {achievement.badge}
             </span>
             <span>
               {copied
-                ? (isVi ? "Đã chép kết quả khoe Discord!" : "Receipt copied!")
+                ? (isVi ? "Đã chép!" : "Copied!")
                 : achievement.title}
             </span>
           </button>

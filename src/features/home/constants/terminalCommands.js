@@ -1,3 +1,5 @@
+import { getSpinAchievement } from "../hooks/useLogoSpin";
+
 export function getHelpOutput() {
   return (
     `[root@reactor ~]# help\n` +
@@ -6,7 +8,7 @@ export function getHelpOutput() {
     `  • uname -a            Print kernel version & CPU architecture\n` +
     `  • whoami              Show current operator privileges & UID/GID\n` +
     `  • free -h             Check system memory & swap statistics\n` +
-    `  • power / dynamo      Check homelab kinetic reactor energy stats\n` +
+    `  • power               Show logo spins & power stats\n` +
     `  • ls -la              List directory contents and file modes\n` +
     `  • cat flag.txt        Read homelab privilege escalation flag\n` +
     `  • cat classified.env  Inspect sanitized reactor environment vars\n\n` +
@@ -121,19 +123,18 @@ export function getPowerOutput(isVi) {
     // Ignore
   }
 
-  const estWh = (lifetime * 1.5).toFixed(1);
+  const estWh = Math.round(lifetime * 1.5);
+  const ach = getSpinAchievement(record || lifetime, isVi);
+
   return (
     `[root@reactor ~]# power\n` +
-    `=== HOMELAB KINETIC DYNAMO GRID ===\n` +
     (isVi
-      ? `Điện năng:    ${estWh} Wh (${lifetime} vòng)\n` +
-        `Kỷ lục chuỗi: ${record} vòng\n` +
-        `Trạng thái:   ${record >= 300 ? "[Tổ máy số 1] Sạc xe máy điện 🔋" : record >= 50 ? "[Ổn định] Nuôi mini-PC 🖥️" : "[Standby] Chờ quay tay 🌀"}\n\n` +
-        `Tip: Chạm logo NNT ở footer để bơm thêm điện.`
-      : `Grid Energy:  ${estWh} Wh (${lifetime} revs)\n` +
-        `Peak Streak:  ${record} revs\n` +
-        `Status:       ${record >= 300 ? "[Unit 1] E-scooter charged 🔋" : record >= 50 ? "[Nominal] Mini-PC running 🖥️" : "[Standby] Waiting for spin 🌀"}\n\n` +
-        `Tip: Spin NNT footer logo to pump kinetic energy.`)
+      ? `spins:   ${lifetime} (kỷ lục: ${record})\n` +
+        `energy:  ~${estWh} Wh\n` +
+        `status:  ${lifetime === 0 ? "chưa quay" : `[${ach.badge}] ${ach.title}`}`
+      : `spins:   ${lifetime} (best: ${record})\n` +
+        `energy:  ~${estWh} Wh\n` +
+        `status:  ${lifetime === 0 ? "idle" : `[${ach.badge}] ${ach.title}`}`)
   );
 }
 
