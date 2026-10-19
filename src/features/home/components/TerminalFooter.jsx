@@ -7,9 +7,14 @@ const TerminalFooter = ({ isVi }) => {
     spinCount,
     isSpinBadgeVisible,
     isSpinBadgeLeaving,
+    copied,
     handleSpinLogo,
+    copyReceipt,
     getSpinAchievement,
   } = useLogoSpin();
+
+  const achievement = getSpinAchievement(spinCount, isVi);
+
   return (
     <footer className="nc-footer">
       <div className="nc-footer-copy">
@@ -18,27 +23,49 @@ const TerminalFooter = ({ isVi }) => {
           className="nc-footer-logo-btn"
           onClick={handleSpinLogo}
           style={{ transform: `rotate(${spinDeg}deg)` }}
-          title={isVi ? "Bấm để xoay logo chơi :D" : "Click to spin logo :D"}
-          aria-label={isVi ? "Logo NNT, bấm để xoay" : "NNT logo, click to spin"}
+          title={
+            isVi
+              ? "Bấm để quay rotor tạo điện nuôi server! :D"
+              : "Click to spin rotor and power the server! :D"
+          }
+          aria-label={
+            isVi
+              ? `Logo NNT, máy phát điện homelab, đã quay ${spinCount} vòng`
+              : `NNT logo, homelab kinetic generator, spun ${spinCount} times`
+          }
         >
           <Icon name="nnt" />
         </button>
         <span>© 2026 Thien Nguyen</span>
         {isSpinBadgeVisible && (
-          <span
-            className={`nc-spin-badge ${isSpinBadgeLeaving ? "is-leaving" : ""}`}
-            role="status"
-            aria-live="polite"
+          <button
+            type="button"
+            className={`nc-spin-badge ${isSpinBadgeLeaving ? "is-leaving" : ""} ${copied ? "is-copied" : ""}`}
+            onClick={() => copyReceipt(isVi)}
+            title={
+              isVi
+                ? "Chạm để sao chép kết quả khoe Discord!"
+                : "Tap to copy receipt to Discord!"
+            }
+            aria-label={
+              isVi
+                ? `Đạt ${achievement.badge}: ${achievement.title}. Chạm để sao chép kết quả.`
+                : `Achieved ${achievement.badge}: ${achievement.title}. Tap to copy receipt.`
+            }
           >
-            <span aria-hidden="true">
-              {getSpinAchievement(spinCount, isVi).icon}
+            <span aria-hidden="true">{copied ? "📋" : achievement.icon}</span>
+            <span style={{ opacity: 0.8 }}>
+              [{spinCount} revs · {achievement.wh}]
             </span>
-            <span style={{ opacity: 0.75 }}>[{spinCount}]</span>
             <span style={{ color: "var(--accent)", fontWeight: 700 }}>
-              {getSpinAchievement(spinCount, isVi).badge}
+              {achievement.badge}
             </span>
-            <span>{getSpinAchievement(spinCount, isVi).title}</span>
-          </span>
+            <span>
+              {copied
+                ? (isVi ? "Đã chép kết quả khoe Discord!" : "Receipt copied!")
+                : achievement.title}
+            </span>
+          </button>
         )}
       </div>
       <div>
