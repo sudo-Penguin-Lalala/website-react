@@ -159,6 +159,8 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
         output = cmdUtils.getRebootOutput(cleanCmd, isVi);
       } else if (normalized === "power" || normalized === "dynamo") {
         output = cmdUtils.getPowerOutput(isVi);
+      } else if (normalized === "sl") {
+        output = cmdUtils.getSlOutput(isVi);
       } else if (normalized === "matrix") {
         setPageEffect((prev) => (prev === "matrix" ? "none" : "matrix"));
         output =
