@@ -58,13 +58,13 @@ const BrandHeader = ({
             onClick={cycleTheme}
             aria-label={
               isVi
-                ? `Bảng màu hiện tại: ${currentTheme.name}. Chạm để đổi bảng màu.`
-                : `Current palette: ${currentTheme.name}. Tap to switch palette.`
+                ? `Bảng màu: ${currentTheme.name}. Chạm để đổi.`
+                : `Palette: ${currentTheme.name}. Tap to switch.`
             }
             title={
               isVi
-                ? `Đổi bảng màu (hiện tại: ${currentTheme.name})`
-                : `Switch color palette (current: ${currentTheme.name})`
+                ? `Chuyển sang ${currentTheme.id === "nord" ? "Forest (🌲)" : "Nord (🏔️)"}`
+                : `Switch to ${currentTheme.id === "nord" ? "Forest (🌲)" : "Nord (🏔️)"}`
             }
           >
             <span aria-hidden="true">{currentTheme.icon}</span>

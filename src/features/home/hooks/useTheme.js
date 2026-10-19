@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 
 export const THEMES = [
-  { id: "nord", name: "Nordic Frost", icon: "❄️" },
-  { id: "catppuccin", name: "Catppuccin", icon: "🌸" },
-  { id: "everforest", name: "Everforest", icon: "🌲" },
-  { id: "amber", name: "NetCheck", icon: "⚡" },
+  { id: "nord", name: "Nord", icon: "🏔️" },
+  { id: "everforest", name: "Forest", icon: "🌲" },
 ];
 
 const THEME_KEY = "nnt:theme";
@@ -32,11 +30,7 @@ export const useTheme = () => {
   }, [theme]);
 
   const cycleTheme = () => {
-    setTheme((prev) => {
-      const idx = THEMES.findIndex((t) => t.id === prev);
-      const nextIdx = (idx + 1) % THEMES.length;
-      return THEMES[nextIdx].id;
-    });
+    setTheme((prev) => (prev === "nord" ? "everforest" : "nord"));
   };
 
   const currentTheme = THEMES.find((t) => t.id === theme) || THEMES[0];
