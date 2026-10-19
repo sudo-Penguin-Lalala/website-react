@@ -261,10 +261,10 @@ const ServicesGrid = ({ isSudo, isVi }) => {
                   : "Best place to reach me. Just ping or drop a message in DMs."}
               </p>
             </div>
-            <div className="nc-service-footer">
+            <div className="nc-service-footer nc-service-footer-actions">
               <button
                 type="button"
-                className="nc-btn"
+                className="nc-btn nc-svc-action-btn"
                 onClick={handleCopyDiscord}
                 aria-label={
                   isVi
@@ -278,7 +278,7 @@ const ServicesGrid = ({ isSudo, isVi }) => {
                 href="https://discord.com/users/873873496814538803"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="nc-btn nc-btn-accent"
+                className="nc-btn nc-btn-accent nc-svc-action-btn"
                 aria-label={
                   isVi
                     ? "Mở tin nhắn trực tiếp Discord với nnt2589"
@@ -337,10 +337,10 @@ const ServicesGrid = ({ isSudo, isVi }) => {
                   : "For anything that actually needs to be an email. I usually check it daily."}
               </p>
             </div>
-            <div className="nc-service-footer">
+            <div className="nc-service-footer nc-service-footer-actions">
               <button
                 type="button"
-                className="nc-btn"
+                className="nc-btn nc-svc-action-btn"
                 onClick={handleCopyEmail}
                 aria-label={
                   isVi
@@ -352,7 +352,7 @@ const ServicesGrid = ({ isSudo, isVi }) => {
               </button>
               <a
                 href="mailto:contact@nnt25.io.vn"
-                className="nc-btn nc-btn-accent"
+                className="nc-btn nc-btn-accent nc-svc-action-btn"
                 aria-label={
                   isVi
                     ? "Gửi email tới contact@nnt25.io.vn"

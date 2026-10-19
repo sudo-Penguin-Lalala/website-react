@@ -51,7 +51,7 @@ const BrandHeader = ({
       <div className="nc-hdr-actions">
         <button
           type="button"
-          className="nc-btn"
+          className="nc-btn nc-lang-btn"
           onClick={toggle}
           aria-label={
             languageToggleAria ||
