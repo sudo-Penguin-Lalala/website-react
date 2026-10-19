@@ -1101,6 +1101,9 @@
   align-items: center;
   gap: 0.45rem;
   overflow-x: auto;
+  scroll-behavior: auto !important;
+  overscroll-behavior: contain;
+  overscroll-behavior-x: contain;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 107, 107, 0.25) transparent;
@@ -1109,11 +1112,11 @@
   flex: 1;
   cursor: grab;
   user-select: none;
+  will-change: scroll-position;
 }
 
 .nc-root-chips.is-dragging {
   cursor: grabbing;
-  scroll-behavior: auto;
 }
 
 .nc-root-chips.is-dragging .nc-cmd-chip {
@@ -1153,8 +1156,7 @@
   user-select: none;
   white-space: nowrap;
   flex-shrink: 0;
-  scroll-snap-align: start;
-  transition: all 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 @media (pointer: fine) and (min-width: 641px) {

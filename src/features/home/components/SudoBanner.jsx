@@ -17,60 +17,112 @@ const SudoBanner = ({
   const [isDragging, setIsDragging] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
-  const dragStartX = useRef(0);
-  const dragScrollLeft = useRef(0);
-  const hasDragged = useRef(false);
 
+  // Physics & Animation refs
+  const targetScrollRef = useRef(0);
+  const rafIdRef = useRef(null);
+  const dragStartXRef = useRef(0);
+  const dragStartScrollRef = useRef(0);
+  const lastXRef = useRef(0);
+  const lastTimeRef = useRef(0);
+  const velocityRef = useRef(0);
+  const hasDraggedRef = useRef(false);
+  const isDraggingRef = useRef(false);
+
+  // Fast indicator update - avoids React re-renders unless boolean state actually toggles
   const updateScrollIndicators = useCallback(() => {
     const el = chipsRef.current;
     if (!el) return;
     const { scrollLeft, scrollWidth, clientWidth } = el;
-    setCanScrollLeft(scrollLeft > 2);
-    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 2);
+    const hasLeft = scrollLeft > 2;
+    const hasRight = scrollLeft + clientWidth < scrollWidth - 2;
+    setCanScrollLeft((prev) => (prev !== hasLeft ? hasLeft : prev));
+    setCanScrollRight((prev) => (prev !== hasRight ? hasRight : prev));
   }, []);
 
-  // Map vertical mouse wheel directly to horizontal scroll on desktop
+  const cancelAnimation = () => {
+    if (rafIdRef.current) {
+      cancelAnimationFrame(rafIdRef.current);
+      rafIdRef.current = null;
+    }
+  };
+
+  // High refresh rate (60fps/120fps) exponential damping smoothing
+  const startSmoothScroll = useCallback(() => {
+    cancelAnimation();
+    const tick = () => {
+      const el = chipsRef.current;
+      if (!el) return;
+      const current = el.scrollLeft;
+      const target = targetScrollRef.current;
+      const diff = target - current;
+
+      if (Math.abs(diff) > 0.5) {
+        el.scrollLeft = current + diff * 0.22;
+        updateScrollIndicators();
+        rafIdRef.current = requestAnimationFrame(tick);
+      } else {
+        el.scrollLeft = target;
+        updateScrollIndicators();
+        rafIdRef.current = null;
+      }
+    };
+    rafIdRef.current = requestAnimationFrame(tick);
+  }, [updateScrollIndicators]);
+
+  // Strict boundary wheel lock: NEVER leaks scroll to parent page, smoothly glides horizontally
   useEffect(() => {
     const el = chipsRef.current;
     if (!el) return;
 
     const handleWheel = (e) => {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-        const maxScroll = el.scrollWidth - el.clientWidth;
-        if (maxScroll > 1) {
-          const canScrollDown = e.deltaY > 0 && el.scrollLeft < maxScroll - 1;
-          const canScrollUp = e.deltaY < 0 && el.scrollLeft > 1;
+      // 100% Trap wheel event on this element - page never scrolls while cursor is here!
+      e.preventDefault();
 
-          if (canScrollDown || canScrollUp) {
-            e.preventDefault();
-            el.scrollLeft += e.deltaY;
-            updateScrollIndicators();
-          }
-        }
+      const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+      if (delta === 0) return;
+
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      if (maxScroll <= 0) return;
+
+      if (!rafIdRef.current) {
+        targetScrollRef.current = el.scrollLeft;
       }
+
+      // Smooth step with clamping
+      targetScrollRef.current = Math.max(0, Math.min(maxScroll, targetScrollRef.current + delta * 1.05));
+      startSmoothScroll();
     };
 
     el.addEventListener("wheel", handleWheel, { passive: false });
     updateScrollIndicators();
 
-    const timer = setTimeout(updateScrollIndicators, 100);
+    const timer = setTimeout(updateScrollIndicators, 120);
     window.addEventListener("resize", updateScrollIndicators);
 
     return () => {
+      cancelAnimation();
       clearTimeout(timer);
       el.removeEventListener("wheel", handleWheel);
       window.removeEventListener("resize", updateScrollIndicators);
     };
-  }, [updateScrollIndicators]);
+  }, [updateScrollIndicators, startSmoothScroll]);
 
-  // Mouse drag-to-scroll
+  // Mouse drag-to-scroll with kinetic momentum throw
   const handleMouseDown = (e) => {
     if (e.button !== 0) return;
     const el = chipsRef.current;
     if (!el) return;
-    dragStartX.current = e.pageX;
-    dragScrollLeft.current = el.scrollLeft;
-    hasDragged.current = false;
+
+    cancelAnimation();
+    isDraggingRef.current = true;
+    hasDraggedRef.current = false;
+    dragStartXRef.current = e.pageX;
+    dragStartScrollRef.current = el.scrollLeft;
+    targetScrollRef.current = el.scrollLeft;
+    lastXRef.current = e.pageX;
+    lastTimeRef.current = performance.now();
+    velocityRef.current = 0;
     setIsDragging(true);
   };
 
@@ -78,21 +130,83 @@ const SudoBanner = ({
     if (!isDragging) return;
 
     const handleMouseMove = (e) => {
+      if (!isDraggingRef.current) return;
       const el = chipsRef.current;
       if (!el) return;
-      const dx = e.pageX - dragStartX.current;
-      if (Math.abs(dx) > 3) {
-        hasDragged.current = true;
+
+      const now = performance.now();
+      const dt = now - lastTimeRef.current;
+      const dx = e.pageX - lastXRef.current;
+
+      if (dt > 0) {
+        // Track velocity (px/frame)
+        const instantVel = (dx / dt) * 16.67;
+        velocityRef.current = 0.65 * instantVel + 0.35 * velocityRef.current;
       }
-      el.scrollLeft = dragScrollLeft.current - dx;
+      lastXRef.current = e.pageX;
+      lastTimeRef.current = now;
+
+      const totalDx = e.pageX - dragStartXRef.current;
+      if (Math.abs(totalDx) > 4) {
+        hasDraggedRef.current = true;
+      }
+
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      const nextScroll = Math.max(0, Math.min(maxScroll, dragStartScrollRef.current - totalDx));
+      el.scrollLeft = nextScroll;
+      targetScrollRef.current = nextScroll;
       updateScrollIndicators();
     };
 
     const handleMouseUp = () => {
+      if (!isDraggingRef.current) return;
+      isDraggingRef.current = false;
       setIsDragging(false);
+
+      const el = chipsRef.current;
+      if (el && Math.abs(velocityRef.current) > 1.2) {
+        // Kinetic momentum glide on mouse release
+        let currentVel = -velocityRef.current;
+        const friction = 0.93;
+
+        const momentumTick = () => {
+          if (isDraggingRef.current) return;
+          currentVel *= friction;
+
+          if (Math.abs(currentVel) > 0.35) {
+            const maxScroll = el.scrollWidth - el.clientWidth;
+            const next = el.scrollLeft + currentVel;
+
+            if (next <= 0) {
+              el.scrollLeft = 0;
+              targetScrollRef.current = 0;
+              updateScrollIndicators();
+              rafIdRef.current = null;
+              return;
+            }
+            if (next >= maxScroll) {
+              el.scrollLeft = maxScroll;
+              targetScrollRef.current = maxScroll;
+              updateScrollIndicators();
+              rafIdRef.current = null;
+              return;
+            }
+
+            el.scrollLeft = next;
+            targetScrollRef.current = next;
+            updateScrollIndicators();
+            rafIdRef.current = requestAnimationFrame(momentumTick);
+          } else {
+            rafIdRef.current = null;
+          }
+        };
+
+        rafIdRef.current = requestAnimationFrame(momentumTick);
+      }
+
       setTimeout(() => {
-        hasDragged.current = false;
-      }, 60);
+        hasDraggedRef.current = false;
+      }, 70);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
@@ -104,19 +218,26 @@ const SudoBanner = ({
   }, [isDragging, updateScrollIndicators]);
 
   const handleChipClick = (cmd) => {
-    if (hasDragged.current) return;
+    if (hasDraggedRef.current) return;
     executeCommand(cmd);
   };
 
   const handleArrowScroll = (direction) => {
     const el = chipsRef.current;
     if (!el) return;
-    const distance = el.clientWidth * 0.65;
-    el.scrollBy({
-      left: direction === "left" ? -distance : distance,
-      behavior: "smooth",
-    });
-    setTimeout(updateScrollIndicators, 300);
+    const distance = el.clientWidth * 0.7;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+
+    if (!rafIdRef.current) {
+      targetScrollRef.current = el.scrollLeft;
+    }
+
+    targetScrollRef.current =
+      direction === "left"
+        ? Math.max(0, targetScrollRef.current - distance)
+        : Math.min(maxScroll, targetScrollRef.current + distance);
+
+    startSmoothScroll();
   };
   return (
     <div className="nc-sudo-banner">
