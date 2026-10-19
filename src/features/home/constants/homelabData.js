@@ -39,6 +39,7 @@ export const QUICK_COMMANDS = [
   { cmd: "free -h", label: "$ free -h" },
   { cmd: "power", label: "$ power" },
   { cmd: "ls -la", label: "$ ls -la" },
+  { cmd: "sl", label: "$ sl 🚂" },
   { cmd: "cat flag.txt", label: "$ cat flag.txt" },
   { cmd: "matrix", label: "$ matrix 🟢" },
   { cmd: "invert", label: "$ invert ☯" },

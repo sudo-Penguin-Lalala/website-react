@@ -10,6 +10,7 @@ export function getHelpOutput() {
     `  • free -h             Check system memory & swap statistics\n` +
     `  • power               Show logo spins & power stats\n` +
     `  • ls -la              List directory contents and file modes\n` +
+    `  • sl                  Steam Locomotive (when you mistype 'ls')\n` +
     `  • cat flag.txt        Read homelab privilege escalation flag\n` +
     `  • cat classified.env  Inspect sanitized reactor environment vars\n\n` +
     `  [System Controls]\n` +
@@ -134,6 +135,26 @@ export function getPowerOutput(isVi) {
       : `spins:   ${lifetime} (best: ${record})\n` +
         `energy:  ~${estWh} Wh\n` +
         `status:  ${lifetime === 0 ? "idle" : `[${ach.badge}] ${ach.title}`}`)
+  );
+}
+
+export function getSlOutput(isVi) {
+  const tip = isVi
+    ? "Có phải bạn muốn gõ 'ls'? 🚂 Choo-choo!"
+    : "Did you mean 'ls'? 🚂 Choo-choo!";
+
+  return (
+    `[root@reactor ~]# sl\n` +
+    `${tip}\n\n` +
+    `                 (  ) (@@) ( )  (@)  ()    @@    O  . . .\n` +
+    `             ====        ________                ___________\n` +
+    `         _D _|  |_______/        \\__I_I_____===__|_________|\n` +
+    `          |(_)---  |   H\\________/ |   |        =|___ ___|\n` +
+    `          /     |  |   H  |  |     |   |         ||_| |_||\n` +
+    `         |      |  |   H  |__--------------------| [___]   |\n` +
+    `         | ________|___H__/__|_____/[][]~\\_______|         |\n` +
+    `         |/ |   |_____I........................|_________|\n` +
+    `        (o)  (o)                                (o)  (o)`
   );
 }
 
