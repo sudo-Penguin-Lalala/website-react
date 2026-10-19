@@ -126,14 +126,14 @@ export function getPowerOutput(isVi) {
     `[root@reactor ~]# power\n` +
     `=== HOMELAB KINETIC DYNAMO GRID ===\n` +
     (isVi
-      ? `Điện năng tích lũy:     ${estWh} Wh (${lifetime} vòng quay rotor)\n` +
-        `Kỷ lục phiên liên tục:  ${record} vòng quay\n` +
-        `Trạng thái máy phát:    ${record >= 300 ? "[Tổ máy số 1] Đủ sạc xe máy điện đi chợ về 🔋" : record >= 50 ? "[Ổn định] Đủ điện nuôi server homelab 🖥️" : "[Standby] Đang chờ thêm lực quay tay 🌀"}\n\n` +
-        `Tip: Chạm vào logo NNT ở footer để tiếp tục phát điện nuôi server.`
-      : `Lifetime Grid Energy:   ${estWh} Wh (${lifetime} rotor revs)\n` +
-        `Peak Continuous Streak: ${record} revs\n` +
-        `Dynamo Status:          ${record >= 300 ? "[Turbine Unit 1] Enough juice for an e-scooter run 🔋" : record >= 50 ? "[Nominal] Powering homelab mini-PC 🖥️" : "[Standby] Waiting for kinetic force 🌀"}\n\n` +
-        `Tip: Tap the NNT logo at the footer to feed kinetic energy into the server.`)
+      ? `Điện năng:    ${estWh} Wh (${lifetime} vòng)\n` +
+        `Kỷ lục chuỗi: ${record} vòng\n` +
+        `Trạng thái:   ${record >= 300 ? "[Tổ máy số 1] Sạc xe máy điện 🔋" : record >= 50 ? "[Ổn định] Nuôi mini-PC 🖥️" : "[Standby] Chờ quay tay 🌀"}\n\n` +
+        `Tip: Chạm logo NNT ở footer để bơm thêm điện.`
+      : `Grid Energy:  ${estWh} Wh (${lifetime} revs)\n` +
+        `Peak Streak:  ${record} revs\n` +
+        `Status:       ${record >= 300 ? "[Unit 1] E-scooter charged 🔋" : record >= 50 ? "[Nominal] Mini-PC running 🖥️" : "[Standby] Waiting for spin 🌀"}\n\n` +
+        `Tip: Spin NNT footer logo to pump kinetic energy.`)
   );
 }
 
