@@ -16,12 +16,12 @@
   --svc-storage-soft:   rgba(56, 189, 248, 0.16);
   --svc-metube:         #f43f5e;
   --svc-metube-soft:    rgba(244, 63, 94, 0.16);
-  --svc-github:         #c084fc;
-  --svc-github-soft:    rgba(192, 132, 252, 0.16);
+  --svc-github:         #ffffff;
+  --svc-github-soft:    rgba(255, 255, 255, 0.15);
   --svc-discord:        #818cf8;
   --svc-discord-soft:   rgba(129, 140, 248, 0.18);
-  --svc-email:          #34d399;
-  --svc-email-soft:     rgba(52, 211, 153, 0.16);
+  --svc-email:          #ffffff;
+  --svc-email-soft:     rgba(255, 255, 255, 0.15);
 }
 
 /* 1. Default / Nordic Frost (🏔️) */
@@ -934,7 +934,7 @@
 }
 .nc-svc-btn-email:hover {
   background: var(--svc-email);
-  color: #fff;
+  color: var(--bg, #0e1217);
 }
 
 /* Global focus outline in signature NetCheck yellow */
