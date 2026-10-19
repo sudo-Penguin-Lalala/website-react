@@ -37,7 +37,7 @@ export const QUICK_COMMANDS = [
   { cmd: "help", label: "$ help" },
   { cmd: "uname -a", label: "$ uname -a" },
   { cmd: "free -h", label: "$ free -h" },
-  { cmd: "power", label: "$ power ⚡" },
+  { cmd: "power", label: "$ power" },
   { cmd: "ls -la", label: "$ ls -la" },
   { cmd: "cat flag.txt", label: "$ cat flag.txt" },
   { cmd: "matrix", label: "$ matrix 🟢" },

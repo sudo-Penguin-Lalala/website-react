@@ -9,9 +9,7 @@ export function getSpinAchievement(count, isVi) {
       badge: "PERPETUAL",
       icon: "☢️",
       wh: "~1.5 kWh",
-      title: isVi
-        ? "Động cơ vĩnh cửu! (Cứu vãn khủng hoảng năng lượng toàn cầu)"
-        : "Perpetual Motion! (Solved global energy crisis)",
+      title: isVi ? "Động cơ vĩnh cửu" : "Perpetual motion",
     };
   }
   if (count >= 500) {
@@ -19,9 +17,7 @@ export function getSpinAchievement(count, isVi) {
       badge: "OVERLOAD",
       icon: "🔥",
       wh: "~750 Wh",
-      title: isVi
-        ? "Rotor bốc khói! (Nhiệt độ vòng bi vượt ngưỡng)"
-        : "Rotor Overheating! (Bearings exceed safety limits)",
+      title: isVi ? "Vòng bi bốc khói" : "Overheated bearings",
     };
   }
   if (count >= 300) {
@@ -29,9 +25,7 @@ export function getSpinAchievement(count, isVi) {
       badge: "MAX",
       icon: "🔋",
       wh: "~450 Wh",
-      title: isVi
-        ? "[Tổ máy số 1]: Đủ sạc xe máy điện chạy 500m!"
-        : "[Turbine Unit 1]: Enough charge for an e-scooter run!",
+      title: isVi ? "Sạc xe máy điện chạy 500m" : "Enough to charge e-scooter",
     };
   }
   if (count >= 200) {
@@ -39,9 +33,7 @@ export function getSpinAchievement(count, isVi) {
       badge: "Lv.6",
       icon: "🗄️",
       wh: "~300 Wh",
-      title: isVi
-        ? "Mini PC Homelab! (Tải kịch kim 100% CPU)"
-        : "Homelab Mini-PC! (Full 100% CPU load)",
+      title: isVi ? "Tải Mini PC 100% CPU" : "Powering Mini-PC at 100% CPU",
     };
   }
   if (count >= 100) {
@@ -49,9 +41,7 @@ export function getSpinAchievement(count, isVi) {
       badge: "Lv.5",
       icon: "📡",
       wh: "~150 Wh",
-      title: isVi
-        ? "Cục phát Wi-Fi! (Cứu mạng 15 phút cúp điện)"
-        : "Wi-Fi Router! (15 mins uptime during blackout)",
+      title: isVi ? "Cứu mạng Wi-Fi 15 phút" : "Keeping Wi-Fi alive for 15m",
     };
   }
   if (count >= 50) {
@@ -59,9 +49,7 @@ export function getSpinAchievement(count, isVi) {
       badge: "Lv.4",
       icon: "🖥️",
       wh: "~75 Wh",
-      title: isVi
-        ? "Raspberry Pi 4! (Đủ điện boot vào Linux)"
-        : "Raspberry Pi 4! (Enough juice to boot Linux)",
+      title: isVi ? "Boot Raspberry Pi 4" : "Booting Raspberry Pi 4",
     };
   }
   if (count >= 20) {
@@ -69,9 +57,7 @@ export function getSpinAchievement(count, isVi) {
       badge: "Lv.3",
       icon: "💡",
       wh: "~30 Wh",
-      title: isVi
-        ? "Bóng đèn 5W! (Thắp sáng góc bàn làm việc)"
-        : "5W Filament Bulb! (Desk workspace illuminated)",
+      title: isVi ? "Thắp bóng đèn 5W" : "Lighting 5W bulb",
     };
   }
   if (count >= 5) {
@@ -79,18 +65,14 @@ export function getSpinAchievement(count, isVi) {
       badge: "Lv.2",
       icon: "⚡",
       wh: "~7.5 Wh",
-      title: isVi
-        ? "Pin CMOS! (Giữ giờ cho BIOS không bị reset)"
-        : "CMOS Battery! (Keeping BIOS clock alive)",
+      title: isVi ? "Nuôi pin CMOS" : "Keeping CMOS alive",
     };
   }
   return {
     badge: "Lv.1",
     icon: "🌀",
     wh: "~1.5 Wh",
-    title: isVi
-      ? "Khởi động rotor... (vừa đủ nuôi đèn chuột quang)"
-      : "Spinning up rotor... (enough for optical mouse LED)",
+    title: isVi ? "Nuôi đèn chuột quang" : "Powering mouse LED",
   };
 }
 
@@ -175,8 +157,8 @@ export function useLogoSpin() {
   const copyReceipt = (isVi) => {
     const ach = getSpinAchievement(spinCount, isVi);
     const text = isVi
-      ? `Đã quay logo ${spinCount} vòng (${ach.wh}) nuôi server nnt25.io.vn. Đạt cấp: [${ach.badge} - ${ach.title.split("(")[0].trim()}]!`
-      : `Spun logo ${spinCount} times (${ach.wh}) powering nnt25.io.vn. Tier: [${ach.badge} - ${ach.title.split("(")[0].trim()}]!`;
+      ? `Quay logo ${spinCount} vòng (${ach.wh}) trên nnt25.io.vn: [${ach.badge}] ${ach.title}.`
+      : `Spun logo ${spinCount} times (${ach.wh}) on nnt25.io.vn: [${ach.badge}] ${ach.title}.`;
 
     try {
       navigator.clipboard?.writeText(text);
