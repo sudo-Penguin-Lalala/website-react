@@ -20,7 +20,6 @@ export function getHelpOutput() {
     `  [Visual Effects - Root Powers]\n` +
     `  • matrix              Toggle Matrix digital rain & phosphor green\n` +
     `  • invert              Reverse display color polarity\n` +
-    `  • glitch              Trigger CRT monitor scanline interference\n` +
     `  • flip                Australian 180° upside-down viewport\n` +
     `  • party               Engage reactor disco spectrum strobe\n` +
     `  • reset               Clear all visual effects & restore normal view`

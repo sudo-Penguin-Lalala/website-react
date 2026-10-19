@@ -41,7 +41,6 @@ export const QUICK_COMMANDS = [
   { cmd: "ls -la", label: "$ ls -la" },
   { cmd: "cat flag.txt", label: "$ cat flag.txt" },
   { cmd: "matrix", label: "$ matrix 🟢" },
-  { cmd: "glitch", label: "$ glitch ⚡" },
   { cmd: "invert", label: "$ invert ☯" },
   { cmd: "flip", label: "$ flip 🙃" },
   { cmd: "party", label: "$ party 🪩" },
