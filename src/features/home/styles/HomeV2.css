@@ -27,48 +27,79 @@
 /* 1. Default / Nordic Frost (🏔️) */
 .nc-term,
 .nc-term[data-theme="nord"] {
-  --bg:            #0e1217;
-  --bg-elev:       #141922;
-  --bg-input:      #1a212c;
-  --bg-hover:      #232c3a;
-  --border:        rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.16);
-  --card-glow:     rgba(136, 192, 208, 0.04);
-  --text:          #eceff4;
-  --text-muted:    #b0b8c6;
-  --text-dim:      #768294;
-  --accent:        #88c0d0;
-  --accent-soft:   rgba(136, 192, 208, 0.12);
-  --success:       #a3be8c;
-  --danger:        #bf616a;
-  --warning:       #ebcb8b;
-  --info:          #81a1c1;
+  --bg:                 #0e1217;
+  --bg-elev:            #141922;
+  --bg-input:           #1a212c;
+  --bg-hover:           #232c3a;
+  --border:             rgba(255, 255, 255, 0.08);
+  --border-strong:      rgba(255, 255, 255, 0.16);
+  --card-glow:          rgba(136, 192, 208, 0.04);
+  --text:               #eceff4;
+  --text-muted:         #b0b8c6;
+  --text-dim:           #768294;
+  --accent:             #88c0d0;
+  --accent-soft:        rgba(136, 192, 208, 0.12);
+  --success:            #a3be8c;
+  --danger:             #bf616a;
+  --warning:            #ebcb8b;
+  --info:               #81a1c1;
+
+  /* Glassmorphism System - Smoky Flat Glass inspired by stem-web */
+  --glass-card:         rgba(14, 18, 24, 0.72);
+  --glass-card-hover:   rgba(18, 23, 31, 0.82);
+  --glass-border:       rgba(255, 255, 255, 0.08);
+  --glass-border-strong:rgba(255, 255, 255, 0.16);
+  --glass-console:      rgba(8, 11, 15, 0.85);
+
+  /* Ambient radial gradient canvas - static, single-rasterized bit-blit scroll */
+  --bg-mesh:
+    radial-gradient(ellipse 70% 45% at 15% 15%, rgba(136, 192, 208, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 65% 55% at 85% 30%, rgba(94, 129, 172, 0.07) 0%, transparent 65%),
+    radial-gradient(ellipse 75% 45% at 50% 80%, rgba(180, 142, 173, 0.05) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 25% 70%, rgba(129, 161, 193, 0.06) 0%, transparent 60%);
 }
 
 /* 2. Everforest Warm Earth (🌲) */
 .nc-term[data-theme="everforest"] {
-  --bg:            #141819;
-  --bg-elev:       #1b2123;
-  --bg-input:      #222a2d;
-  --bg-hover:      #2d373b;
-  --border:        rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.16);
-  --card-glow:     rgba(167, 192, 128, 0.04);
-  --text:          #d3c6aa;
-  --text-muted:    #a7b3a4;
-  --text-dim:      #7a8478;
-  --accent:        #a7c080;
-  --accent-soft:   rgba(167, 192, 128, 0.14);
-  --success:       #a7c080;
-  --danger:        #e67e80;
-  --warning:       #dbbc7f;
-  --info:          #7fbbb3;
+  --bg:                 #141819;
+  --bg-elev:            #1b2123;
+  --bg-input:           #222a2d;
+  --bg-hover:           #2d373b;
+  --border:             rgba(255, 255, 255, 0.08);
+  --border-strong:      rgba(255, 255, 255, 0.16);
+  --card-glow:          rgba(167, 192, 128, 0.04);
+  --text:               #d3c6aa;
+  --text-muted:         #a7b3a4;
+  --text-dim:           #7a8478;
+  --accent:             #a7c080;
+  --accent-soft:        rgba(167, 192, 128, 0.14);
+  --success:            #a7c080;
+  --danger:             #e67e80;
+  --warning:            #dbbc7f;
+  --info:               #7fbbb3;
+
+  /* Glassmorphism System - Smoky Flat Glass inspired by stem-web */
+  --glass-card:         rgba(16, 21, 22, 0.72);
+  --glass-card-hover:   rgba(20, 26, 27, 0.82);
+  --glass-border:       rgba(255, 255, 255, 0.08);
+  --glass-border-strong:rgba(255, 255, 255, 0.16);
+  --glass-console:      rgba(10, 14, 14, 0.85);
+
+  /* Ambient radial gradient canvas - static, single-rasterized bit-blit scroll */
+  --bg-mesh:
+    radial-gradient(ellipse 70% 45% at 15% 15%, rgba(167, 192, 128, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 65% 55% at 85% 30%, rgba(127, 187, 179, 0.07) 0%, transparent 65%),
+    radial-gradient(ellipse 75% 45% at 50% 80%, rgba(219, 188, 127, 0.05) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 25% 70%, rgba(131, 192, 146, 0.06) 0%, transparent 60%);
 }
 
 .nc-term {
   min-height: 100vh;
   min-height: 100dvh;
   background-color: var(--bg);
+  background-image: var(--bg-mesh);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   color: var(--text);
   font-family: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
   font-size: 0.92rem;
@@ -96,6 +127,29 @@
     padding-right: max(0.85rem, env(safe-area-inset-right, 0px));
     padding-bottom: max(3.5rem, calc(2.25rem + env(safe-area-inset-bottom, 0px)));
     padding-left: max(0.85rem, env(safe-area-inset-left, 0px));
+    background-size: 100% auto;
+    background-repeat: repeat-y;
+  }
+
+  .nc-term,
+  .nc-term[data-theme="nord"] {
+    --bg-mesh:
+      radial-gradient(circle 280px at 15% 140px, rgba(136, 192, 208, 0.18) 0%, transparent 70%),
+      radial-gradient(circle 260px at 85% 520px, rgba(94, 129, 172, 0.16) 0%, transparent 70%),
+      radial-gradient(circle 300px at 10% 1150px, rgba(245, 158, 11, 0.14) 0%, transparent 75%),
+      radial-gradient(circle 300px at 90% 1650px, rgba(129, 140, 248, 0.16) 0%, transparent 75%),
+      radial-gradient(circle 280px at 15% 2300px, rgba(180, 142, 173, 0.14) 0%, transparent 70%),
+      radial-gradient(circle 260px at 80% 2900px, rgba(136, 192, 208, 0.15) 0%, transparent 70%);
+  }
+
+  .nc-term[data-theme="everforest"] {
+    --bg-mesh:
+      radial-gradient(circle 280px at 15% 140px, rgba(167, 192, 128, 0.18) 0%, transparent 70%),
+      radial-gradient(circle 260px at 85% 520px, rgba(127, 187, 179, 0.16) 0%, transparent 70%),
+      radial-gradient(circle 300px at 10% 1150px, rgba(219, 188, 127, 0.14) 0%, transparent 75%),
+      radial-gradient(circle 300px at 90% 1650px, rgba(131, 192, 146, 0.16) 0%, transparent 75%),
+      radial-gradient(circle 280px at 15% 2300px, rgba(219, 188, 127, 0.14) 0%, transparent 70%),
+      radial-gradient(circle 260px at 80% 2900px, rgba(167, 192, 128, 0.15) 0%, transparent 70%);
   }
 }
 
@@ -134,7 +188,7 @@
   gap: 0.75rem;
   padding-bottom: 1.25rem;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--glass-border);
   position: relative;
 }
 
@@ -204,7 +258,7 @@
   letter-spacing: 0.02em;
   white-space: nowrap;
   flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 @media (max-width: 640px) {
@@ -260,8 +314,9 @@
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  background: var(--bg-input);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   color: var(--text-muted);
   padding: 0.45rem 0.85rem;
   min-height: 44px;
@@ -272,7 +327,7 @@
   text-decoration: none;
   white-space: nowrap;
   flex-shrink: 0;
-  transition: transform 0.12s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
 }
 
 @media (pointer: fine) and (min-width: 641px) {
@@ -297,8 +352,9 @@
   font-size: 0.78rem;
   font-weight: 600;
   gap: 0.35rem;
-  background: var(--bg-input);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-strong);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   color: var(--accent);
 }
 
@@ -306,7 +362,7 @@
   border-color: var(--accent);
   background: var(--accent-soft);
   color: #fff;
-  box-shadow: 0 0 10px var(--accent-soft);
+  box-shadow: 0 0 12px var(--accent-soft);
 }
 
 @media (max-width: 640px) {
@@ -325,9 +381,10 @@
 }
 
 .nc-btn:hover {
-  background: var(--bg-hover);
+  background: rgba(255, 255, 255, 0.08);
   border-color: var(--border-strong);
   color: var(--text);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
   transform: translateY(-1px);
 }
 
@@ -339,13 +396,14 @@
   background: var(--accent-soft);
   border-color: var(--accent);
   color: var(--accent);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .nc-btn-accent:hover {
   background: var(--accent-soft);
   border-color: var(--accent);
   color: var(--text);
-  box-shadow: 0 0 8px var(--accent-soft);
+  box-shadow: 0 0 12px var(--accent-soft);
 }
 
 .nc-btn-accent:active {
@@ -357,13 +415,14 @@
   border-color: rgba(255, 107, 107, 0.4);
   color: var(--danger);
   font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .nc-btn-danger:hover {
   background: rgba(255, 107, 107, 0.26);
   border-color: var(--danger);
   color: #fff;
-  box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+  box-shadow: 0 0 12px rgba(255, 107, 107, 0.35);
 }
 
 .nc-btn-danger:active {
@@ -377,11 +436,11 @@
   font-size: 0.82rem;
 }
 
-/* Sudo Escalation Banner */
+/* Sudo Escalation Banner - Faux Glass */
 .nc-sudo-banner {
-  background: rgba(255, 107, 107, 0.08);
+  background: linear-gradient(145deg, rgba(255, 107, 107, 0.12) 0%, rgba(255, 107, 107, 0.04) 100%);
   border: 1px solid rgba(255, 107, 107, 0.45);
-  box-shadow: 0 0 18px rgba(255, 107, 107, 0.15), inset 0 0 0 1px rgba(255, 107, 107, 0.1);
+  box-shadow: 0 8px 24px rgba(255, 107, 107, 0.15);
   border-radius: var(--radius-lg);
   padding: 0.75rem 1rem;
   margin-bottom: 1.25rem;
@@ -407,6 +466,7 @@
   font-size: 0.76rem;
   white-space: nowrap;
   flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.35);
 }
 
 .nc-status-root {
@@ -421,30 +481,34 @@
   text-shadow: 0 0 6px rgba(255, 107, 107, 0.3);
 }
 
-/* Card System */
+/* Card System - Smoky Flat Glass inspired by stem-web */
 .nc-card {
-  background: var(--bg-elev);
+  background: var(--glass-card);
   border: 1px solid var(--border);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25), 0 0 0 1px var(--card-glow);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
   border-radius: var(--radius-lg);
   margin-bottom: 1.25rem;
   overflow: hidden;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .nc-card:hover {
+  background: var(--glass-card-hover);
   border-color: var(--border-strong);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 0 1px var(--accent-soft);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
 }
 
 .nc-card.is-root-card {
-  border-color: rgba(255, 107, 107, 0.45);
-  box-shadow: 0 2px 12px rgba(255, 107, 107, 0.15), 0 0 0 1px rgba(255, 107, 107, 0.1);
+  background: rgba(28, 12, 16, 0.75);
+  border: 1px solid rgba(255, 107, 107, 0.4);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35), 0 0 16px rgba(255, 107, 107, 0.1);
 }
 
 .nc-card.is-root-card:hover {
   border-color: var(--danger);
-  box-shadow: 0 4px 20px rgba(255, 107, 107, 0.25), 0 0 0 1px rgba(255, 107, 107, 0.2);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45), 0 0 24px rgba(255, 107, 107, 0.2);
+  transform: translateY(-2px);
 }
 
 .nc-card-head {
@@ -454,7 +518,7 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   padding: 0.65rem 1rem;
-  background: var(--bg-input);
+  background: rgba(255, 255, 255, 0.025);
   border-bottom: 1px dashed var(--border-strong);
   font-size: 0.84rem;
 }
@@ -517,6 +581,7 @@
   height: 88px;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-strong);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   object-fit: cover;
   display: block;
 }
@@ -539,36 +604,41 @@
 
 @media (max-width: 640px) {
   .nc-profile-layout {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
-    text-align: center;
-    gap: 1rem;
+    text-align: left;
+    gap: 0.85rem;
+  }
+
+  .nc-avatar-frame img {
+    width: 68px;
+    height: 68px;
   }
 
   .nc-profile-heading {
+    flex: 1 1 auto;
     flex-direction: column;
-    align-items: center;
-    gap: 0.45rem;
-    margin-bottom: 0.65rem;
+    align-items: flex-start;
+    gap: 0.25rem;
+    margin-bottom: 0;
   }
-}
 
-.nc-profile-bio {
-  color: var(--text-muted);
-  margin: 0 0 0.85rem 0;
-  font-size: 0.88rem;
-  line-height: 1.5;
-}
+  .nc-profile-name {
+    font-size: 1.25rem;
+  }
 
-.nc-tag-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
+  .nc-profile-bio {
+    width: 100%;
+    margin-top: 0.45rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.84rem;
+    text-align: left;
+  }
 
-@media (max-width: 600px) {
   .nc-tag-list {
-    justify-content: center;
+    width: 100%;
+    justify-content: flex-start;
   }
 }
 
@@ -576,8 +646,8 @@
 .nc-tag {
   font-size: 0.74rem;
   padding: 0.2rem 0.55rem;
-  background: var(--bg-input);
-  border: 1px solid var(--border-strong);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   color: var(--text-muted);
   font-family: inherit;
@@ -591,6 +661,7 @@
   background: var(--accent-soft);
   border-color: var(--accent);
   color: var(--text);
+  box-shadow: 0 0 8px var(--accent-soft);
 }
 
 .nc-tag-accent {
@@ -629,8 +700,8 @@
 
 /* Fastfetch Interactive Fish */
 .nc-fish-btn {
-  background: var(--bg-input);
-  border: 1px solid var(--border-strong);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   min-height: 44px;
   min-width: 44px;
@@ -661,6 +732,7 @@
   transform: scale(1.3) rotate(-6deg);
   border-color: var(--accent);
   background: var(--accent-soft);
+  box-shadow: 0 0 10px var(--accent-soft);
 }
 
 .nc-fish-btn.wiggling {
@@ -677,8 +749,9 @@
 
 /* Fastfetch Terminal Output */
 .nc-fastfetch-block {
-  background: var(--bg-input);
+  background: var(--glass-console);
   border: 1px solid var(--border);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.35);
   border-radius: var(--radius);
   padding: 0.85rem 1rem;
   font-family: inherit;
@@ -788,74 +861,103 @@
 }
 
 .nc-service-cell {
-  background: var(--bg-input);
-  border: 1px solid var(--border);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   border-radius: var(--radius);
   padding: 0.95rem;
   display: flex;
   flex-direction: column;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.18s ease;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .nc-service-cell:active {
   transform: translateY(1px) scale(0.99);
 }
 
-/* Service-specific identity glows */
+/* 1. NetCheck (Signature Amber) */
+.nc-service-cell-netcheck {
+  border-color: rgba(245, 158, 11, 0.35);
+  background: linear-gradient(165deg, rgba(245, 158, 11, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+}
 .nc-service-cell-netcheck:hover, .nc-service-cell-netcheck:active {
-  background: var(--bg-hover);
+  background: linear-gradient(165deg, rgba(245, 158, 11, 0.16) 0%, rgba(255, 255, 255, 0.05) 100%);
   border-color: var(--svc-netcheck);
-  box-shadow: 0 0 0 1px var(--svc-netcheck), 0 6px 20px var(--svc-netcheck-soft);
+  box-shadow: 0 0 0 1px var(--svc-netcheck), 0 8px 28px var(--svc-netcheck-soft);
   transform: translateY(-2px);
 }
 .nc-service-cell-netcheck .nc-svc-action-label {
   color: var(--svc-netcheck);
 }
 
+/* 2. Storage (Sky Blue) */
+.nc-service-cell-storage {
+  border-color: rgba(56, 189, 248, 0.35);
+  background: linear-gradient(165deg, rgba(56, 189, 248, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+}
 .nc-service-cell-storage:hover, .nc-service-cell-storage:active {
-  background: var(--bg-hover);
+  background: linear-gradient(165deg, rgba(56, 189, 248, 0.16) 0%, rgba(255, 255, 255, 0.05) 100%);
   border-color: var(--svc-storage);
-  box-shadow: 0 0 0 1px var(--svc-storage), 0 6px 20px var(--svc-storage-soft);
+  box-shadow: 0 0 0 1px var(--svc-storage), 0 8px 28px var(--svc-storage-soft);
   transform: translateY(-2px);
 }
 .nc-service-cell-storage .nc-svc-action-label {
   color: var(--svc-storage);
 }
 
+/* 3. MeTube (Rose Red) */
+.nc-service-cell-metube {
+  border-color: rgba(244, 63, 94, 0.35);
+  background: linear-gradient(165deg, rgba(244, 63, 94, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+}
 .nc-service-cell-metube:hover, .nc-service-cell-metube:active {
-  background: var(--bg-hover);
+  background: linear-gradient(165deg, rgba(244, 63, 94, 0.16) 0%, rgba(255, 255, 255, 0.05) 100%);
   border-color: var(--svc-metube);
-  box-shadow: 0 0 0 1px var(--svc-metube), 0 6px 20px var(--svc-metube-soft);
+  box-shadow: 0 0 0 1px var(--svc-metube), 0 8px 28px var(--svc-metube-soft);
   transform: translateY(-2px);
 }
 .nc-service-cell-metube .nc-svc-action-label {
   color: var(--svc-metube);
 }
 
+/* 4. GitHub (Pure Crisp White) */
+.nc-service-cell-github {
+  border-color: rgba(255, 255, 255, 0.28);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+}
 .nc-service-cell-github:hover, .nc-service-cell-github:active {
-  background: var(--bg-hover);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 100%);
   border-color: var(--svc-github);
-  box-shadow: 0 0 0 1px var(--svc-github), 0 6px 20px var(--svc-github-soft);
+  box-shadow: 0 0 0 1px var(--svc-github), 0 8px 28px var(--svc-github-soft);
   transform: translateY(-2px);
 }
 .nc-service-cell-github .nc-svc-action-label {
   color: var(--svc-github);
 }
 
+/* 5. Discord (Indigo) */
+.nc-service-cell-discord {
+  border-color: rgba(129, 140, 248, 0.38);
+  background: linear-gradient(165deg, rgba(129, 140, 248, 0.09) 0%, rgba(255, 255, 255, 0.02) 100%);
+}
 .nc-service-cell-discord:hover, .nc-service-cell-discord:active {
-  background: var(--bg-hover);
+  background: linear-gradient(165deg, rgba(129, 140, 248, 0.18) 0%, rgba(255, 255, 255, 0.05) 100%);
   border-color: var(--svc-discord);
-  box-shadow: 0 0 0 1px var(--svc-discord), 0 6px 20px var(--svc-discord-soft);
+  box-shadow: 0 0 0 1px var(--svc-discord), 0 8px 28px var(--svc-discord-soft);
   transform: translateY(-2px);
 }
 
+/* 6. Email (Silver White) */
+.nc-service-cell-email {
+  border-color: rgba(255, 255, 255, 0.28);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+}
 .nc-service-cell-email:hover, .nc-service-cell-email:active {
-  background: var(--bg-hover);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 100%);
   border-color: var(--svc-email);
-  box-shadow: 0 0 0 1px var(--svc-email), 0 6px 20px var(--svc-email-soft);
+  box-shadow: 0 0 0 1px var(--svc-email), 0 8px 28px var(--svc-email-soft);
   transform: translateY(-2px);
 }
 
@@ -919,20 +1021,67 @@
   background: var(--svc-discord-soft);
   border-color: var(--svc-discord);
   color: var(--svc-discord);
+  font-weight: 600;
 }
-.nc-svc-btn-discord:hover {
+.nc-svc-btn-discord:hover,
+.nc-svc-btn-discord:active {
   background: var(--svc-discord);
   color: #fff;
+  box-shadow: 0 0 16px rgba(129, 140, 248, 0.6);
+  transform: translateY(-1px);
 }
 
 .nc-svc-btn-email {
   background: var(--svc-email-soft);
   border-color: var(--svc-email);
   color: var(--svc-email);
+  font-weight: 600;
 }
-.nc-svc-btn-email:hover {
+.nc-svc-btn-email:hover,
+.nc-svc-btn-email:active {
   background: var(--svc-email);
   color: var(--bg, #0e1217);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.55);
+  transform: translateY(-1px);
+}
+
+/* Distinct Glowing Copy Buttons (Discord username & Email) */
+.nc-svc-copy-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--text);
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.nc-svc-copy-discord:hover,
+.nc-svc-copy-discord:focus-visible,
+.nc-svc-copy-discord:active {
+  background: rgba(129, 140, 248, 0.22);
+  border-color: var(--svc-discord);
+  color: #fff;
+  box-shadow: 0 0 18px rgba(129, 140, 248, 0.55), 0 4px 14px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+.nc-svc-copy-email:hover,
+.nc-svc-copy-email:focus-visible,
+.nc-svc-copy-email:active {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #ffffff;
+  color: #fff;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.5), 0 4px 14px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+.nc-svc-copy-btn.is-copied {
+  background: rgba(163, 190, 140, 0.28) !important;
+  border-color: var(--success) !important;
+  color: var(--success) !important;
+  box-shadow: 0 0 18px rgba(163, 190, 140, 0.55) !important;
+  font-weight: 700;
+  transform: scale(1.02);
 }
 
 /* Global focus outline in signature NetCheck yellow */
@@ -967,8 +1116,9 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: #06090e;
+  background: rgba(8, 5, 8, 0.75);
   border: 1px solid rgba(255, 107, 107, 0.4);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
   padding: 0.35rem 0.65rem;
   border-radius: var(--radius);
   font-size: 0.82rem;
@@ -1137,7 +1287,7 @@
 }
 
 .nc-cmd-chip {
-  background: rgba(255, 107, 107, 0.1);
+  background: rgba(255, 107, 107, 0.09);
   border: 1px solid rgba(255, 107, 107, 0.35);
   color: #ff9999;
   font-family: inherit;
@@ -1168,7 +1318,7 @@
   border-color: var(--danger);
   color: #fff;
   transform: translateY(-1px) scale(1.02);
-  box-shadow: 0 0 8px rgba(255, 107, 107, 0.2);
+  box-shadow: 0 0 12px rgba(255, 107, 107, 0.3);
 }
 
 .nc-cmd-chip:active {
@@ -1176,9 +1326,9 @@
 }
 
 .nc-root-output {
-  background: #06090e;
+  background: rgba(8, 5, 8, 0.85);
   border: 1px solid rgba(255, 107, 107, 0.45);
-  box-shadow: 0 0 12px rgba(255, 107, 107, 0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   border-radius: var(--radius);
   padding: 0.65rem 0.85rem;
   margin-top: 0.65rem;
@@ -1438,7 +1588,7 @@
   margin-top: 2.5rem;
   padding-top: 1.25rem;
   padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--glass-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1502,6 +1652,7 @@
   color: var(--accent);
   background: var(--accent-soft);
   border: 1px solid var(--accent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   padding: 0.35rem 0.65rem;
   border-radius: var(--radius);
   font-weight: 600;
@@ -1510,7 +1661,7 @@
   gap: 0.45rem;
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.4s ease, transform 0.4s ease, background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease, background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
   letter-spacing: 0.02em;
   white-space: normal;
   max-width: 100%;
@@ -1522,9 +1673,9 @@
 }
 
 .nc-spin-badge:hover {
-  background: var(--bg-hover);
+  background: var(--accent-soft);
   border-color: var(--accent);
-  box-shadow: 0 0 10px var(--accent-soft);
+  box-shadow: 0 0 12px var(--accent-soft);
   color: #fff;
 }
 
