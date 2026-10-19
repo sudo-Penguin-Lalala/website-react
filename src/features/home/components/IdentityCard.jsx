@@ -53,19 +53,18 @@ const IdentityCard = ({
           </div>
 
           <div className="nc-profile-text">
-            <h2>
-              {profileName}{" "}
+            <div className="nc-profile-heading">
+              <h2 className="nc-profile-name">{profileName}</h2>
               <button
                 type="button"
                 className="nc-tag nc-tag-accent nc-tag-interactive"
                 onClick={handleTagClick}
                 title={isVi ? "Bấm để đổi danh hiệu!" : "Click to cycle titles!"}
                 aria-label={isVi ? "Đổi danh hiệu cá nhân" : "Cycle title"}
-                style={{ verticalAlign: "middle", fontWeight: 600 }}
               >
                 {currentTagText}
               </button>
-            </h2>
+            </div>
             <p className="nc-profile-bio">
               {isVi
                 ? "Nghịch Linux từ năm 14 tuổi. Thích tự host đồ chơi ở nhà thay vì cúng dữ liệu cho Google hay Microsoft. Tự dựng tự phá, lúc nào rảnh thì ngồi tối ưu cho nó chạy nhanh hơn một tí."

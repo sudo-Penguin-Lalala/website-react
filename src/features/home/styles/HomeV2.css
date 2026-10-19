@@ -406,14 +406,6 @@
   align-items: flex-start;
 }
 
-@media (max-width: 600px) {
-  .nc-profile-layout {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-}
-
 .nc-avatar-frame {
   position: relative;
   flex-shrink: 0;
@@ -428,11 +420,36 @@
   display: block;
 }
 
-.nc-profile-text h2 {
-  margin: 0 0 0.35rem 0;
+.nc-profile-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin: 0 0 0.45rem 0;
+}
+
+.nc-profile-name {
+  margin: 0;
   font-size: 1.45rem;
   font-weight: 800;
   color: #fff;
+  line-height: 1.2;
+}
+
+@media (max-width: 640px) {
+  .nc-profile-layout {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .nc-profile-heading {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.65rem;
+  }
 }
 
 .nc-profile-bio {
