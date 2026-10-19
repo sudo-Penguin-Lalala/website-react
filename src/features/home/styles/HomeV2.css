@@ -1119,10 +1119,6 @@
   cursor: grabbing;
 }
 
-.nc-root-chips.is-dragging .nc-cmd-chip {
-  pointer-events: none;
-}
-
 .nc-root-chips::-webkit-scrollbar {
   height: 3px;
 }

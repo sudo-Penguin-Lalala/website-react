@@ -123,99 +123,100 @@ const SudoBanner = ({
     lastXRef.current = e.pageX;
     lastTimeRef.current = performance.now();
     velocityRef.current = 0;
-    setIsDragging(true);
-  };
 
-  useEffect(() => {
-    if (!isDragging) return;
-
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (moveEvent) => {
       if (!isDraggingRef.current) return;
       const el = chipsRef.current;
       if (!el) return;
 
-      const now = performance.now();
-      const dt = now - lastTimeRef.current;
-      const dx = e.pageX - lastXRef.current;
+      const totalDx = moveEvent.pageX - dragStartXRef.current;
 
-      if (dt > 0) {
-        // Track velocity (px/frame)
-        const instantVel = (dx / dt) * 16.67;
-        velocityRef.current = 0.65 * instantVel + 0.35 * velocityRef.current;
-      }
-      lastXRef.current = e.pageX;
-      lastTimeRef.current = now;
-
-      const totalDx = e.pageX - dragStartXRef.current;
-      if (Math.abs(totalDx) > 4) {
+      // Only enter drag mode if moved more than 8 pixels (prevents clicks from becoming drags)
+      if (!hasDraggedRef.current && Math.abs(totalDx) > 8) {
         hasDraggedRef.current = true;
+        setIsDragging(true);
       }
 
-      const maxScroll = el.scrollWidth - el.clientWidth;
-      const nextScroll = Math.max(0, Math.min(maxScroll, dragStartScrollRef.current - totalDx));
-      el.scrollLeft = nextScroll;
-      targetScrollRef.current = nextScroll;
-      updateScrollIndicators();
+      if (hasDraggedRef.current) {
+        const now = performance.now();
+        const dt = now - lastTimeRef.current;
+        const dx = moveEvent.pageX - lastXRef.current;
+
+        if (dt > 0) {
+          const instantVel = (dx / dt) * 16.67;
+          velocityRef.current = 0.65 * instantVel + 0.35 * velocityRef.current;
+        }
+        lastXRef.current = moveEvent.pageX;
+        lastTimeRef.current = now;
+
+        const maxScroll = el.scrollWidth - el.clientWidth;
+        const nextScroll = Math.max(0, Math.min(maxScroll, dragStartScrollRef.current - totalDx));
+        el.scrollLeft = nextScroll;
+        targetScrollRef.current = nextScroll;
+        updateScrollIndicators();
+      }
     };
 
     const handleMouseUp = () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+
       if (!isDraggingRef.current) return;
       isDraggingRef.current = false;
       setIsDragging(false);
 
-      const el = chipsRef.current;
-      if (el && Math.abs(velocityRef.current) > 1.2) {
-        // Kinetic momentum glide on mouse release
-        let currentVel = -velocityRef.current;
-        const friction = 0.93;
+      if (hasDraggedRef.current) {
+        // Kinetic momentum glide if user flicked during drag
+        const el = chipsRef.current;
+        if (el && Math.abs(velocityRef.current) > 1.2) {
+          let currentVel = -velocityRef.current;
+          const friction = 0.93;
 
-        const momentumTick = () => {
-          if (isDraggingRef.current) return;
-          currentVel *= friction;
+          const momentumTick = () => {
+            if (isDraggingRef.current) return;
+            currentVel *= friction;
 
-          if (Math.abs(currentVel) > 0.35) {
-            const maxScroll = el.scrollWidth - el.clientWidth;
-            const next = el.scrollLeft + currentVel;
+            if (Math.abs(currentVel) > 0.35) {
+              const maxScroll = el.scrollWidth - el.clientWidth;
+              const next = el.scrollLeft + currentVel;
 
-            if (next <= 0) {
-              el.scrollLeft = 0;
-              targetScrollRef.current = 0;
+              if (next <= 0) {
+                el.scrollLeft = 0;
+                targetScrollRef.current = 0;
+                updateScrollIndicators();
+                rafIdRef.current = null;
+                return;
+              }
+              if (next >= maxScroll) {
+                el.scrollLeft = maxScroll;
+                targetScrollRef.current = maxScroll;
+                updateScrollIndicators();
+                rafIdRef.current = null;
+                return;
+              }
+
+              el.scrollLeft = next;
+              targetScrollRef.current = next;
               updateScrollIndicators();
+              rafIdRef.current = requestAnimationFrame(momentumTick);
+            } else {
               rafIdRef.current = null;
-              return;
             }
-            if (next >= maxScroll) {
-              el.scrollLeft = maxScroll;
-              targetScrollRef.current = maxScroll;
-              updateScrollIndicators();
-              rafIdRef.current = null;
-              return;
-            }
+          };
 
-            el.scrollLeft = next;
-            targetScrollRef.current = next;
-            updateScrollIndicators();
-            rafIdRef.current = requestAnimationFrame(momentumTick);
-          } else {
-            rafIdRef.current = null;
-          }
-        };
+          rafIdRef.current = requestAnimationFrame(momentumTick);
+        }
 
-        rafIdRef.current = requestAnimationFrame(momentumTick);
+        // Keep hasDraggedRef true briefly to swallow the synthetic click from the drag
+        setTimeout(() => {
+          hasDraggedRef.current = false;
+        }, 80);
       }
-
-      setTimeout(() => {
-        hasDraggedRef.current = false;
-      }, 70);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [isDragging, updateScrollIndicators]);
+  };
 
   const handleChipClick = (cmd) => {
     if (hasDraggedRef.current) return;
