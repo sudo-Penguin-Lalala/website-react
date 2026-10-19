@@ -42,6 +42,12 @@
     color 0.4s ease;
 }
 
+@media (max-width: 640px) {
+  .nc-term {
+    padding: 1rem 0.75rem 3.5rem;
+  }
+}
+
 .nc-term *, .nc-term *::before, .nc-term *::after {
   box-sizing: border-box;
 }
@@ -259,44 +265,6 @@
   color: var(--danger) !important;
   font-weight: 700;
   text-shadow: 0 0 6px rgba(255, 107, 107, 0.3);
-}
-
-/* Status Banner */
-.nc-telemetry-banner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  background: var(--bg-elev);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--accent);
-  padding: 0.65rem 1rem;
-  border-radius: var(--radius);
-  margin-bottom: 1.25rem;
-  font-size: 0.82rem;
-}
-
-.nc-status-indicator {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.nc-dot-online {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--success);
-  box-shadow: 0 0 8px var(--success);
-}
-
-.nc-clock-val {
-  color: var(--text);
-  font-variant-numeric: tabular-nums;
-  font-weight: 600;
 }
 
 /* Card System */
@@ -658,6 +626,12 @@
   outline: none;
 }
 
+@media (max-width: 640px) {
+  .nc-root-cmd-input {
+    font-size: 16px; /* Prevents iOS Safari from auto-zooming on focus */
+  }
+}
+
 .nc-root-cmd-input::placeholder {
   color: #7a5050;
   font-style: italic;
@@ -898,55 +872,6 @@
   flex-shrink: 0;
 }
 
-/* Contacts & Links Table */
-.nc-links-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.84rem;
-}
-
-.nc-links-table tr {
-  border-bottom: 1px solid var(--border);
-  transition: background 0.1s ease;
-}
-
-.nc-links-table tr:last-child {
-  border-bottom: none;
-}
-
-.nc-links-table tr:hover {
-  background: var(--bg-hover);
-}
-
-.nc-links-table td {
-  padding: 0.65rem 0.75rem;
-}
-
-.nc-link-icon-cell {
-  width: 32px;
-  text-align: center;
-}
-
-.nc-link-icon-cell img {
-  width: 18px;
-  height: 18px;
-  vertical-align: middle;
-}
-
-.nc-link-name {
-  font-weight: 600;
-  color: #fff;
-}
-
-.nc-link-url {
-  color: var(--text-dim);
-  font-size: 0.78rem;
-}
-
-.nc-link-action-cell {
-  text-align: right;
-  white-space: nowrap;
-}
 
 /* Footer */
 .nc-footer {
