@@ -1,6 +1,7 @@
 import { useI18n } from "../../i18n/useI18n";
 import { profileData } from "../../config/links";
 import { useTerminalShell } from "./hooks/useTerminalShell";
+import { useTheme } from "./hooks/useTheme";
 
 import MatrixCanvas from "./components/MatrixCanvas";
 import BrandHeader from "./components/BrandHeader";
@@ -15,6 +16,7 @@ import "./styles/HomeV2.css";
 const HomeV2 = () => {
   const { lang, t, toggle } = useI18n();
   const isVi = lang === "vi";
+  const { theme, cycleTheme, currentTheme } = useTheme();
 
   const {
     isSudo,
@@ -39,6 +41,7 @@ const HomeV2 = () => {
       className={`nc-term ${pageEffect !== "none" ? `effect-${pageEffect}` : ""} ${
         isReverting ? "is-reverting" : ""
       }`}
+      data-theme={theme}
     >
       {showMatrix && <MatrixCanvas active={pageEffect === "matrix"} />}
 
@@ -51,6 +54,8 @@ const HomeV2 = () => {
           flag={t.flag}
           isVi={isVi}
           languageToggleAria={t.languageToggleAria}
+          cycleTheme={cycleTheme}
+          currentTheme={currentTheme}
         />
 
         {isSudo && (

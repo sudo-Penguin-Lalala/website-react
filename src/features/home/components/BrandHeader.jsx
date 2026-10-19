@@ -6,6 +6,8 @@ const BrandHeader = ({
   flag,
   isVi,
   languageToggleAria,
+  cycleTheme,
+  currentTheme,
 }) => {
   return (
     <header className="nc-hdr">
@@ -49,6 +51,27 @@ const BrandHeader = ({
       </div>
 
       <div className="nc-hdr-actions">
+        {currentTheme && (
+          <button
+            type="button"
+            className="nc-btn nc-theme-btn"
+            onClick={cycleTheme}
+            aria-label={
+              isVi
+                ? `Bảng màu hiện tại: ${currentTheme.name}. Chạm để đổi bảng màu.`
+                : `Current palette: ${currentTheme.name}. Tap to switch palette.`
+            }
+            title={
+              isVi
+                ? `Đổi bảng màu (hiện tại: ${currentTheme.name})`
+                : `Switch color palette (current: ${currentTheme.name})`
+            }
+          >
+            <span aria-hidden="true">{currentTheme.icon}</span>
+            <span>{currentTheme.name}</span>
+          </button>
+        )}
+
         <button
           type="button"
           className="nc-btn nc-lang-btn"

@@ -4,13 +4,117 @@
  * JetBrains Mono monospace throughout, ASCII decoration.
  * ============================================================ */
 
-.nc-term {
+/* 1. Default / Nordic Frost */
+.nc-term,
+.nc-term[data-theme="nord"] {
+  --bg:            #0f141c;
+  --bg-elev:       #151c27;
+  --bg-input:      #1a2332;
+  --bg-hover:      #232f42;
+  --border:        #222f42;
+  --border-strong: #334661;
+  --card-glow:     rgba(136, 192, 208, 0.06);
+  --text:          #e5e9f0;
+  --text-muted:    #c4cddb;
+  --text-dim:      #7e8e9f;
+  --accent:        #88c0d0;
+  --accent-soft:   rgba(136, 192, 208, 0.15);
+  --success:       #a3be8c;
+  --danger:        #bf616a;
+  --warning:       #ebcb8b;
+  --info:          #81a1c1;
+
+  --svc-netcheck:       #ebcb8b;
+  --svc-netcheck-soft:  rgba(235, 203, 139, 0.16);
+  --svc-storage:        #81a1c1;
+  --svc-storage-soft:   rgba(129, 161, 193, 0.16);
+  --svc-metube:         #bf616a;
+  --svc-metube-soft:    rgba(191, 97, 106, 0.16);
+  --svc-github:         #88c0d0;
+  --svc-github-soft:    rgba(136, 192, 208, 0.16);
+  --svc-discord:        #b48ead;
+  --svc-discord-soft:   rgba(180, 142, 173, 0.18);
+  --svc-email:          #a3be8c;
+  --svc-email-soft:     rgba(163, 190, 140, 0.16);
+  --radius:             3px;
+  --radius-lg:          4px;
+}
+
+/* 2. Catppuccin Mocha */
+.nc-term[data-theme="catppuccin"] {
+  --bg:            #11111b;
+  --bg-elev:       #181825;
+  --bg-input:      #1e1e2e;
+  --bg-hover:      #2e2f44;
+  --border:        #313244;
+  --border-strong: #45475a;
+  --card-glow:     rgba(203, 166, 247, 0.08);
+  --text:          #cdd6f4;
+  --text-muted:    #a6adc8;
+  --text-dim:      #6c7086;
+  --accent:        #cba6f7;
+  --accent-soft:   rgba(203, 166, 247, 0.16);
+  --success:       #a6e3a1;
+  --danger:        #f38ba8;
+  --warning:       #fab387;
+  --info:          #89b4fa;
+
+  --svc-netcheck:       #f9e2af;
+  --svc-netcheck-soft:  rgba(249, 226, 175, 0.18);
+  --svc-storage:        #74c7ec;
+  --svc-storage-soft:   rgba(116, 199, 236, 0.18);
+  --svc-metube:         #f38ba8;
+  --svc-metube-soft:    rgba(243, 139, 168, 0.18);
+  --svc-github:         #cba6f7;
+  --svc-github-soft:    rgba(203, 166, 247, 0.18);
+  --svc-discord:        #b4befe;
+  --svc-discord-soft:   rgba(180, 190, 254, 0.2);
+  --svc-email:          #a6e3a1;
+  --svc-email-soft:     rgba(166, 227, 161, 0.18);
+}
+
+/* 3. Everforest Earthy */
+.nc-term[data-theme="everforest"] {
+  --bg:            #1e2326;
+  --bg-elev:       #272e33;
+  --bg-input:      #2d353b;
+  --bg-hover:      #38434a;
+  --border:        #374247;
+  --border-strong: #4f5b62;
+  --card-glow:     rgba(131, 192, 146, 0.06);
+  --text:          #d3c6aa;
+  --text-muted:    #a7b3a4;
+  --text-dim:      #7a8478;
+  --accent:        #83c092;
+  --accent-soft:   rgba(131, 192, 146, 0.16);
+  --success:       #a7c080;
+  --danger:        #e67e80;
+  --warning:       #e69875;
+  --info:          #7fbbb3;
+
+  --svc-netcheck:       #dbbc7f;
+  --svc-netcheck-soft:  rgba(219, 188, 127, 0.18);
+  --svc-storage:        #7fbbb3;
+  --svc-storage-soft:   rgba(127, 187, 179, 0.18);
+  --svc-metube:         #e67e80;
+  --svc-metube-soft:    rgba(230, 126, 128, 0.18);
+  --svc-github:         #83c092;
+  --svc-github-soft:    rgba(131, 192, 146, 0.18);
+  --svc-discord:        #d699b6;
+  --svc-discord-soft:   rgba(214, 153, 182, 0.18);
+  --svc-email:          #a7c080;
+  --svc-email-soft:     rgba(167, 192, 128, 0.18);
+}
+
+/* 4. NetCheck Legacy Amber */
+.nc-term[data-theme="amber"] {
   --bg:            #0a0e14;
   --bg-elev:       #11161e;
   --bg-input:      #0d1218;
   --bg-hover:      #182030;
   --border:        #1c2532;
   --border-strong: #2d3a4e;
+  --card-glow:     rgba(255, 180, 84, 0.08);
   --text:          #d8dee6;
   --text-muted:    #98a1ad;
   --text-dim:      #8891a0;
@@ -20,9 +124,22 @@
   --danger:        #ff6b6b;
   --warning:       #f0883e;
   --info:          #58a6ff;
-  --radius:        3px;
-  --radius-lg:     4px;
 
+  --svc-netcheck:       #ffb454;
+  --svc-netcheck-soft:  rgba(255, 180, 84, 0.18);
+  --svc-storage:        #58a6ff;
+  --svc-storage-soft:   rgba(88, 166, 255, 0.18);
+  --svc-metube:         #ff6b6b;
+  --svc-metube-soft:    rgba(255, 107, 107, 0.18);
+  --svc-github:         #ffb454;
+  --svc-github-soft:    rgba(255, 180, 84, 0.18);
+  --svc-discord:        #818cf8;
+  --svc-discord-soft:   rgba(129, 140, 248, 0.2);
+  --svc-email:          #6ad27f;
+  --svc-email-soft:     rgba(106, 210, 127, 0.18);
+}
+
+.nc-term {
   min-height: 100vh;
   min-height: 100dvh;
   background-color: var(--bg);
@@ -222,6 +339,25 @@
   gap: 0.45rem;
 }
 
+.nc-theme-btn {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  gap: 0.45rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border-strong);
+  color: var(--accent);
+}
+
+.nc-theme-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: #fff;
+  box-shadow: 0 0 10px var(--accent-soft);
+}
+
 .nc-btn:hover {
   background: var(--bg-hover);
   border-color: var(--border-strong);
@@ -320,11 +456,10 @@
 }
 
 /* Card System */
-/* Card System — NetCheck Signature Amber Outlines */
 .nc-card {
   background: var(--bg-elev);
-  border: 1px solid rgba(255, 180, 84, 0.28);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 180, 84, 0.08);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25), 0 0 0 1px var(--card-glow);
   border-radius: var(--radius-lg);
   margin-bottom: 1.25rem;
   overflow: hidden;
@@ -332,8 +467,8 @@
 }
 
 .nc-card:hover {
-  border-color: rgba(255, 180, 84, 0.55);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--accent-soft);
+  border-color: var(--border-strong);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 0 1px var(--accent-soft);
 }
 
 .nc-card.is-root-card {
@@ -353,8 +488,8 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   padding: 0.65rem 1rem;
-  background: rgba(13, 18, 24, 0.9);
-  border-bottom: 1px dashed rgba(255, 180, 84, 0.25);
+  background: var(--bg-input);
+  border-bottom: 1px dashed var(--border-strong);
   font-size: 0.84rem;
 }
 
@@ -690,8 +825,8 @@
 
 .nc-service-cell {
   background: var(--bg-input);
-  border: 1px solid rgba(255, 180, 84, 0.28);
-  box-shadow: 0 0 0 1px rgba(255, 180, 84, 0.06), 0 2px 6px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   border-radius: var(--radius);
   padding: 0.95rem;
   display: flex;
@@ -701,34 +836,142 @@
   transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.18s ease;
 }
 
-/* NetCheck signature yellow outline on hover for all cells */
-.nc-service-cell:hover {
-  background: var(--bg-hover);
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent), 0 6px 20px rgba(255, 180, 84, 0.2);
-  transform: translateY(-2px);
-}
-
 .nc-service-cell:active {
   transform: translateY(1px) scale(0.99);
 }
 
-/* NetCheck featured card has permanent prominent signature outline */
+/* Service-specific identity glows */
 .nc-service-cell-netcheck {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 1px var(--accent), 0 2px 12px rgba(255, 180, 84, 0.18);
+  border-color: rgba(245, 158, 11, 0.28);
+}
+.nc-service-cell-netcheck:hover, .nc-service-cell-netcheck:active {
+  background: var(--bg-hover);
+  border-color: var(--svc-netcheck);
+  box-shadow: 0 0 0 1px var(--svc-netcheck), 0 6px 20px var(--svc-netcheck-soft);
+  transform: translateY(-2px);
+}
+.nc-service-cell-netcheck .nc-svc-action-label {
+  color: var(--svc-netcheck);
 }
 
-.nc-service-cell-netcheck:hover {
-  border-color: #fff;
-  box-shadow: 0 0 0 2px var(--accent), 0 6px 24px rgba(255, 180, 84, 0.3);
+.nc-service-cell-storage:hover, .nc-service-cell-storage:active {
+  background: var(--bg-hover);
+  border-color: var(--svc-storage);
+  box-shadow: 0 0 0 1px var(--svc-storage), 0 6px 20px var(--svc-storage-soft);
+  transform: translateY(-2px);
+}
+.nc-service-cell-storage .nc-svc-action-label {
+  color: var(--svc-storage);
 }
 
+.nc-service-cell-metube:hover, .nc-service-cell-metube:active {
+  background: var(--bg-hover);
+  border-color: var(--svc-metube);
+  box-shadow: 0 0 0 1px var(--svc-metube), 0 6px 20px var(--svc-metube-soft);
+  transform: translateY(-2px);
+}
+.nc-service-cell-metube .nc-svc-action-label {
+  color: var(--svc-metube);
+}
+
+.nc-service-cell-github:hover, .nc-service-cell-github:active {
+  background: var(--bg-hover);
+  border-color: var(--svc-github);
+  box-shadow: 0 0 0 1px var(--svc-github), 0 6px 20px var(--svc-github-soft);
+  transform: translateY(-2px);
+}
+.nc-service-cell-github .nc-svc-action-label {
+  color: var(--svc-github);
+}
+
+.nc-service-cell-discord:hover, .nc-service-cell-discord:active {
+  background: var(--bg-hover);
+  border-color: var(--svc-discord);
+  box-shadow: 0 0 0 1px var(--svc-discord), 0 6px 20px var(--svc-discord-soft);
+  transform: translateY(-2px);
+}
+
+.nc-service-cell-email:hover, .nc-service-cell-email:active {
+  background: var(--bg-hover);
+  border-color: var(--svc-email);
+  box-shadow: 0 0 0 1px var(--svc-email), 0 6px 20px var(--svc-email-soft);
+  transform: translateY(-2px);
+}
+
+/* Service badges with brand accents */
 .nc-badge-netcheck {
+  color: var(--svc-netcheck);
+  background: var(--svc-netcheck-soft);
+  border-color: var(--svc-netcheck);
+}
+.nc-badge-netcheck::before { background: var(--svc-netcheck); }
+
+.nc-badge-storage {
+  color: var(--svc-storage);
+  background: var(--svc-storage-soft);
+  border-color: var(--svc-storage);
+}
+.nc-badge-storage::before { background: var(--svc-storage); }
+
+.nc-badge-metube {
+  color: var(--svc-metube);
+  background: var(--svc-metube-soft);
+  border-color: var(--svc-metube);
+}
+.nc-badge-metube::before { background: var(--svc-metube); }
+
+.nc-badge-github {
+  color: var(--svc-github);
+  background: var(--svc-github-soft);
+  border-color: var(--svc-github);
+}
+.nc-badge-github::before { background: var(--svc-github); }
+
+.nc-badge-discord {
+  color: var(--svc-discord);
+  background: var(--svc-discord-soft);
+  border-color: var(--svc-discord);
+}
+.nc-badge-discord::before { background: var(--svc-discord); }
+
+.nc-badge-email {
+  color: var(--svc-email);
+  background: var(--svc-email-soft);
+  border-color: var(--svc-email);
+}
+.nc-badge-email::before { background: var(--svc-email); }
+
+.nc-badge-root {
+  color: var(--danger);
+  border-color: rgba(255, 107, 107, 0.45);
+  background: rgba(255, 107, 107, 0.14);
+}
+.nc-badge-root::before { background: var(--danger); }
+
+.nc-svc-highlight {
   color: var(--accent);
-  background: var(--accent-soft);
-  border-color: var(--accent);
-  font-weight: 700;
+}
+.nc-service-cell-discord .nc-svc-highlight { color: var(--svc-discord); }
+.nc-service-cell-email .nc-svc-highlight { color: var(--svc-email); }
+
+.nc-svc-btn-discord {
+  background: var(--svc-discord-soft);
+  border-color: var(--svc-discord);
+  color: var(--svc-discord);
+}
+.nc-svc-btn-discord:hover {
+  background: var(--svc-discord);
+  color: #fff;
+}
+
+.nc-svc-btn-email {
+  background: var(--svc-email-soft);
+  border-color: var(--svc-email);
+  color: var(--svc-email);
+}
+.nc-svc-btn-email:hover {
+  background: var(--svc-email);
+  color: #fff;
 }
 
 /* Global focus outline in signature NetCheck yellow */
