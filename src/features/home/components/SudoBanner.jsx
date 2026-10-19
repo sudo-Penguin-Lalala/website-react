@@ -18,7 +18,7 @@ const SudoBanner = ({
         <span className="nc-sudo-badge"># root@reactor</span>
         <button
           type="button"
-          className="nc-btn nc-btn-danger"
+          className="nc-btn nc-btn-danger nc-btn-exit"
           onClick={handleExitSudo}
           aria-label={isVi ? "Thoát chế độ root" : "Exit root mode"}
         >
@@ -29,7 +29,9 @@ const SudoBanner = ({
       {/* Root Command Line & Quick Chips */}
       <div className="nc-root-cli">
         <form onSubmit={handleRunCommand} className="nc-root-cmd-line">
-          <span className="nc-user-root">root@reactor</span>:<span className="nc-path">~</span>#
+          <span className="nc-root-prompt">
+            <span className="nc-user-root">root@reactor</span>:<span className="nc-path">~</span>#
+          </span>
           <input
             type="text"
             value={cmdInput}
@@ -47,8 +49,7 @@ const SudoBanner = ({
           />
           <button
             type="submit"
-            className="nc-btn nc-btn-danger"
-            style={{ padding: "0.2rem 0.55rem", fontSize: "0.75rem" }}
+            className="nc-btn nc-btn-danger nc-btn-run"
             disabled={isExecuting}
             aria-label={isVi ? "Thực thi lệnh" : "Execute command"}
           >
@@ -56,24 +57,26 @@ const SudoBanner = ({
           </button>
         </form>
 
-        <div className="nc-root-chips">
-          <span style={{ fontSize: "0.72rem", color: "var(--text-dim)" }}>quick:</span>
-          {QUICK_COMMANDS.map((item) => (
-            <button
-              key={item.cmd}
-              type="button"
-              className="nc-cmd-chip"
-              disabled={isExecuting}
-              onClick={() => executeCommand(item.cmd)}
-              aria-label={
-                isVi
-                  ? `Chạy lệnh ${item.cmd}`
-                  : `Run ${item.cmd} command`
-              }
-            >
-              {item.label}
-            </button>
-          ))}
+        <div className="nc-root-chips-row">
+          <span className="nc-root-chips-label">quick:</span>
+          <div className="nc-root-chips">
+            {QUICK_COMMANDS.map((item) => (
+              <button
+                key={item.cmd}
+                type="button"
+                className="nc-cmd-chip"
+                disabled={isExecuting}
+                onClick={() => executeCommand(item.cmd)}
+                aria-label={
+                  isVi
+                    ? `Chạy lệnh ${item.cmd}`
+                    : `Run ${item.cmd} command`
+                }
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -93,21 +96,13 @@ const SudoBanner = ({
           aria-label={isVi ? "Kết quả terminal" : "Terminal output"}
           aria-live="polite"
         >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: "0.4rem",
-            }}
-          >
+          <div className="nc-root-output-head">
             <span style={{ color: "var(--danger)", fontWeight: 700 }}>
               [TERMINAL OUTPUT]
             </span>
             <button
               type="button"
-              className="nc-btn"
-              style={{ padding: "0.1rem 0.45rem", fontSize: "0.72rem" }}
+              className="nc-btn nc-btn-clear"
               onClick={() => setRootOutput("")}
               aria-label={isVi ? "Xóa kết quả terminal" : "Clear terminal output"}
             >
