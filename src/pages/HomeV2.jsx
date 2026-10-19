@@ -536,6 +536,11 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
               type="button"
               className={`nc-brand-btn ${isSudo ? "is-sudo" : ""}`}
               onClick={handleBrandClick}
+              aria-label={
+                isSudo
+                  ? (isVi ? "Tên thương hiệu NNT, chế độ root đang hoạt động" : "NNT brand, root mode active")
+                  : (isVi ? "Tên thương hiệu NNT, chạm nhiều lần để leo quyền root" : "NNT brand, tap multiple times to escalate to root")
+              }
               title={
                 isSudo
                   ? (isVi ? "Chế độ root đang kích hoạt! Bấm nút 'exit' để thoát" : "Root mode active! Use 'exit' button to exit")
@@ -562,8 +567,8 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
               type="button"
               className="nc-btn"
               onClick={toggle}
-              aria-label={t.languageToggleAria}
-              title="Switch Language"
+              aria-label={t.languageToggleAria || (isVi ? "Chuyển ngôn ngữ sang tiếng Anh" : "Switch language to Vietnamese")}
+              title={isVi ? "Chuyển sang English" : "Switch to Tiếng Việt"}
             >
               <span>{t.flag}</span>
               <span>{isVi ? "VI" : "EN"}</span>
@@ -580,6 +585,7 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                 type="button"
                 className="nc-btn nc-btn-danger"
                 onClick={handleExitSudo}
+                aria-label={isVi ? "Thoát chế độ root" : "Exit root mode"}
               >
                 exit [✕]
               </button>
@@ -598,12 +604,14 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                   autoComplete="off"
                   spellCheck="false"
                   disabled={isExecuting}
+                  aria-label={isVi ? "Nhập lệnh terminal" : "Terminal command input"}
                 />
                 <button
                   type="submit"
                   className="nc-btn nc-btn-danger"
                   style={{ padding: "0.2rem 0.55rem", fontSize: "0.75rem" }}
                   disabled={isExecuting}
+                  aria-label={isVi ? "Thực thi lệnh" : "Execute command"}
                 >
                   {isExecuting ? "..." : "run ↵"}
                 </button>
@@ -611,48 +619,48 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
 
               <div className="nc-root-chips">
                 <span style={{ fontSize: "0.72rem", color: "var(--text-dim)" }}>quick:</span>
-                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("help")}>
+                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("help")} aria-label={isVi ? "Chạy lệnh help" : "Run help command"}>
                   $ help
                 </button>
-                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("uname -a")}>
+                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("uname -a")} aria-label={isVi ? "Chạy lệnh uname -a" : "Run uname -a command"}>
                   $ uname -a
                 </button>
-                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("free -h")}>
+                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("free -h")} aria-label={isVi ? "Chạy lệnh free -h" : "Run free -h command"}>
                   $ free -h
                 </button>
-                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("ls -la")}>
+                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("ls -la")} aria-label={isVi ? "Chạy lệnh ls -la" : "Run ls -la command"}>
                   $ ls -la
                 </button>
-                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("cat flag.txt")}>
+                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("cat flag.txt")} aria-label={isVi ? "Chạy lệnh cat flag.txt" : "Run cat flag.txt command"}>
                   $ cat flag.txt
                 </button>
-                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("matrix")}>
+                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("matrix")} aria-label={isVi ? "Bật hiệu ứng ma trận matrix" : "Toggle matrix effect"}>
                   $ matrix 🟢
                 </button>
-                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("glitch")}>
+                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("glitch")} aria-label={isVi ? "Bật hiệu ứng giật màn hình glitch" : "Toggle glitch effect"}>
                   $ glitch ⚡
                 </button>
-                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("invert")}>
+                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("invert")} aria-label={isVi ? "Đảo ngược màu màn hình invert" : "Toggle color inversion"}>
                   $ invert ☯
                 </button>
-                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("flip")}>
+                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("flip")} aria-label={isVi ? "Lộn ngược màn hình flip" : "Flip viewport 180 degrees"}>
                   $ flip 🙃
                 </button>
-                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("party")}>
+                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("party")} aria-label={isVi ? "Bật hiệu ứng tiệc tùng party" : "Toggle party strobe effect"}>
                   $ party 🪩
                 </button>
-                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("reset")}>
+                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("reset")} aria-label={isVi ? "Khôi phục giao diện mặc định reset" : "Reset effects to default"}>
                   $ reset ✕
                 </button>
-                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("rm -rf /")}>
+                <button type="button" className="nc-cmd-chip" disabled={isExecuting} onClick={() => executeCommand("rm -rf /")} aria-label={isVi ? "Thử thách rm -rf /" : "Test rm -rf / command"}>
                   $ rm -rf /
                 </button>
               </div>
             </div>
 
             {isExecuting && (
-              <div className="nc-root-executing">
-                <span className="nc-spinner-glyph">⚙</span>
+              <div className="nc-root-executing" role="status" aria-live="polite">
+                <span className="nc-spinner-glyph" aria-hidden="true">⚙</span>
                 <span>
                   {isVi ? `Đang thực thi: ${executingCmd}...` : `Executing: ${executingCmd}...`}
                 </span>
@@ -660,14 +668,15 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
             )}
 
             {!isExecuting && rootOutput && (
-              <div className="nc-root-output">
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.4rem" }}>
+              <div className="nc-root-output" role="region" aria-label={isVi ? "Kết quả terminal" : "Terminal output"} aria-live="polite">
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.4rem" }}>
                   <span style={{ color: "var(--danger)", fontWeight: 700 }}>[TERMINAL OUTPUT]</span>
                   <button
                     type="button"
                     className="nc-btn"
                     style={{ padding: "0.1rem 0.45rem", fontSize: "0.72rem" }}
                     onClick={() => setRootOutput("")}
+                    aria-label={isVi ? "Xóa kết quả terminal" : "Clear terminal output"}
                   >
                     clear ✕
                   </button>
@@ -715,6 +724,7 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                     className="nc-tag nc-tag-accent nc-tag-interactive"
                     onClick={handleTagClick}
                     title={isVi ? "Bấm để đổi danh hiệu!" : "Click to cycle titles!"}
+                    aria-label={isVi ? "Đổi danh hiệu cá nhân" : "Cycle title"}
                     style={{ verticalAlign: "middle", fontWeight: 600 }}
                   >
                     {isSudo ? "OPERATOR" : (PERSON_TAGS[isVi ? "vi" : "en"] || PERSON_TAGS.en)[tagIndex % PERSON_TAGS.en.length]}
@@ -791,7 +801,11 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                         ? (isVi ? "Cá đã thành sushi! Bấm để mlem :D" : "Fish turned into sushi! Click to nom nom :D")
                         : (isVi ? `Bấm để đổi cá! (${FISH_SPECIES[fishIndex].name})` : `Click to change fish! (${FISH_SPECIES[fishIndex].name})`)
                     }
-                    aria-label="Interactive fish emoji"
+                    aria-label={
+                      fishIndex >= FISH_SPECIES.length - 1
+                        ? (isVi ? "Cá sushi, bấm để ăn" : "Sushi fish, click to eat")
+                        : (isVi ? `Đổi loài cá, hiện tại: ${FISH_SPECIES[fishIndex].name}` : `Cycle fish, currently: ${FISH_SPECIES[fishIndex].name}`)
+                    }
                   >
                     {FISH_SPECIES[fishIndex].emoji}
                   </button>
@@ -834,6 +848,7 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                 target="_blank"
                 rel="noopener noreferrer"
                 className="nc-service-cell nc-service-cell-netcheck"
+                aria-label={isVi ? "NetCheck - Công cụ kiểm tra mạng" : "NetCheck - Network diagnostics tool"}
               >
                 <div className="nc-service-top">
                   <div className="nc-service-icon">
@@ -868,6 +883,7 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                 target="_blank"
                 rel="noopener noreferrer"
                 className="nc-service-cell"
+                aria-label={isVi ? "NNT's Storage - Đăng ký lưu trữ đám mây cá nhân" : "NNT's Storage - Personal cloud storage registration"}
               >
                 <div className="nc-service-top">
                   <div className="nc-service-icon">
@@ -902,6 +918,7 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                 target="_blank"
                 rel="noopener noreferrer"
                 className="nc-service-cell"
+                aria-label={isVi ? "MeTube - Tải video YouTube, TikTok, Facebook" : "MeTube - Video downloader"}
               >
                 <div className="nc-service-top">
                   <div className="nc-service-icon">
@@ -936,6 +953,7 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                 target="_blank"
                 rel="noopener noreferrer"
                 className="nc-service-cell"
+                aria-label={isVi ? "GitHub - Kho mã nguồn của NNT" : "GitHub - NNT's code repositories"}
               >
                 <div className="nc-service-top">
                   <div className="nc-service-icon">
@@ -990,7 +1008,12 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                   </p>
                 </div>
                 <div className="nc-service-footer">
-                  <button type="button" className="nc-btn" onClick={handleCopyDiscord}>
+                  <button
+                    type="button"
+                    className="nc-btn"
+                    onClick={handleCopyDiscord}
+                    aria-label={isVi ? "Sao chép username Discord nnt2589" : "Copy Discord username nnt2589"}
+                  >
                     {copiedDiscord ? "✓ copied" : "copy username"}
                   </button>
                   <a
@@ -998,6 +1021,7 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                     target="_blank"
                     rel="noopener noreferrer"
                     className="nc-btn nc-btn-accent"
+                    aria-label={isVi ? "Mở tin nhắn trực tiếp Discord với nnt2589" : "Open direct message with nnt2589 on Discord"}
                   >
                     open dm ↗
                   </a>
@@ -1030,12 +1054,18 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
                   </p>
                 </div>
                 <div className="nc-service-footer">
-                  <button type="button" className="nc-btn" onClick={handleCopyEmail}>
+                  <button
+                    type="button"
+                    className="nc-btn"
+                    onClick={handleCopyEmail}
+                    aria-label={isVi ? "Sao chép địa chỉ email contact@nnt25.io.vn" : "Copy email address contact@nnt25.io.vn"}
+                  >
                     {copiedEmail ? "✓ copied" : "copy email"}
                   </button>
                   <a
                     href="mailto:contact@nnt25.io.vn"
                     className="nc-btn nc-btn-accent"
+                    aria-label={isVi ? "Gửi email tới contact@nnt25.io.vn" : "Send email to contact@nnt25.io.vn"}
                   >
                     send ↵
                   </a>
@@ -1054,7 +1084,7 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
               onClick={handleSpinLogo}
               style={{ transform: `rotate(${spinDeg}deg)` }}
               title={isVi ? "Bấm để xoay logo chơi :D" : "Click to spin logo :D"}
-              aria-label="Interactive logo easter egg"
+              aria-label={isVi ? "Logo NNT, bấm để xoay" : "NNT logo, click to spin"}
             >
               <Icon name="nnt" />
             </button>
@@ -1062,8 +1092,10 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
             {isSpinBadgeVisible && (
               <span
                 className={`nc-spin-badge ${isSpinBadgeLeaving ? "is-leaving" : ""}`}
+                role="status"
+                aria-live="polite"
               >
-                <span>{getSpinAchievement(spinCount, isVi).icon}</span>
+                <span aria-hidden="true">{getSpinAchievement(spinCount, isVi).icon}</span>
                 <span style={{ opacity: 0.75 }}>[{spinCount}]</span>
                 <span style={{ color: "var(--accent)", fontWeight: 700 }}>
                   {getSpinAchievement(spinCount, isVi).badge}
@@ -1078,6 +1110,7 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
               target="_blank"
               rel="noopener noreferrer"
               className="nc-footer-repo-link"
+              aria-label={isVi ? "Xem mã nguồn trang web trên GitHub" : "View website source code on GitHub"}
             >
               <Icon name="github" />
               <span>[source: website-react ↗]</span>
