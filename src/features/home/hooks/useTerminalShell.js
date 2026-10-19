@@ -171,12 +171,6 @@ Contact: contact@nnt25.io.vn | Discord: nnt2589
           `[root@reactor ~]# invert\n` +
           `⚡ Display color polarity inverted. Negative contrast mode active.\n` +
           `Type 'reset' to restore standard terminal display.`;
-      } else if (normalized === "glitch") {
-        setPageEffect((prev) => (prev === "glitch" ? "none" : "glitch"));
-        output =
-          `[root@reactor ~]# glitch\n` +
-          `⚡ CRT visual scanline malfunction simulated! Signal drifting.\n` +
-          `Type 'reset' to restore standard terminal display.`;
       } else if (normalized === "flip") {
         setPageEffect((prev) => (prev === "flip" ? "none" : "flip"));
         output =

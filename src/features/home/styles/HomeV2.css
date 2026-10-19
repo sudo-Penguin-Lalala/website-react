@@ -1614,19 +1614,6 @@
   filter: invert(1) hue-rotate(180deg);
 }
 
-.nc-term.effect-glitch .nc-container {
-  animation: nc-glitch-anim 0.3s steps(2) infinite;
-}
-
-@keyframes nc-glitch-anim {
-  0% { transform: translate(0); }
-  20% { transform: translate(-3px, 2px); filter: drop-shadow(2px 0 #ff0055) drop-shadow(-2px 0 #00ffff); }
-  40% { transform: translate(3px, -2px); }
-  60% { transform: translate(-2px, -1px); filter: drop-shadow(-2px 0 #ff0055) drop-shadow(2px 0 #00ffff); }
-  80% { transform: translate(2px, 1px); }
-  100% { transform: translate(0); }
-}
-
 .nc-term.effect-flip {
   transform: rotate(180deg);
 }
@@ -1743,10 +1730,6 @@
   }
 
   .nc-term.effect-party {
-    animation: none !important;
-  }
-
-  .nc-term.effect-glitch .nc-container {
     animation: none !important;
   }
 
