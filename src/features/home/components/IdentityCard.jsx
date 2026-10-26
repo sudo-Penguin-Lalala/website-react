@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from "preact/hooks";
 import { PERSON_TAGS } from "../constants/homelabData";
 import avatar224 from "../../../assets/avatar-224.png";
 import avatar448 from "../../../assets/avatar-448.png";

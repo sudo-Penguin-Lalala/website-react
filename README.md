@@ -15,7 +15,7 @@ Personal portfolio & links hub ([nnt25.io.vn](https://nnt25.io.vn/)), inspired b
 
 ## Tech Stack
 
-- **Framework**: React 19 + Vite 7
+- **Framework**: Preact + Vite 7
 - **Deployment**: Cloudflare Pages / Workers
 - **Styling**: Vanilla CSS with custom properties & keyframe animations
 - **Typography**: JetBrains Mono

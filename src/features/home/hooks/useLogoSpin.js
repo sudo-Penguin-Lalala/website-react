@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "preact/hooks";
 
 const LIFETIME_KEY = "nnt:power_lifetime";
 const RECORD_KEY = "nnt:power_record";

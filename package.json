@@ -11,15 +11,12 @@
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "preact": "^11.0.2"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.43.0",
     "@eslint/js": "^9.33.0",
-    "@types/react": "^19.1.10",
-    "@types/react-dom": "^19.1.7",
-    "@vitejs/plugin-react": "^5.0.0",
+    "@preact/preset-vite": "^2.10.6",
     "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",

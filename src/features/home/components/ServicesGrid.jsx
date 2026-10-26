@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from "preact/hooks";
 import Icon from "../../../components/Icon";
 
 const ServicesGrid = ({ isSudo, isVi }) => {

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "preact/hooks";
 import { FISH_SPECIES } from "../constants/homelabData";
 
 export function useSushiFish(isVi) {

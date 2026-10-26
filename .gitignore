@@ -26,11 +26,7 @@ dist-ssr
 *.sln
 *.sw?
 
-# Tooling caches
-.hallmark/
-.agents/
-
-# wrangler files
+# Cloudflare Wrangler
 .wrangler
 .dev.vars*
 !.dev.vars.example

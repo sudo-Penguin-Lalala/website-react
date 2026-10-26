@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component } from "preact";
 import "./ErrorBoundary.css";
 
 class ErrorBoundary extends Component {

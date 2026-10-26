@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import * as cmdUtils from "../constants/terminalCommands";
 
 export function useTerminalShell(isVi) {

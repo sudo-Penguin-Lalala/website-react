@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "preact/hooks";
 import { I18nContext } from "./I18nContext";
 import { dictionary, supportedLanguages } from "./strings";
 

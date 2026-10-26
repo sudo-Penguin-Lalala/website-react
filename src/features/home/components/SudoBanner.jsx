@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback } from "preact/hooks";
 import { QUICK_COMMANDS } from "../constants/homelabData";
 
 const SudoBanner = ({

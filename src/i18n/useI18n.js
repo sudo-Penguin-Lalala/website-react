@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext } from "preact/hooks";
 import { I18nContext } from "./I18nContext";
 
 export function useI18n() {
