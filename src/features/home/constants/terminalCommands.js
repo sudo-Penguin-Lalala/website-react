@@ -30,7 +30,7 @@ export function getHelpOutput() {
 export function getUnameOutput() {
   return (
     `[root@reactor ~]# uname -a\n` +
-    `Linux reactor 6.12.10-hardened #1 SMP PREEMPT_DYNAMIC aarch64 GNU/Linux`
+    `Linux reactor #1 SMP PREEMPT_DYNAMIC aarch64 GNU/Linux`
   );
 }
 
