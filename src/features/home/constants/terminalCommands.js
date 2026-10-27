@@ -30,7 +30,7 @@ export function getHelpOutput() {
 export function getUnameOutput() {
   return (
     `[root@reactor ~]# uname -a\n` +
-    `Linux reactor 6.12.0-206.104.4.4.el10uek.aarch64 #1 SMP PREEMPT_DYNAMIC aarch64 GNU/Linux`
+    `Linux reactor 6.12.10-hardened #1 SMP PREEMPT_DYNAMIC aarch64 GNU/Linux`
   );
 }
 
@@ -68,7 +68,7 @@ export function getLsOutput(cleanCmd) {
 }
 
 export function getFlagOutput() {
-  return `[root@reactor ~]# cat flag.txt\nnnt{r00t_m0d3_3sc4l4t10n_succ3ssful_oci_1001} 🏆`;
+  return `[root@reactor ~]# cat flag.txt\nnnt{r00t_m0d3_3sc4l4t10n_succ3ssful_1001} 🏆`;
 }
 
 export function getClassifiedEnvOutput() {
@@ -88,7 +88,7 @@ export function getShadowOutput() {
   return (
     `[root@reactor ~]# cat /etc/shadow\n` +
     `root:$6$reactor$k8s_is_bloated_use_compose:19700:0:99999:7:::\n` +
-    `nnt:$6$oracle$homelab_master_key_never_share:19700:0:99999:7:::\n` +
+    `nnt:$6$reactor$homelab_master_key_never_share:19700:0:99999:7:::\n` +
     `fish:$6$ocean$salmon_sushi_delicious_10/10:19700:0:99999:7:::`
   );
 }

@@ -50,12 +50,12 @@ export const QUICK_COMMANDS = [
 ];
 
 export const HOMELAB_SPECS = [
-  { label: "Platform:", val: "Oracle Cloud A1 ARM64" },
-  { label: "OS / Kernel:", val: "Oracle Linux 10 · Linux 6.12 UEK" },
+  { label: "Platform:", val: "Custom Edge Node · Linux ARM64" },
+  { label: "OS / Kernel:", val: "Linux 6.x · Hardened Kernel" },
   { label: "Ingress:", val: "Cloudflare Zero Trust" },
-  { label: "Overlay & Mesh:", val: "Hysteria 2 · WireGuard · sing-box" },
-  { label: "Workloads:", val: "Docker Containers" },
-  { label: "Core Services:", val: "NetCheck · Nextcloud Storage · MeTube · Stalwart Mail" },
+  { label: "Networking:", val: "Private WireGuard Mesh" },
+  { label: "Workloads:", val: "Isolated Docker Containers" },
+  { label: "Core Services:", val: "NetCheck · NNT's Storage · MeTube" },
 ];
 
 export const ROOT_EXTRA_SPECS = [
