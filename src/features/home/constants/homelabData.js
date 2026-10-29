@@ -50,11 +50,11 @@ export const QUICK_COMMANDS = [
 ];
 
 export const HOMELAB_SPECS = [
-  { label: "Platform:", val: "Custom Edge Node · Linux ARM64" },
-  { label: "OS / Kernel:", val: "Linux 6.x · Hardened Kernel" },
-  { label: "Ingress:", val: "Cloudflare Zero Trust" },
-  { label: "Networking:", val: "Private WireGuard Mesh" },
-  { label: "Workloads:", val: "Isolated Docker Containers" },
+  { label: "Platform:", val: "Custom Edge Node · Linux Server" },
+  { label: "OS / Kernel:", val: "GNU/Linux (Hardened)" },
+  { label: "Ingress:", val: "Encrypted Edge Ingress" },
+  { label: "Networking:", val: "Private Encrypted Mesh" },
+  { label: "Workloads:", val: "Isolated Container Workloads" },
   { label: "Core Services:", val: "NetCheck · NNT's Storage · MeTube" },
 ];
 

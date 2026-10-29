@@ -602,6 +602,30 @@
   line-height: 1.2;
 }
 
+.nc-profile-name-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.15s ease, text-shadow 0.15s ease, transform 0.1s ease;
+  user-select: text;
+}
+
+.nc-profile-name-btn:hover {
+  color: var(--accent);
+  text-shadow: 0 0 12px var(--accent-glow);
+}
+
+.nc-profile-name-btn:active {
+  transform: scale(0.98);
+}
+
 @media (max-width: 640px) {
   .nc-profile-layout {
     flex-direction: row;

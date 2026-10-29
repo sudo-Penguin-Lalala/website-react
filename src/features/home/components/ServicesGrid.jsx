@@ -93,8 +93,8 @@ const ServicesGrid = ({ isSudo, isVi }) => {
             </div>
             <div className="nc-service-desc">
               {isVi
-                ? "Ổ đám mây tự chạy bằng Nextcloud cho bạn bè lưu ảnh với file linh tinh. Đăng ký cái là có sẵn 10GB xài luôn."
-                : "Personal Nextcloud box for backups and random files. Instant 10GB quota for friends."}
+                ? "Ổ đám mây cá nhân cho bạn bè lưu ảnh với file linh tinh. Đăng ký nhận dung lượng lưu trữ an toàn."
+                : "Personal cloud storage for backups and files. Instant private storage for friends."}
             </div>
             <div className="nc-service-footer">
               <span>storage.nnt25.io.vn</span>

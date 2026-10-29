@@ -12,6 +12,7 @@ const IdentityCard = ({
   altText = "Thien Nguyen — profile photo",
 }) => {
   const [tagIndex, setTagIndex] = useState(0);
+  const [showAlias, setShowAlias] = useState(false);
   const currentTags = PERSON_TAGS[isVi ? "vi" : "en"] || PERSON_TAGS.en;
   const currentTagText = isSudo
     ? "OPERATOR"
@@ -19,6 +20,10 @@ const IdentityCard = ({
 
   const handleTagClick = () => {
     setTagIndex((prev) => (prev + 1) % currentTags.length);
+  };
+
+  const handleNameClick = () => {
+    setShowAlias((prev) => !prev);
   };
 
   return (
@@ -54,7 +59,17 @@ const IdentityCard = ({
 
           <div className="nc-profile-text">
             <div className="nc-profile-heading">
-              <h2 className="nc-profile-name">{profileName}</h2>
+              <h2 className="nc-profile-name">
+                <button
+                  type="button"
+                  className="nc-profile-name-btn"
+                  onClick={handleNameClick}
+                  title={isVi ? "Bấm để đổi bí danh! 🐧" : "Click to toggle handle! 🐧"}
+                  aria-label={isVi ? "Đổi bí danh hiển thị" : "Toggle display handle"}
+                >
+                  {showAlias ? "sudo-Penguin-Lalala" : profileName}
+                </button>
+              </h2>
               <button
                 type="button"
                 className="nc-tag nc-tag-accent nc-tag-interactive"
@@ -67,8 +82,8 @@ const IdentityCard = ({
             </div>
             <p className="nc-profile-bio">
               {isVi
-                ? "Nghịch Linux từ năm 14 tuổi. Thích tự host đồ chơi ở nhà thay vì cúng dữ liệu cho Google hay Microsoft. Tự dựng tự phá, lúc nào rảnh thì ngồi tối ưu cho nó chạy nhanh hơn một tí."
-                : "Tinkering with Linux since 14. I self-host stuff at home just to keep my data off big tech's hard drives. Mostly I break things on purpose, then spend weekends making them faster."}
+                ? "Đam mê Linux và hệ thống tự host. Thích tự vận hành dịch vụ cá nhân, tôn trọng quyền riêng tư và dữ liệu độc lập. Tự dựng tự phá, tối ưu cho vui."
+                : "Linux and self-hosting enthusiast. Building private, privacy-respecting services and independent infrastructure. Breaking things on purpose and making them faster."}
             </p>
             {isSudo && (
               <div className="nc-tag-list">
