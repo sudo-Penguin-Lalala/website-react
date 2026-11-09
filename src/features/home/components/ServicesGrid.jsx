@@ -1,9 +1,11 @@
 import { useState } from "preact/hooks";
 import Icon from "../../../components/Icon";
+import { getContactEmail } from "../../../config/links";
 
 const ServicesGrid = ({ isSudo, isVi }) => {
   const [copiedDiscord, setCopiedDiscord] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const contactEmail = getContactEmail();
 
   const handleCopyDiscord = (e) => {
     e?.preventDefault();
@@ -14,7 +16,7 @@ const ServicesGrid = ({ isSudo, isVi }) => {
 
   const handleCopyEmail = (e) => {
     e?.preventDefault();
-    navigator.clipboard?.writeText("contact@nnt25.io.vn");
+    navigator.clipboard?.writeText(contactEmail);
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2000);
   };
@@ -246,7 +248,7 @@ const ServicesGrid = ({ isSudo, isVi }) => {
               <span>Email</span>
             </div>
             <div className="nc-service-desc">
-              <strong className="nc-svc-highlight">contact@nnt25.io.vn</strong>
+              <strong className="nc-svc-highlight">{contactEmail}</strong>
               <p>
                 {isVi
                   ? "Dành cho chuyện gì đó cần nghiêm túc hơn Discord. Thường check mail mỗi ngày."
@@ -262,19 +264,19 @@ const ServicesGrid = ({ isSudo, isVi }) => {
                 onClick={handleCopyEmail}
                 aria-label={
                   isVi
-                    ? "Sao chép địa chỉ email contact@nnt25.io.vn"
-                    : "Copy email address contact@nnt25.io.vn"
+                    ? `Sao chép địa chỉ email ${contactEmail}`
+                    : `Copy email address ${contactEmail}`
                 }
               >
                 {copiedEmail ? "✓ copied" : "copy email"}
               </button>
               <a
-                href="mailto:contact@nnt25.io.vn"
+                href={`mailto:${contactEmail}`}
                 className="nc-btn nc-btn-accent nc-svc-action-btn nc-svc-btn-email"
                 aria-label={
                   isVi
-                    ? "Gửi email tới contact@nnt25.io.vn"
-                    : "Send email to contact@nnt25.io.vn"
+                    ? `Gửi email tới ${contactEmail}`
+                    : `Send email to ${contactEmail}`
                 }
               >
                 send ↵

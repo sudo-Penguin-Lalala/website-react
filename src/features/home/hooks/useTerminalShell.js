@@ -1,5 +1,6 @@
 import { useState, useEffect } from "preact/hooks";
 import * as cmdUtils from "../constants/terminalCommands";
+import { getContactEmail } from "../../../config/links";
 
 export function useTerminalShell(isVi) {
   const [brandClicks, setBrandClicks] = useState(0);
@@ -34,7 +35,7 @@ export function useTerminalShell(isVi) {
                     
 %c[ nnt@reactor ] %c— Linux Tinkerer & Self-Hosted Infrastructure
 %cLooking under the hood? Source: https://github.com/sudo-Penguin-Lalala/website-react
-Contact: contact@nnt25.io.vn | Discord: nnt2589
+Contact: ${getContactEmail()} | Discord: nnt2589
 `;
     console.log(
       banner,
