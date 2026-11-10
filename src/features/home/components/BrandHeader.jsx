@@ -8,6 +8,7 @@ const BrandHeader = ({
   languageToggleAria,
   cycleTheme,
   currentTheme,
+  navigate,
 }) => {
   return (
     <header className="nc-hdr">
@@ -51,6 +52,22 @@ const BrandHeader = ({
       </div>
 
       <div className="nc-hdr-actions">
+        <a
+          href="/blog"
+          className="nc-btn nc-blog-nav-btn"
+          onClick={(e) => {
+            if (navigate) {
+              e.preventDefault();
+              navigate("/blog");
+            }
+          }}
+          aria-label={isVi ? "Xem NNT's blog" : "View NNT's blog"}
+          title={isVi ? "NNT's blog" : "NNT's blog"}
+        >
+          <span aria-hidden="true">📝</span>
+          <span>blog</span>
+        </a>
+
         {currentTheme && (
           <button
             type="button"

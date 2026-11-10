@@ -9,6 +9,7 @@ export function getHelpOutput() {
     `  • whoami              Show current operator privileges & UID/GID\n` +
     `  • free -h             Check system memory & swap statistics\n` +
     `  • power               Show logo spins & power stats\n` +
+    `  • blog                Browse engineering logs & technical writeups\n` +
     `  • ls -la              List directory contents and file modes\n` +
     `  • sl                  Steam Locomotive (when you mistype 'ls')\n` +
     `  • cat flag.txt        Read homelab privilege escalation flag\n` +
@@ -155,6 +156,29 @@ export function getSlOutput(isVi) {
     `         | ________|___H__/__|_____/[][]~\\_______|         |\n` +
     `         |/ |   |_____I........................|_________|\n` +
     `        (o)  (o)                                (o)  (o)`
+  );
+}
+
+export function getBlogOutput(isVi) {
+  return (
+    `[root@reactor ~]# blog\n` +
+    (isVi
+      ? `NNT's Blog (nơi đăng mấy thứ linh tinh ngớ ngẩn :D):\n\n` +
+        `  • [2026-11-10] Tearing Down 34MB of Python: Rewriting NetCheck from Scratch in Go 1.27\n` +
+        `    Tags: Golang, Docker, Architecture, Optimization\n` +
+        `    Link: /blog/netcheck-v2-the-go-rewrite\n\n` +
+        `  • [2026-11-10] The 2-Hour Hotfix: Why Cloudflare Tunnel Thought I Was Oracle (and How We Slashed CI to 94s)\n` +
+        `    Tags: Docker, Networking, CI/CD, Cloudflare\n` +
+        `    Link: /blog/netcheck-v201-the-proxy-rabbit-hole\n\n` +
+        `Gõ 'blog open' để chuyển hướng sang trang đọc bài.`
+      : `NNT's Blog (where i post all silly stuff :D):\n\n` +
+        `  • [2026-11-10] Tearing Down 34MB of Python: Rewriting NetCheck from Scratch in Go 1.27\n` +
+        `    Tags: Golang, Docker, Architecture, Optimization\n` +
+        `    Link: /blog/netcheck-v2-the-go-rewrite\n\n` +
+        `  • [2026-11-10] The 2-Hour Hotfix: Why Cloudflare Tunnel Thought I Was Oracle (and How We Slashed CI to 94s)\n` +
+        `    Tags: Docker, Networking, CI/CD, Cloudflare\n` +
+        `    Link: /blog/netcheck-v201-the-proxy-rabbit-hole\n\n` +
+        `Run 'blog open' to jump directly to the reading archive.`)
   );
 }
 

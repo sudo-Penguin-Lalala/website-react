@@ -25,6 +25,8 @@
 }
 
 /* 1. Default / Nordic Frost (🏔️) */
+:root,
+[data-theme="nord"],
 .nc-term,
 .nc-term[data-theme="nord"] {
   --bg:                 #0e1217;
@@ -60,6 +62,7 @@
 }
 
 /* 2. Everforest Warm Earth (🌲) */
+[data-theme="everforest"],
 .nc-term[data-theme="everforest"] {
   --bg:                 #141819;
   --bg-elev:            #1b2123;

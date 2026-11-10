@@ -11,7 +11,9 @@
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
-    "preact": "^11.0.2"
+    "marked": "^18.2.0",
+    "preact": "^11.0.2",
+    "prismjs": "^1.30.0"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.43.0",

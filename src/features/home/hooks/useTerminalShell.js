@@ -2,7 +2,7 @@ import { useState, useEffect } from "preact/hooks";
 import * as cmdUtils from "../constants/terminalCommands";
 import { getContactEmail } from "../../../config/links";
 
-export function useTerminalShell(isVi) {
+export function useTerminalShell(isVi, navigate) {
   const [brandClicks, setBrandClicks] = useState(0);
   const [isSudo, setIsSudo] = useState(false);
   const [sudoHint, setSudoHint] = useState("");
@@ -119,6 +119,23 @@ Contact: ${getContactEmail()} | Discord: nnt2589
         output = cmdUtils.getUnameOutput();
       } else if (normalized === "whoami") {
         output = cmdUtils.getWhoamiOutput();
+      } else if (
+        normalized === "blog" ||
+        normalized === "posts" ||
+        normalized === "logs"
+      ) {
+        output = cmdUtils.getBlogOutput(isVi);
+      } else if (
+        normalized === "blog open" ||
+        normalized === "posts open" ||
+        normalized === "open blog"
+      ) {
+        output = isVi
+          ? `[root@reactor ~]# ${cleanCmd}\nĐang chuyển hướng sang /blog...`
+          : `[root@reactor ~]# ${cleanCmd}\nNavigating to /blog...`;
+        if (navigate) {
+          setTimeout(() => navigate("/blog"), 300);
+        }
       } else if (
         normalized === "free -h" ||
         normalized === "free" ||

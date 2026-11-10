@@ -13,10 +13,18 @@ import TerminalFooter from "./components/TerminalFooter";
 
 import "./styles/HomeV2.css";
 
-const HomeV2 = () => {
+const HomeV2 = ({
+  navigate,
+  theme: propTheme,
+  cycleTheme: propCycleTheme,
+  currentTheme: propCurrentTheme,
+}) => {
   const { lang, t, toggle } = useI18n();
   const isVi = lang === "vi";
-  const { theme, cycleTheme, currentTheme } = useTheme();
+  const defaultTheme = useTheme();
+  const theme = propTheme || defaultTheme.theme;
+  const cycleTheme = propCycleTheme || defaultTheme.cycleTheme;
+  const currentTheme = propCurrentTheme || defaultTheme.currentTheme;
 
   const {
     isSudo,
@@ -34,7 +42,7 @@ const HomeV2 = () => {
     showMatrix,
     executeCommand,
     handleRunCommand,
-  } = useTerminalShell(isVi);
+  } = useTerminalShell(isVi, navigate);
 
   return (
     <div
@@ -56,6 +64,7 @@ const HomeV2 = () => {
           languageToggleAria={t.languageToggleAria}
           cycleTheme={cycleTheme}
           currentTheme={currentTheme}
+          navigate={navigate}
         />
 
         {isSudo && (
