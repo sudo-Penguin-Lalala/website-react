@@ -69,7 +69,7 @@ const ServicesGrid = ({ isSudo, isVi }) => {
 
           {/* 2. NNT's Storage */}
           <a
-            href="https://storage.nnt25.io.vn/apps/registration/"
+            href="https://storage.nnt25.io.vn/accounts/register"
             target="_blank"
             rel="noopener noreferrer"
             className="nc-service-cell nc-service-cell-storage"
