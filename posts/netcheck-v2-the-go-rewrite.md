@@ -1,35 +1,58 @@
 ---
-title: "I Spent All Day Rewriting NetCheck in Go Just to Save 40MB of RAM :D"
+title: "I Spent An Entire Saturday Rewriting NetCheck in Go Just to Save 40MB of RAM (Worth It :D)"
 date: "2026-11-10T16:07:13+08:00"
 tags: ["Golang", "Docker", "Silly", "Optimization"]
-summary: "Tearing down a working 34MB Python app to build an 8.5MB bare scratch container. Did ping get any faster? Absolutely not lol."
+summary: "Tearing down a perfectly working 34MB Python app to build an 8.5MB bare scratch container. Did ping get any faster? Absolutely not lol."
 ---
 
-When I first built NetCheck, Python and FastAPI felt like the easiest way to get things done. You glue together a couple of libraries, bind an SQLite database to disk, and boom—you have a working network diagnostic tool.
+When I first built NetCheck, Python and FastAPI felt like the ultimate life hack. You glue together `dnspython` and `python-whois`, bind a cute little SQLite database to disk for caching, and boom—you are a 10x network engineer before dinner.
 
-Except it sat on my server taking ~48MB of idle RAM just doing nothing. And SQLite kept throwing file permission tantrums every time Docker restarted unless I babysat host volume mounts. In v1.7.0, even after spending hours trimming the Docker image down with Alpine multi-stage builds, it was still hauling around 33.8MB of interpreters and dependencies.
+It worked. People self-hosted it. It solved the core problem: running network diagnostics from independent vantage points without exposing your own IP address.
 
-So naturally, instead of doing normal human things, I spent my entire day tearing out the Python backend and rewriting everything from scratch in native Go 1.27 :D
+Except reality is rude.
 
-### What "Zero-Disk" Actually Means
-In v2.0.0, NetCheck literally holds zero state on disk:
-- **In-Memory LRU with Singleflight:** Instead of writing cache to SQLite, lookups live purely in RAM. And using `singleflight` means if 10 people test the same domain at the exact same moment, only 1 probe actually fires.
-- **Bare `scratch` Container:** The entire production image contains only the statically compiled binary, public SSL certs, and a tiny `/etc/passwd` file. No shell (`/bin/sh`), no curl, no package manager.
-- **Lockdown Mode:** It runs as unprivileged UID 10001 with `read_only: true` and all Linux capabilities dropped (`cap_drop: [ALL]`).
+My little diagnostic tool spent 99% of its day doing literally nothing, yet was comfortably sitting in Docker eating ~48MB of RAM like an open Chrome tab with one YouTube video paused. Worse: SQLite kept having emotional breakdowns over Linux file permissions every time Docker restarted unless I held its hand with host volume mounts.
 
-### The Cold Hard Numbers
-* **Container Size:** 33.8 MB -> **8.5 MB** (-75% smaller!)
-* **Idle RAM:** ~48 MB -> **~7.6 MB** (-84% drop!)
-* **Disk State:** Annoying volume mounts -> **Zero disk mounts needed**
+Even after I spent hours sweating over multi-stage Alpine builds to trim the image down in v1.7.0, it was still dragging around 33.8MB of Python interpreters, C libraries, and emotional baggage.
 
-### The Big Reality Check
-The container starts in 12 milliseconds and idles like a ghost. 
+So naturally, instead of doing normal human activities like going outside or sleeping, I spent my entire weekend tearing out the Python backend and rewriting everything from scratch in native Go 1.27 :D
 
-Did the actual ping or traceroute get any faster? 
+---
 
-**Absolutely not lol.** Turns out, light still travels through undersea fiber optic cables at the exact same speed regardless of whether your backend is written in Python or Go :D
+### The "Zero-Disk" Cult: Deleting the Filesystem Entirely
 
-But hey, 7MB of RAM idle is 7MB of RAM idle, and watching an 8.5MB container spin up in the blink of an eye is deeply satisfying!
+In v2.0.0, NetCheck literally holds zero state on disk. You can run the container with `read_only: true` and Docker will just nod respectfully:
+
+* **In-Memory LRU with Singleflight (Stop Stampeding Me):** Instead of wrestling SQLite locks on disk, lookups live in an expirable RAM cache. And by using Go's `singleflight`, if 10 users query `example.com` at the exact same millisecond, NetCheck fires exactly 1 DNS lookup and tells the other 9 people to share the homework.
+* **The Bare `scratch` Container:** The entire production image contains only the statically compiled binary, public SSL root certs, and a tiny `/etc/passwd` file. There is no `/bin/sh`. There is no package manager. There is no `curl`. If an attacker somehow breaches the container, they can't even run `ls` because `ls` literally does not exist. It's just a single lonely binary vibing in the void.
+* **Fewer Privileges Than a Houseplant:** It runs as unprivileged UID 10001 with all Linux capabilities dropped (`cap_drop: [ALL]`). It cannot do anything dangerous even if it wanted to.
+
+---
+
+### The Cold Hard Numbers (For People Who Like Percentages)
+
+Before getting into the networking guts, here is what the rewrite did to the production footprint:
+
+| Metric | NetCheck v1.7.0 (Python) | NetCheck v2.0.0 (Go) | Delta |
+| :--- | :--- | :--- | :--- |
+| **Container Size** | 33.8 MB (Alpine) | **8.5 MB (`scratch`)** | **-75% smaller!** |
+| **Idle Memory** | ~48 MB RAM | **~7.6 MB RAM** | **-84% drop!** |
+| **Disk State** | Volume mounts & SQLite | **Zero disk mounts (`read_only: true`)** | Deleted forever |
+| **Privileges** | Standard Docker set | **`cap_drop: [ALL]`** | Zero capabilities |
+
+---
+
+### The Big Reality Check (Did Ping Get Any Faster?)
+
+The container starts in 12 milliseconds flat. Idle memory sits at a jaw-dropping 7.6MB.
+
+So... did the actual ping or traceroute get any faster?
+
+**Absolutely not lol.**
+
+Turns out, light traveling through undersea fiber optic cables across the Pacific Ocean does not care about my shiny Go concurrency models :D. Packets still hit latency. Physics remains undefeated.
+
+Did I save the planet? No. Did I save 40MB of RAM on a 16GB server that was already 90% idle? Yes. Was it worth 14 hours of debugging Go pointers and DNS flag day buffer sizes? **100% absolutely.**
 
 ---
 
