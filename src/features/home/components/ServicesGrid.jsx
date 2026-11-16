@@ -21,12 +21,27 @@ const ServicesGrid = ({ isSudo, isVi }) => {
     setTimeout(() => setCopiedEmail(false), 2000);
   };
 
+  const handleCellMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
+    e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+  };
+
   return (
     <section className={`nc-card ${isSudo ? "is-root-card" : ""}`}>
       <header className="nc-card-head">
-        <h2 className="nc-card-title">
-          <span className="nc-prompt-glyph">&gt;</span> projects_and_connect {isSudo ? "--root-access" : ""}
-        </h2>
+        <div className="nc-card-head-left">
+          <div className="nc-window-controls" aria-hidden="true">
+            <span className="nc-win-dot nc-win-close" />
+            <span className="nc-win-dot nc-win-min" />
+            <span className="nc-win-dot nc-win-max" />
+          </div>
+          <h2 className="nc-card-title">
+            <span className="nc-prompt-glyph">&gt;</span> projects_and_connect {isSudo ? "--root-access" : ""}
+          </h2>
+        </div>
       </header>
       <div className="nc-card-body">
         <div className="nc-services-grid">
@@ -36,6 +51,7 @@ const ServicesGrid = ({ isSudo, isVi }) => {
             target="_blank"
             rel="noopener noreferrer"
             className="nc-service-cell nc-service-cell-netcheck"
+            onMouseMove={handleCellMouseMove}
             aria-label={
               isVi
                 ? "NetCheck - Công cụ kiểm tra mạng"
@@ -49,7 +65,9 @@ const ServicesGrid = ({ isSudo, isVi }) => {
               {isSudo ? (
                 <span className="nc-badge-running nc-badge-root"># ROOT DIRECT</span>
               ) : (
-                <span className="nc-badge-running nc-badge-netcheck">RUNNING</span>
+                <span className="nc-badge-running nc-badge-netcheck">
+                  <span className="nc-status-dot" />RUNNING
+                </span>
               )}
             </div>
             <div className="nc-service-name">
@@ -73,6 +91,7 @@ const ServicesGrid = ({ isSudo, isVi }) => {
             target="_blank"
             rel="noopener noreferrer"
             className="nc-service-cell nc-service-cell-storage"
+            onMouseMove={handleCellMouseMove}
             aria-label={
               isVi
                 ? "NNT's Storage - Đăng ký lưu trữ đám mây cá nhân"
@@ -86,7 +105,9 @@ const ServicesGrid = ({ isSudo, isVi }) => {
               {isSudo ? (
                 <span className="nc-badge-running nc-badge-root"># ROOT DIRECT</span>
               ) : (
-                <span className="nc-badge-running nc-badge-storage">RUNNING</span>
+                <span className="nc-badge-running nc-badge-storage">
+                  <span className="nc-status-dot" />RUNNING
+                </span>
               )}
             </div>
             <div className="nc-service-name">
@@ -110,6 +131,7 @@ const ServicesGrid = ({ isSudo, isVi }) => {
             target="_blank"
             rel="noopener noreferrer"
             className="nc-service-cell nc-service-cell-metube"
+            onMouseMove={handleCellMouseMove}
             aria-label={
               isVi
                 ? "MeTube - Tải video YouTube, TikTok, Facebook"
@@ -123,7 +145,9 @@ const ServicesGrid = ({ isSudo, isVi }) => {
               {isSudo ? (
                 <span className="nc-badge-running nc-badge-root"># ROOT DIRECT</span>
               ) : (
-                <span className="nc-badge-running nc-badge-metube">RUNNING</span>
+                <span className="nc-badge-running nc-badge-metube">
+                  <span className="nc-status-dot" />RUNNING
+                </span>
               )}
             </div>
             <div className="nc-service-name">
@@ -147,6 +171,7 @@ const ServicesGrid = ({ isSudo, isVi }) => {
             target="_blank"
             rel="noopener noreferrer"
             className="nc-service-cell nc-service-cell-github"
+            onMouseMove={handleCellMouseMove}
             aria-label={
               isVi
                 ? "GitHub - Kho mã nguồn của NNT"
@@ -160,7 +185,9 @@ const ServicesGrid = ({ isSudo, isVi }) => {
               {isSudo ? (
                 <span className="nc-badge-running nc-badge-root"># ROOT REPO</span>
               ) : (
-                <span className="nc-badge-running nc-badge-github">CODE REPOS</span>
+                <span className="nc-badge-running nc-badge-github">
+                  <span className="nc-status-dot" />CODE REPOS
+                </span>
               )}
             </div>
             <div className="nc-service-name">
@@ -179,7 +206,11 @@ const ServicesGrid = ({ isSudo, isVi }) => {
           </a>
 
           {/* 5. Discord */}
-          <div className="nc-service-cell nc-service-cell-discord" style={{ cursor: "default" }}>
+          <div
+            className="nc-service-cell nc-service-cell-discord"
+            onMouseMove={handleCellMouseMove}
+            style={{ cursor: "default" }}
+          >
             <div className="nc-service-top">
               <div className="nc-service-icon">
                 <Icon name="discord" />
@@ -187,7 +218,9 @@ const ServicesGrid = ({ isSudo, isVi }) => {
               {isSudo ? (
                 <span className="nc-badge-running nc-badge-root"># ROOT COMM LINK</span>
               ) : (
-                <span className="nc-badge-running nc-badge-discord">DIRECT DM</span>
+                <span className="nc-badge-running nc-badge-discord">
+                  <span className="nc-status-dot" />DIRECT DM
+                </span>
               )}
             </div>
             <div className="nc-service-name">
@@ -233,7 +266,11 @@ const ServicesGrid = ({ isSudo, isVi }) => {
           </div>
 
           {/* 6. Email */}
-          <div className="nc-service-cell nc-service-cell-email" style={{ cursor: "default" }}>
+          <div
+            className="nc-service-cell nc-service-cell-email"
+            onMouseMove={handleCellMouseMove}
+            style={{ cursor: "default" }}
+          >
             <div className="nc-service-top">
               <div className="nc-service-icon">
                 <Icon name="nnt" />
@@ -241,7 +278,9 @@ const ServicesGrid = ({ isSudo, isVi }) => {
               {isSudo ? (
                 <span className="nc-badge-running nc-badge-root"># ROOT MAIL SERVER</span>
               ) : (
-                <span className="nc-badge-running nc-badge-email">INBOX</span>
+                <span className="nc-badge-running nc-badge-email">
+                  <span className="nc-status-dot" />INBOX
+                </span>
               )}
             </div>
             <div className="nc-service-name">

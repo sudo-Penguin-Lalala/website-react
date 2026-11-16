@@ -113,13 +113,11 @@
   padding-bottom: max(4rem, calc(3rem + env(safe-area-inset-bottom, 0px)));
   padding-left: max(1rem, env(safe-area-inset-left, 0px));
   box-sizing: border-box;
-  overflow-x: hidden;
+  overflow-x: clip;
 
-  transform: rotate(0deg) scale(1);
-  filter: invert(0) hue-rotate(0deg);
   transition:
-    transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1),
-    filter 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.55s cubic-bezier(0.16, 1, 0.3, 1),
     background-color 0.4s ease,
     color 0.4s ease;
 }
@@ -182,17 +180,54 @@
   margin: 0 auto;
 }
 
-/* Header & Brand */
+/* Staggered System Boot-Up Animation (Apple & Choreograph) */
+.nc-container > * {
+  animation: nc-boot-up 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.nc-container > *:nth-child(1) { animation-delay: 0.02s; }
+.nc-container > *:nth-child(2) { animation-delay: 0.07s; }
+.nc-container > *:nth-child(3) { animation-delay: 0.12s; }
+.nc-container > *:nth-child(4) { animation-delay: 0.17s; }
+.nc-container > *:nth-child(5) { animation-delay: 0.22s; }
+.nc-container > *:nth-child(6) { animation-delay: 0.27s; }
+
+@keyframes nc-boot-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nc-container > * {
+    animation: none !important;
+  }
+}
+
+/* Header & Brand - Sticky Frosted Glass (Apple macOS Menu Bar style) */
 .nc-hdr {
+  position: sticky;
+  top: 0.5rem;
+  z-index: 50;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: nowrap;
   gap: 0.75rem;
-  padding-bottom: 1.25rem;
+  padding: 0.75rem 0.85rem;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--glass-border);
-  position: relative;
+  background: var(--glass-console);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+  transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nc-brand-wrap {
@@ -226,7 +261,7 @@
   min-height: 44px;
   user-select: none;
   flex-shrink: 0;
-  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
   border-radius: var(--radius);
 }
@@ -330,7 +365,7 @@
   text-decoration: none;
   white-space: nowrap;
   flex-shrink: 0;
-  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
 }
 
 @media (pointer: fine) and (min-width: 641px) {
@@ -364,7 +399,7 @@
 .nc-theme-btn:hover {
   border-color: var(--accent);
   background: var(--accent-soft);
-  color: #fff;
+  color: var(--text);
   box-shadow: 0 0 12px var(--accent-soft);
 }
 
@@ -424,7 +459,7 @@
 .nc-btn-danger:hover {
   background: rgba(255, 107, 107, 0.26);
   border-color: var(--danger);
-  color: #fff;
+  color: var(--text);
   box-shadow: 0 0 12px rgba(255, 107, 107, 0.35);
 }
 
@@ -488,30 +523,34 @@
 .nc-card {
   background: var(--glass-card);
   border: 1px solid var(--border);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), 0 8px 30px rgba(0, 0, 0, 0.25);
   border-radius: var(--radius-lg);
   margin-bottom: 1.25rem;
   overflow: hidden;
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
-.nc-card:hover {
-  background: var(--glass-card-hover);
-  border-color: var(--border-strong);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
-  transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+  .nc-card:hover {
+    background: var(--glass-card-hover);
+    border-color: var(--border-strong);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.16), 0 14px 40px rgba(0, 0, 0, 0.35);
+    transform: translateY(-2px);
+  }
 }
 
 .nc-card.is-root-card {
   background: rgba(28, 12, 16, 0.75);
   border: 1px solid rgba(255, 107, 107, 0.4);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35), 0 0 16px rgba(255, 107, 107, 0.1);
+  box-shadow: inset 0 1px 0 0 rgba(255, 107, 107, 0.2), 0 8px 30px rgba(0, 0, 0, 0.35), 0 0 16px rgba(255, 107, 107, 0.1);
 }
 
-.nc-card.is-root-card:hover {
-  border-color: var(--danger);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45), 0 0 24px rgba(255, 107, 107, 0.2);
-  transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+  .nc-card.is-root-card:hover {
+    border-color: var(--danger);
+    box-shadow: inset 0 1px 0 0 rgba(255, 107, 107, 0.3), 0 14px 40px rgba(0, 0, 0, 0.45), 0 0 24px rgba(255, 107, 107, 0.2);
+    transform: translateY(-2px);
+  }
 }
 
 .nc-card-head {
@@ -524,6 +563,104 @@
   background: rgba(255, 255, 255, 0.025);
   border-bottom: 1px dashed var(--border-strong);
   font-size: 0.84rem;
+}
+
+.nc-card-head-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+/* macOS Window Control Traffic Light Dots */
+.nc-window-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding-right: 2px;
+}
+
+.nc-win-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.75;
+  cursor: default;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s ease, box-shadow 0.15s ease;
+}
+
+.nc-card:hover .nc-win-dot,
+.nc-sudo-banner:hover .nc-win-dot,
+.nc-window-controls:hover .nc-win-dot {
+  opacity: 1;
+}
+
+.nc-win-close {
+  background: #ff5f56;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.nc-win-min {
+  background: #ffbd2e;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.nc-win-max {
+  background: #27c93f;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.nc-window-controls:hover .nc-win-close::before {
+  content: "×";
+  font-size: 9px;
+  line-height: 1;
+  color: rgba(60, 0, 0, 0.75);
+  font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 800;
+  margin-top: -1px;
+}
+
+.nc-window-controls:hover .nc-win-min::before {
+  content: "−";
+  font-size: 9px;
+  line-height: 1;
+  color: rgba(60, 40, 0, 0.75);
+  font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 800;
+  margin-top: -1px;
+}
+
+.nc-window-controls:hover .nc-win-max::before {
+  content: "+";
+  font-size: 8px;
+  line-height: 1;
+  color: rgba(0, 40, 0, 0.75);
+  font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 800;
+  margin-top: -1px;
+}
+
+.nc-card:hover .nc-win-close,
+.nc-sudo-banner:hover .nc-win-close {
+  box-shadow: 0 0 6px rgba(255, 95, 86, 0.65);
+  transform: scale(1.1);
+}
+
+.nc-card:hover .nc-win-min,
+.nc-sudo-banner:hover .nc-win-min {
+  box-shadow: 0 0 6px rgba(255, 189, 46, 0.65);
+  transform: scale(1.1);
+}
+
+.nc-card:hover .nc-win-max,
+.nc-sudo-banner:hover .nc-win-max {
+  box-shadow: 0 0 6px rgba(39, 201, 63, 0.65);
+  transform: scale(1.1);
 }
 
 @media (max-width: 480px) {
@@ -542,12 +679,20 @@
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  overflow-wrap: break-word;
+  min-width: 0;
 }
 
 .nc-prompt-glyph {
   color: var(--accent);
   font-weight: 800;
+  text-shadow: 0 0 8px var(--accent-soft, rgba(136, 192, 208, 0.45));
+}
+
+.nc-user,
+.nc-user-root {
+  text-shadow: 0 0 8px currentColor;
 }
 
 .nc-card-status {
@@ -601,7 +746,7 @@
   margin: 0;
   font-size: 1.45rem;
   font-weight: 800;
-  color: #fff;
+  color: var(--text);
   line-height: 1.2;
 }
 
@@ -681,7 +826,7 @@
   display: inline-block;
   white-space: nowrap;
   flex-shrink: 0;
-  transition: all 0.15s ease;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .nc-tag:hover {
@@ -702,7 +847,7 @@
   cursor: pointer;
   user-select: none;
   position: relative;
-  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.15s ease, border-color 0.15s ease;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease, border-color 0.15s ease;
 }
 
 @media (pointer: coarse), (max-width: 640px) {
@@ -742,7 +887,7 @@
   vertical-align: middle;
   line-height: 1;
   flex-shrink: 0;
-  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.15s ease, border-color 0.15s ease;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease, border-color 0.15s ease;
 }
 
 @media (pointer: fine) and (min-width: 641px) {
@@ -888,24 +1033,80 @@
 }
 
 .nc-service-cell {
+  position: relative;
+  overflow: hidden;
   background: rgba(255, 255, 255, 0.035);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), 0 4px 16px rgba(0, 0, 0, 0.25);
   border-radius: var(--radius);
   padding: 0.95rem;
   display: flex;
   flex-direction: column;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Spotlight cursor glow (Emil Kowalski / Linear pattern) */
+.nc-service-cell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    280px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+    var(--cell-glow, rgba(255, 255, 255, 0.14)),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nc-service-cell:hover::before {
+    opacity: 1;
+  }
+}
+
+.nc-service-cell > * {
+  position: relative;
+  z-index: 1;
 }
 
 .nc-service-cell:active {
   transform: translateY(1px) scale(0.99);
 }
 
+/* Pulsing server status dot */
+.nc-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: currentColor;
+  margin-right: 6px;
+  vertical-align: middle;
+  animation: nc-pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes nc-pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 6px currentColor;
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.8);
+    box-shadow: 0 0 0px transparent;
+  }
+}
+
 /* 1. NetCheck (Signature Amber) */
 .nc-service-cell-netcheck {
+  --cell-glow: rgba(245, 158, 11, 0.24);
   border-color: rgba(245, 158, 11, 0.35);
   background: linear-gradient(165deg, rgba(245, 158, 11, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
 }
@@ -921,6 +1122,7 @@
 
 /* 2. Storage (Sky Blue) */
 .nc-service-cell-storage {
+  --cell-glow: rgba(56, 189, 248, 0.24);
   border-color: rgba(56, 189, 248, 0.35);
   background: linear-gradient(165deg, rgba(56, 189, 248, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
 }
@@ -936,6 +1138,7 @@
 
 /* 3. MeTube (Rose Red) */
 .nc-service-cell-metube {
+  --cell-glow: rgba(244, 63, 94, 0.24);
   border-color: rgba(244, 63, 94, 0.35);
   background: linear-gradient(165deg, rgba(244, 63, 94, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
 }
@@ -951,6 +1154,7 @@
 
 /* 4. GitHub (Pure Crisp White) */
 .nc-service-cell-github {
+  --cell-glow: rgba(255, 255, 255, 0.18);
   border-color: rgba(255, 255, 255, 0.28);
   background: linear-gradient(165deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
 }
@@ -966,6 +1170,7 @@
 
 /* 5. Discord (Indigo) */
 .nc-service-cell-discord {
+  --cell-glow: rgba(129, 140, 248, 0.28);
   border-color: rgba(129, 140, 248, 0.38);
   background: linear-gradient(165deg, rgba(129, 140, 248, 0.09) 0%, rgba(255, 255, 255, 0.02) 100%);
 }
@@ -978,6 +1183,7 @@
 
 /* 6. Email (Silver White) */
 .nc-service-cell-email {
+  --cell-glow: rgba(255, 255, 255, 0.2);
   border-color: rgba(255, 255, 255, 0.28);
   background: linear-gradient(165deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
 }
@@ -1053,7 +1259,7 @@
 .nc-svc-btn-discord:hover,
 .nc-svc-btn-discord:active {
   background: var(--svc-discord);
-  color: #fff;
+  color: var(--text);
   box-shadow: 0 0 16px rgba(129, 140, 248, 0.6);
   transform: translateY(-1px);
 }
@@ -1079,7 +1285,7 @@
   color: var(--text);
   font-weight: 600;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
 }
 
 .nc-svc-copy-discord:hover,
@@ -1087,7 +1293,7 @@
 .nc-svc-copy-discord:active {
   background: rgba(129, 140, 248, 0.22);
   border-color: var(--svc-discord);
-  color: #fff;
+  color: var(--text);
   box-shadow: 0 0 18px rgba(129, 140, 248, 0.55), 0 4px 14px rgba(0, 0, 0, 0.3);
   transform: translateY(-1px);
 }
@@ -1096,8 +1302,8 @@
 .nc-svc-copy-email:focus-visible,
 .nc-svc-copy-email:active {
   background: rgba(255, 255, 255, 0.22);
-  border-color: #ffffff;
-  color: #fff;
+  border-color: var(--text);
+  color: var(--text);
   box-shadow: 0 0 18px rgba(255, 255, 255, 0.5), 0 4px 14px rgba(0, 0, 0, 0.3);
   transform: translateY(-1px);
 }
@@ -1108,7 +1314,29 @@
   color: var(--success) !important;
   box-shadow: 0 0 18px rgba(163, 190, 140, 0.55) !important;
   font-weight: 700;
-  transform: scale(1.02);
+  animation: nc-copied-pop 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes nc-copied-pop {
+  0% { transform: scale(0.96); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1.02); }
+}
+
+.nc-swap-text {
+  display: inline-block;
+  animation: nc-swap-in 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes nc-swap-in {
+  from {
+    opacity: 0.2;
+    transform: translateY(-2px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* Global focus outline in signature NetCheck yellow */
@@ -1177,7 +1405,7 @@
   min-width: 0;
   background: transparent;
   border: none;
-  color: #fff;
+  color: var(--text);
   font-family: inherit;
   font-size: 0.82rem;
   outline: none;
@@ -1253,7 +1481,7 @@
   flex-shrink: 0;
   opacity: 0.2;
   pointer-events: none;
-  transition: all 0.15s ease;
+  transition: opacity 0.15s ease, background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
   user-select: none;
 }
 
@@ -1265,7 +1493,7 @@
 .nc-chips-arrow.is-active:hover {
   background: rgba(255, 107, 107, 0.25);
   border-color: var(--danger);
-  color: #fff;
+  color: var(--text);
   transform: scale(1.05);
 }
 
@@ -1343,7 +1571,7 @@
 .nc-cmd-chip:hover {
   background: rgba(255, 107, 107, 0.25);
   border-color: var(--danger);
-  color: #fff;
+  color: var(--text);
   transform: translateY(-1px) scale(1.02);
   box-shadow: 0 0 12px rgba(255, 107, 107, 0.3);
 }
@@ -1523,7 +1751,7 @@
 .nc-service-name {
   font-size: 1.05rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--text);
   margin: 0 0 0.35rem 0;
   display: flex;
   align-items: center;
@@ -1703,7 +1931,7 @@
   background: var(--accent-soft);
   border-color: var(--accent);
   box-shadow: 0 0 12px var(--accent-soft);
-  color: #fff;
+  color: var(--text);
 }
 
 .nc-spin-badge:active {
@@ -1772,8 +2000,8 @@
 .nc-matrix-canvas {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 1;
   opacity: 0;

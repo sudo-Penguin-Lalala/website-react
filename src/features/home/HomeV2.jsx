@@ -1,3 +1,4 @@
+import { useEffect } from "preact/hooks";
 import { useI18n } from "../../i18n/useI18n";
 import { profileData } from "../../config/links";
 import { useTerminalShell } from "./hooks/useTerminalShell";
@@ -31,8 +32,6 @@ const HomeV2 = ({
     sudoHint,
     handleBrandClick,
     handleExitSudo,
-    cmdInput,
-    setCmdInput,
     rootOutput,
     setRootOutput,
     isExecuting,
@@ -41,8 +40,37 @@ const HomeV2 = ({
     isReverting,
     showMatrix,
     executeCommand,
-    handleRunCommand,
   } = useTerminalShell(isVi, navigate);
+
+  // Tactile Keyboard Shortcuts: 't' for theme, 'l' for lang, 'Esc' to exit root
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      const activeTag = document.activeElement?.tagName?.toLowerCase();
+      if (
+        activeTag === "input" ||
+        activeTag === "textarea" ||
+        document.activeElement?.isContentEditable
+      ) {
+        if (e.key === "Escape") {
+          document.activeElement.blur();
+        }
+        return;
+      }
+
+      if (e.key === "t" || e.key === "T") {
+        cycleTheme?.();
+      } else if (e.key === "l" || e.key === "L") {
+        toggle?.();
+      } else if (e.key === "Escape") {
+        if (isSudo) {
+          handleExitSudo?.();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [cycleTheme, toggle, isSudo, handleExitSudo]);
 
   return (
     <div
@@ -70,9 +98,6 @@ const HomeV2 = ({
         {isSudo && (
           <SudoBanner
             handleExitSudo={handleExitSudo}
-            handleRunCommand={handleRunCommand}
-            cmdInput={cmdInput}
-            setCmdInput={setCmdInput}
             isExecuting={isExecuting}
             executingCmd={executingCmd}
             executeCommand={executeCommand}

@@ -4,8 +4,8 @@ import { QUICK_COMMANDS } from "../constants/homelabData";
 const SudoBanner = ({
   handleExitSudo,
   handleRunCommand,
-  cmdInput,
-  setCmdInput,
+  cmdInput: propCmdInput,
+  setCmdInput: propSetCmdInput,
   isExecuting,
   executingCmd,
   executeCommand,
@@ -14,6 +14,9 @@ const SudoBanner = ({
   isVi,
 }) => {
   const chipsRef = useRef(null);
+  const [internalCmdInput, setInternalCmdInput] = useState("");
+  const cmdInput = propCmdInput !== undefined ? propCmdInput : internalCmdInput;
+  const setCmdInput = propSetCmdInput || setInternalCmdInput;
   const [isDragging, setIsDragging] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -240,10 +243,30 @@ const SudoBanner = ({
 
     startSmoothScroll();
   };
+
+  const onFormSubmit = (e) => {
+    e?.preventDefault();
+    if (handleRunCommand) {
+      handleRunCommand(e);
+    } else if (executeCommand) {
+      const cmd = cmdInput.trim();
+      if (!cmd || isExecuting) return;
+      setCmdInput("");
+      executeCommand(cmd);
+    }
+  };
+
   return (
     <div className="nc-sudo-banner">
       <div className="nc-sudo-banner-inner">
-        <span className="nc-sudo-badge"># root@reactor</span>
+        <div className="nc-card-head-left">
+          <div className="nc-window-controls" aria-hidden="true">
+            <span className="nc-win-dot nc-win-close" />
+            <span className="nc-win-dot nc-win-min" />
+            <span className="nc-win-dot nc-win-max" />
+          </div>
+          <span className="nc-sudo-badge"># root@reactor</span>
+        </div>
         <button
           type="button"
           className="nc-btn nc-btn-danger nc-btn-exit"
@@ -256,7 +279,7 @@ const SudoBanner = ({
 
       {/* Root Command Line & Quick Chips */}
       <div className="nc-root-cli">
-        <form onSubmit={handleRunCommand} className="nc-root-cmd-line">
+        <form onSubmit={onFormSubmit} className="nc-root-cmd-line">
           <span className="nc-root-prompt">
             <span className="nc-user-root">root@reactor</span>:<span className="nc-path">~</span>#
           </span>

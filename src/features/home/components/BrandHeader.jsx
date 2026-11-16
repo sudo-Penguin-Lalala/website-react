@@ -75,13 +75,13 @@ const BrandHeader = ({
             onClick={cycleTheme}
             aria-label={
               isVi
-                ? `Bảng màu: ${currentTheme.name}. Chạm để đổi.`
-                : `Palette: ${currentTheme.name}. Tap to switch.`
+                ? `Bảng màu: ${currentTheme.name}. Chạm hoặc nhấn T để đổi.`
+                : `Palette: ${currentTheme.name}. Tap or press T to switch.`
             }
             title={
               isVi
-                ? `Chuyển sang ${currentTheme.id === "nord" ? "Forest (🌲)" : "Nord (🏔️)"}`
-                : `Switch to ${currentTheme.id === "nord" ? "Forest (🌲)" : "Nord (🏔️)"}`
+                ? `Chuyển sang ${currentTheme.id === "nord" ? "Forest (🌲)" : "Nord (🏔️)"} [Phím tắt: T]`
+                : `Switch to ${currentTheme.id === "nord" ? "Forest (🌲)" : "Nord (🏔️)"} [Hotkey: T]`
             }
           >
             <span aria-hidden="true">{currentTheme.icon}</span>
@@ -96,10 +96,10 @@ const BrandHeader = ({
           aria-label={
             languageToggleAria ||
             (isVi
-              ? "Chuyển ngôn ngữ sang tiếng Anh"
-              : "Switch language to Vietnamese")
+              ? "Chuyển ngôn ngữ sang tiếng Anh (phím tắt L)"
+              : "Switch language to Vietnamese (hotkey L)")
           }
-          title={isVi ? "Chuyển sang English" : "Switch to Tiếng Việt"}
+          title={isVi ? "Chuyển sang English [Phím tắt: L]" : "Switch to Tiếng Việt [Hotkey: L]"}
         >
           <span>{flag}</span>
           <span>{isVi ? "VI" : "EN"}</span>

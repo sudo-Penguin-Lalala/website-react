@@ -7,7 +7,6 @@ export function useTerminalShell(isVi, navigate) {
   const [isSudo, setIsSudo] = useState(false);
   const [sudoHint, setSudoHint] = useState("");
   const [rootOutput, setRootOutput] = useState("");
-  const [cmdInput, setCmdInput] = useState("");
   const [pageEffect, setPageEffect] = useState("none");
   const [isReverting, setIsReverting] = useState(false);
   const [showMatrix, setShowMatrix] = useState(false);
@@ -96,7 +95,6 @@ Contact: ${getContactEmail()} | Discord: nnt2589
 
     if (normalized === "clear") {
       setRootOutput("");
-      setCmdInput("");
       return;
     }
 
@@ -104,7 +102,6 @@ Contact: ${getContactEmail()} | Discord: nnt2589
 
     setIsExecuting(true);
     setExecutingCmd(cleanCmd);
-    setCmdInput("");
 
     setTimeout(() => {
       let output = "";
@@ -226,18 +223,11 @@ Contact: ${getContactEmail()} | Discord: nnt2589
     }, 450);
   };
 
-  const handleRunCommand = (e) => {
-    e?.preventDefault();
-    executeCommand(cmdInput);
-  };
-
   return {
     isSudo,
     sudoHint,
     handleBrandClick,
     handleExitSudo,
-    cmdInput,
-    setCmdInput,
     rootOutput,
     setRootOutput,
     isExecuting,
@@ -246,6 +236,5 @@ Contact: ${getContactEmail()} | Discord: nnt2589
     isReverting,
     showMatrix,
     executeCommand,
-    handleRunCommand,
   };
 }

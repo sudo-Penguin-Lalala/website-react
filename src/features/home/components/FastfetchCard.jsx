@@ -16,9 +16,16 @@ const FastfetchCard = ({ isSudo, isVi }) => {
   return (
     <section className={`nc-card ${isSudo ? "is-root-card" : ""}`}>
       <header className="nc-card-head">
-        <h2 className="nc-card-title">
-          <span className="nc-prompt-glyph">&gt;</span> fastfetch --homelab {isSudo ? "--root" : ""}
-        </h2>
+        <div className="nc-card-head-left">
+          <div className="nc-window-controls" aria-hidden="true">
+            <span className="nc-win-dot nc-win-close" />
+            <span className="nc-win-dot nc-win-min" />
+            <span className="nc-win-dot nc-win-max" />
+          </div>
+          <h2 className="nc-card-title">
+            <span className="nc-prompt-glyph">&gt;</span> fastfetch --homelab {isSudo ? "--root" : ""}
+          </h2>
+        </div>
       </header>
       <div className="nc-card-body">
         <div className="nc-fastfetch-block">

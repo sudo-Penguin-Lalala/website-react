@@ -34,3 +34,4 @@ dist-ssr
 # Local untracked
 config/
 local/
+graphify-out/

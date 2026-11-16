@@ -29,9 +29,16 @@ const IdentityCard = ({
   return (
     <section className={`nc-card ${isSudo ? "is-root-card" : ""}`}>
       <header className="nc-card-head">
-        <h2 className="nc-card-title">
-          <span className="nc-prompt-glyph">&gt;</span> whoami {isSudo ? "--elevated" : ""}
-        </h2>
+        <div className="nc-card-head-left">
+          <div className="nc-window-controls" aria-hidden="true">
+            <span className="nc-win-dot nc-win-close" />
+            <span className="nc-win-dot nc-win-min" />
+            <span className="nc-win-dot nc-win-max" />
+          </div>
+          <h2 className="nc-card-title">
+            <span className="nc-prompt-glyph">&gt;</span> whoami {isSudo ? "--elevated" : ""}
+          </h2>
+        </div>
         <span className={`nc-card-status ${isSudo ? "nc-status-root" : ""}`}>
           {isSudo
             ? "uid=0(root) gid=0(root) [SUPERUSER]"
@@ -67,7 +74,9 @@ const IdentityCard = ({
                   title={isVi ? "Bấm để đổi bí danh! 🐧" : "Click to toggle handle! 🐧"}
                   aria-label={isVi ? "Đổi bí danh hiển thị" : "Toggle display handle"}
                 >
-                  {showAlias ? "sudo-Penguin-Lalala" : profileName}
+                  <span key={showAlias ? "alias" : "name"} className="nc-swap-text">
+                    {showAlias ? "sudo-Penguin-Lalala" : profileName}
+                  </span>
                 </button>
               </h2>
               <button
@@ -77,7 +86,9 @@ const IdentityCard = ({
                 title={isVi ? "Bấm để đổi danh hiệu!" : "Click to cycle titles!"}
                 aria-label={isVi ? "Đổi danh hiệu cá nhân" : "Cycle title"}
               >
-                {currentTagText}
+                <span key={tagIndex} className="nc-swap-text">
+                  {currentTagText}
+                </span>
               </button>
             </div>
             <p className="nc-profile-bio">
