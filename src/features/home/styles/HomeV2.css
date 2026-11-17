@@ -180,31 +180,24 @@
   margin: 0 auto;
 }
 
-/* Staggered System Boot-Up Animation (Apple & Choreograph) */
-.nc-container > * {
-  animation: nc-boot-up 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+/* Micro-Reveal Animation (Fast terminal buffer snap, excludes sticky frosted header) */
+.nc-container > :not(.nc-hdr) {
+  animation: nc-micro-reveal 140ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.nc-container > *:nth-child(1) { animation-delay: 0.02s; }
-.nc-container > *:nth-child(2) { animation-delay: 0.07s; }
-.nc-container > *:nth-child(3) { animation-delay: 0.12s; }
-.nc-container > *:nth-child(4) { animation-delay: 0.17s; }
-.nc-container > *:nth-child(5) { animation-delay: 0.22s; }
-.nc-container > *:nth-child(6) { animation-delay: 0.27s; }
-
-@keyframes nc-boot-up {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+@keyframes nc-micro-reveal {
+  0% {
+    opacity: 0.92;
+    transform: translateY(2px);
   }
-  to {
+  100% {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nc-container > * {
+  .nc-container > :not(.nc-hdr) {
     animation: none !important;
   }
 }
@@ -682,6 +675,7 @@
   flex-wrap: wrap;
   overflow-wrap: break-word;
   min-width: 0;
+  text-wrap: balance;
 }
 
 .nc-prompt-glyph {
@@ -748,6 +742,11 @@
   font-weight: 800;
   color: var(--text);
   line-height: 1.2;
+  text-wrap: balance;
+}
+
+.nc-profile-bio {
+  text-wrap: pretty;
 }
 
 .nc-profile-name-btn {
@@ -1011,6 +1010,7 @@
     white-space: normal;
     word-break: break-word;
     line-height: 1.35;
+    transform-origin: top left;
   }
 }
 
@@ -1683,25 +1683,29 @@
   vertical-align: middle;
   white-space: nowrap;
   flex-shrink: 0;
-  animation: nc-sushi-stay 5s ease forwards;
+  transform-origin: left center;
+  animation: nc-sushi-stay 5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes nc-sushi-stay {
   0% {
     opacity: 0;
-    transform: translateY(-2px) scale(0.95);
+    transform: scale(0.85) translateX(-4px);
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   }
-  3% {
+  3.5% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: scale(1) translateX(0);
+    animation-timing-function: linear;
   }
   88% {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1) translateX(0);
+    animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
   }
   100% {
     opacity: 0;
-    transform: translateY(2px);
+    transform: scale(0.96) translateY(2px);
   }
 }
 
@@ -1757,6 +1761,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
+  text-wrap: balance;
 }
 
 .nc-service-name span:first-child {
@@ -1788,6 +1793,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-wrap: pretty;
 }
 
 .nc-service-desc p {
@@ -1799,6 +1805,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-wrap: pretty;
 }
 
 .nc-service-footer {
@@ -1914,9 +1921,9 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.4s ease, transform 0.4s ease, background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  transform-origin: left center;
+  animation: nc-spin-badge-bloom 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
   letter-spacing: 0.02em;
   white-space: normal;
   max-width: 100%;
@@ -1925,6 +1932,17 @@
   cursor: pointer;
   user-select: none;
   text-align: left;
+}
+
+@keyframes nc-spin-badge-bloom {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateX(-6px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
 }
 
 .nc-spin-badge:hover {
@@ -1947,7 +1965,7 @@
 
 .nc-spin-badge.is-leaving {
   opacity: 0;
-  transform: translateY(2px);
+  transform: scale(0.92) translateX(-4px);
   pointer-events: none;
 }
 
@@ -2050,13 +2068,30 @@
   }
 }
 
+/* ============================================================
+ * Home Guardrails: Strictly Preserve Terminal ASCII Grid
+ * ============================================================ */
 .nc-pre-output {
   margin: 0;
   font-family: inherit;
   font-size: 0.82rem;
   line-height: 1.55;
   white-space: pre-wrap;
-  word-break: break-word;
+  word-break: break-all;
+  text-wrap: wrap !important;
+}
+
+.nc-root-prompt,
+.nc-root-cmd-input,
+.nc-cmd-chip,
+.nc-ff-grid,
+.nc-ff-item,
+.nc-ff-label {
+  text-wrap: nowrap !important;
+}
+
+.nc-ff-val {
+  text-wrap: wrap !important;
 }
 
 .nc-root-executing {

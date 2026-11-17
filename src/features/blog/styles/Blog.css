@@ -124,6 +124,28 @@ h4 {
   min-width: 0;
 }
 
+/* Micro-Reveal Animation (Fast page reveal, strictly excludes sticky frosted nav) */
+.nc-blog-container > :not(.nc-blog-nav) {
+  animation: nc-blog-micro-reveal 140ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes nc-blog-micro-reveal {
+  0% {
+    opacity: 0.92;
+    transform: translateY(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nc-blog-container > :not(.nc-blog-nav) {
+    animation: none !important;
+  }
+}
+
 /* Blog Navigation Bar - Sticky Frosted Glass */
 .nc-blog-nav {
   position: sticky;
@@ -238,6 +260,7 @@ h4 {
   overflow-wrap: break-word;
   min-width: 0;
   font-family: var(--font-code);
+  text-wrap: balance;
 }
 
 .nc-blog-brand-sub {
@@ -245,6 +268,7 @@ h4 {
   color: var(--text-muted);
   margin: 0;
   line-height: 1.6;
+  text-wrap: balance;
 }
 
 .nc-blog-stats-bar {
@@ -425,6 +449,7 @@ h4 {
   color: var(--text);
   line-height: 1.4;
   overflow-wrap: break-word;
+  text-wrap: balance;
 }
 
 .nc-blog-post-card:hover .nc-blog-card-title {
@@ -436,6 +461,7 @@ h4 {
   font-size: 0.95rem;
   color: var(--text-muted);
   line-height: 1.7;
+  text-wrap: pretty;
 }
 
 .nc-blog-card-tags {
@@ -562,6 +588,7 @@ h4 {
   color: var(--text);
   overflow-wrap: break-word;
   min-width: 0;
+  text-wrap: balance;
 }
 
 .nc-article-tags {
@@ -608,6 +635,7 @@ h4 {
   font-size: 1.0625rem;
   line-height: 1.75;
   color: var(--text);
+  text-wrap: pretty;
 }
 
 /* Article Body Typography (Soothing contrast) */
@@ -615,10 +643,12 @@ h4 {
   font-size: 1.0625rem;
   line-height: 1.85;
   color: var(--text-muted);
+  text-wrap: pretty;
 }
 
 .nc-article-body p {
   margin: 1.4rem 0;
+  text-wrap: pretty;
 }
 
 .nc-article-body strong {
@@ -771,6 +801,7 @@ h4 {
   padding: 0.15rem 0.4rem;
   border-radius: var(--radius);
   border: 1px solid var(--border);
+  text-wrap: wrap !important;
 }
 
 /* Links */
@@ -939,6 +970,8 @@ h4 {
   line-height: 1.65;
   color: var(--code-text);
   tab-size: 2;
+  text-wrap: nowrap !important;
+  white-space: pre !important;
 }
 
 .nc-code-pre code {
@@ -946,6 +979,8 @@ h4 {
   background: transparent;
   padding: 0;
   border: none;
+  text-wrap: nowrap !important;
+  white-space: pre !important;
 }
 
 /* Prism Token Themes (Harmonic with Nord & Forest) */

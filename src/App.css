@@ -31,3 +31,21 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
+
+/* ============================================================
+ * Typography Engine: Line Wrapping & Monospace Guardrails
+ * ============================================================ */
+h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  min-width: 0;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Guardrails: Monospace, ASCII, Code & Terminal never re-wrap */
+pre, code, kbd, samp {
+  text-wrap: nowrap;
+}
