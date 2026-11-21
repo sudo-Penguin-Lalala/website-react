@@ -60,13 +60,14 @@ const IdentityCard = ({
                 alt={altText}
                 width="88"
                 height="88"
+                fetchpriority="high"
               />
             </picture>
           </div>
 
           <div className="nc-profile-text">
             <div className="nc-profile-heading">
-              <h2 className="nc-profile-name">
+              <h3 className="nc-profile-name">
                 <button
                   type="button"
                   className="nc-profile-name-btn"
@@ -78,7 +79,7 @@ const IdentityCard = ({
                     {showAlias ? "sudo-Penguin-Lalala" : profileName}
                   </span>
                 </button>
-              </h2>
+              </h3>
               <button
                 type="button"
                 className="nc-tag nc-tag-accent nc-tag-interactive"

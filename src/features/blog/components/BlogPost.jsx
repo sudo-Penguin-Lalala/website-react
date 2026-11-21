@@ -82,16 +82,16 @@ export default function BlogPost({
   if (!post) {
     return (
       <div className="nc-blog-page" data-theme={theme}>
-        <div className="nc-blog-container">
+        <main id="main-content" className="nc-blog-container">
           <nav className="nc-blog-nav">
             <a href="/blog" onClick={handleBackToBlog} className="nc-blog-back-btn">
               &lt; /blog
             </a>
           </nav>
           <div style={{ textAlign: "center", padding: "4rem 1rem" }}>
-            <h1 className="nc-article-title">404 - Post Not Found</h1>
+            <h1 className="nc-article-title">404 — Post Not Found</h1>
             <p style={{ color: "var(--text-dim)" }}>
-              The article &apos;{slug}&apos; does not exist or has been moved.
+              The article “{slug}” does not exist or has been moved.
             </p>
             <a
               href="/blog"
@@ -102,7 +102,7 @@ export default function BlogPost({
               Return to blog archive
             </a>
           </div>
-        </div>
+        </main>
       </div>
     );
   }
@@ -116,7 +116,7 @@ export default function BlogPost({
         aria-hidden="true"
       />
 
-      <div className="nc-blog-container">
+      <main id="main-content" className="nc-blog-container">
         {/* Navigation */}
         <nav className="nc-blog-nav" aria-label="Article navigation">
           <div className="nc-blog-nav-left">
@@ -165,7 +165,7 @@ export default function BlogPost({
               <span>~/posts/{post.slug}.md</span>
             </div>
             <div className="nc-chassis-stats">
-              <span>{post.wordCount} words · {post.readingTime}m read</span>
+              <span>{post.wordCount} words, {post.readingTime}m read</span>
             </div>
           </div>
 
@@ -176,11 +176,9 @@ export default function BlogPost({
                 <time dateTime={post.date} className="nc-article-date">
                   {formatPostDate(post.date)}
                 </time>
-                <span>·</span>
                 <span className="nc-article-chip">
                   {post.readingTime} min read
                 </span>
-                <span>·</span>
                 <span className="nc-article-chip">
                   {post.wordCount} words
                 </span>
@@ -228,6 +226,7 @@ export default function BlogPost({
                     className="nc-author-avatar"
                     width="48"
                     height="48"
+                    loading="lazy"
                   />
                 </picture>
               </div>
@@ -253,6 +252,7 @@ export default function BlogPost({
                 onClick={handleCopyLink}
                 className="nc-blog-back-btn"
                 aria-label="Copy article link"
+                aria-live="polite"
               >
                 <span>
                   {copiedLink ? "✓ link copied!" : "copy link"}
@@ -261,7 +261,7 @@ export default function BlogPost({
             </footer>
           </div>
         </article>
-      </div>
+      </main>
     </div>
   );
 }

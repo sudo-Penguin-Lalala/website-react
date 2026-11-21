@@ -312,6 +312,7 @@ h4 {
 
 .nc-blog-search-box:focus-within {
   border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-soft);
 }
 
 .nc-blog-search-glyph {

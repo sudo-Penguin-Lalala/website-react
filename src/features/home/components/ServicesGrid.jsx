@@ -60,20 +60,13 @@ const ServicesGrid = ({ isSudo, isVi }) => {
           >
             <div className="nc-service-top">
               <div className="nc-service-icon">
-                <Icon name="netcheck" />
+                <Icon name="netcheck" width="22" height="22" />
               </div>
-              {isSudo ? (
-                <span className="nc-badge-running nc-badge-root"># ROOT DIRECT</span>
-              ) : (
-                <span className="nc-badge-running nc-badge-netcheck">
-                  <span className="nc-status-dot" />RUNNING
-                </span>
-              )}
             </div>
-            <div className="nc-service-name">
+            <h3 className="nc-service-name">
               <span>NetCheck</span>
               <span className="nc-arrow">↗</span>
-            </div>
+            </h3>
             <div className="nc-service-desc">
               {isVi
                 ? "Gom hết mấy trò test mạng vào một trang cho đỡ phải mở chục tab terminal mỗi khi Wi-Fi giở chứng."
@@ -100,20 +93,13 @@ const ServicesGrid = ({ isSudo, isVi }) => {
           >
             <div className="nc-service-top">
               <div className="nc-service-icon">
-                <Icon name="telecloud" />
+                <Icon name="telecloud" width="22" height="22" />
               </div>
-              {isSudo ? (
-                <span className="nc-badge-running nc-badge-root"># ROOT DIRECT</span>
-              ) : (
-                <span className="nc-badge-running nc-badge-storage">
-                  <span className="nc-status-dot" />RUNNING
-                </span>
-              )}
             </div>
-            <div className="nc-service-name">
-              <span>NNT's Storage</span>
+            <h3 className="nc-service-name">
+              <span>NNT’s Storage</span>
               <span className="nc-arrow">↗</span>
-            </div>
+            </h3>
             <div className="nc-service-desc">
               {isVi
                 ? "Ổ đám mây cá nhân cho bạn bè lưu ảnh với file linh tinh. Đăng ký nhận dung lượng lưu trữ an toàn."
@@ -140,20 +126,13 @@ const ServicesGrid = ({ isSudo, isVi }) => {
           >
             <div className="nc-service-top">
               <div className="nc-service-icon">
-                <Icon name="metube" />
+                <Icon name="metube" width="22" height="22" />
               </div>
-              {isSudo ? (
-                <span className="nc-badge-running nc-badge-root"># ROOT DIRECT</span>
-              ) : (
-                <span className="nc-badge-running nc-badge-metube">
-                  <span className="nc-status-dot" />RUNNING
-                </span>
-              )}
             </div>
-            <div className="nc-service-name">
+            <h3 className="nc-service-name">
               <span>MeTube</span>
               <span className="nc-arrow">↗</span>
-            </div>
+            </h3>
             <div className="nc-service-desc">
               {isVi
                 ? "Cứ dán link YouTube, TikTok hay Facebook vào là kéo video về máy. Không quảng cáo, không chuyển hướng rác."
@@ -180,20 +159,13 @@ const ServicesGrid = ({ isSudo, isVi }) => {
           >
             <div className="nc-service-top">
               <div className="nc-service-icon">
-                <Icon name="github" />
+                <Icon name="github" width="22" height="22" />
               </div>
-              {isSudo ? (
-                <span className="nc-badge-running nc-badge-root"># ROOT REPO</span>
-              ) : (
-                <span className="nc-badge-running nc-badge-github">
-                  <span className="nc-status-dot" />CODE REPOS
-                </span>
-              )}
             </div>
-            <div className="nc-service-name">
+            <h3 className="nc-service-name">
               <span>GitHub</span>
               <span className="nc-arrow">↗</span>
-            </div>
+            </h3>
             <div className="nc-service-desc">
               {isVi
                 ? "Mấy món mã nguồn mở với đống repo nghịch cuối tuần. Có cái xài được, có cái sống sót qua ngày thứ Hai."
@@ -213,19 +185,12 @@ const ServicesGrid = ({ isSudo, isVi }) => {
           >
             <div className="nc-service-top">
               <div className="nc-service-icon">
-                <Icon name="discord" />
+                <Icon name="discord" width="22" height="22" />
               </div>
-              {isSudo ? (
-                <span className="nc-badge-running nc-badge-root"># ROOT COMM LINK</span>
-              ) : (
-                <span className="nc-badge-running nc-badge-discord">
-                  <span className="nc-status-dot" />DIRECT DM
-                </span>
-              )}
             </div>
-            <div className="nc-service-name">
+            <h3 className="nc-service-name">
               <span>Discord</span>
-            </div>
+            </h3>
             <div className="nc-service-desc">
               <strong className="nc-svc-highlight">nnt2589</strong>
               <p>
@@ -246,6 +211,7 @@ const ServicesGrid = ({ isSudo, isVi }) => {
                     ? "Sao chép username Discord nnt2589"
                     : "Copy Discord username nnt2589"
                 }
+                aria-live="polite"
               >
                 {copiedDiscord ? "✓ copied" : "copy username"}
               </button>
@@ -273,19 +239,12 @@ const ServicesGrid = ({ isSudo, isVi }) => {
           >
             <div className="nc-service-top">
               <div className="nc-service-icon">
-                <Icon name="nnt" />
+                <Icon name="nnt" width="22" height="22" />
               </div>
-              {isSudo ? (
-                <span className="nc-badge-running nc-badge-root"># ROOT MAIL SERVER</span>
-              ) : (
-                <span className="nc-badge-running nc-badge-email">
-                  <span className="nc-status-dot" />INBOX
-                </span>
-              )}
             </div>
-            <div className="nc-service-name">
+            <h3 className="nc-service-name">
               <span>Email</span>
-            </div>
+            </h3>
             <div className="nc-service-desc">
               <strong className="nc-svc-highlight">{contactEmail}</strong>
               <p>
@@ -306,6 +265,7 @@ const ServicesGrid = ({ isSudo, isVi }) => {
                     ? `Sao chép địa chỉ email ${contactEmail}`
                     : `Copy email address ${contactEmail}`
                 }
+                aria-live="polite"
               >
                 {copiedEmail ? "✓ copied" : "copy email"}
               </button>

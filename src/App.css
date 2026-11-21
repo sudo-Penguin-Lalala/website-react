@@ -3,6 +3,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+button, a, input, select, textarea {
+  touch-action: manipulation;
+}
+
 html, body {
   overflow-x: clip;
   -webkit-text-size-adjust: 100%;
@@ -10,6 +14,12 @@ html, body {
 
 html {
   scroll-behavior: smooth;
+}
+
+@media (pointer: fine) {
+  html {
+    overscroll-behavior: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -33,6 +43,37 @@ body {
 }
 
 /* ============================================================
+ * Accessibility: Skip Link & Focus Navigation
+ * ============================================================ */
+.nc-skip-link {
+  position: absolute;
+  top: -999px;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.5rem 0.85rem;
+  background: #141922;
+  color: #88c0d0;
+  border: 1px solid #88c0d0;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.nc-skip-link:focus-visible {
+  top: 1rem;
+  outline: 2px solid #88c0d0;
+  outline-offset: 2px;
+}
+
+/* Heading & anchor offset for sticky header */
+h1, h2, h3, h4, h5, h6, [id] {
+  scroll-margin-top: 4.5rem;
+}
+
+/* ============================================================
  * Typography Engine: Line Wrapping & Monospace Guardrails
  * ============================================================ */
 h1, h2, h3, h4, h5, h6 {
@@ -48,4 +89,15 @@ p {
 /* Guardrails: Monospace, ASCII, Code & Terminal never re-wrap */
 pre, code, kbd, samp {
   text-wrap: nowrap;
+}
+
+/* Tabular numbers for comparisons, dates, counters, and statistics */
+.nc-card-status,
+.nc-ff-val,
+.nc-blog-card-meta,
+.nc-blog-stats-bar,
+.nc-chassis-stats,
+.nc-article-meta-row,
+.nc-spin-badge {
+  font-variant-numeric: tabular-nums;
 }

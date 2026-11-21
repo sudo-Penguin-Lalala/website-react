@@ -12,21 +12,22 @@ function AppContent() {
   const { page, slug, navigate } = useRouter();
   const { theme, cycleTheme, currentTheme } = useTheme();
 
-  if (page === "blog") {
-    return <BlogList navigate={navigate} />;
-  }
-
-  if (page === "post") {
-    return <BlogPost slug={slug} navigate={navigate} />;
-  }
-
   return (
-    <HomeV2
-      navigate={navigate}
-      theme={theme}
-      cycleTheme={cycleTheme}
-      currentTheme={currentTheme}
-    />
+    <>
+      <a href="#main-content" className="nc-skip-link">
+        Skip to content
+      </a>
+      {page === "blog" && <BlogList navigate={navigate} />}
+      {page === "post" && <BlogPost slug={slug} navigate={navigate} />}
+      {page !== "blog" && page !== "post" && (
+        <HomeV2
+          navigate={navigate}
+          theme={theme}
+          cycleTheme={cycleTheme}
+          currentTheme={currentTheme}
+        />
+      )}
+    </>
   );
 }
 

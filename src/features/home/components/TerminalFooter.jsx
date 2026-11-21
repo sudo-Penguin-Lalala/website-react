@@ -30,7 +30,7 @@ const TerminalFooter = ({ isVi }) => {
               : `NNT logo, spun ${spinCount} times`
           }
         >
-          <Icon name="nnt" />
+          <Icon name="nnt" width="22" height="22" />
         </button>
         <span>© 2026 Thien Nguyen</span>
         {isSpinBadgeVisible && (
@@ -44,10 +44,11 @@ const TerminalFooter = ({ isVi }) => {
                 ? `Đạt ${achievement.badge}: ${achievement.title}. Chạm để sao chép.`
                 : `Achieved ${achievement.badge}: ${achievement.title}. Tap to copy.`
             }
+            aria-live="polite"
           >
             <span aria-hidden="true">{copied ? "📋" : achievement.icon}</span>
             <span style={{ opacity: 0.8 }}>
-              [{spinCount} · {achievement.wh}]
+              [{spinCount}, {achievement.wh}]
             </span>
             <span style={{ color: "var(--accent)", fontWeight: 700 }}>
               {achievement.badge}
@@ -72,7 +73,7 @@ const TerminalFooter = ({ isVi }) => {
               : "View website source code on GitHub"
           }
         >
-          <Icon name="github" />
+          <Icon name="github" width="16" height="16" />
           <span>[source: website-react ↗]</span>
         </a>
       </div>

@@ -38,7 +38,7 @@ export function getUnameOutput() {
 export function getWhoamiOutput() {
   return (
     `[root@reactor ~]# whoami\n` +
-    `root (uid=0 gid=0) · operator status: active · all nodes online`
+    `root (uid=0 gid=0) | operator status: active | all nodes online`
   );
 }
 
@@ -107,11 +107,11 @@ export function getRebootOutput(cleanCmd, isVi) {
     ? `[root@reactor ~]# ${cleanCmd}\n` +
       `Broadcast message from root@reactor (pts/0):\n` +
       `The system is going down for reboot NOW!\n` +
-      `... Khởi động lại xong. Uptime: 0 ngày, 0 giờ, 1 giây. Nói đùa thôi chứ server vẫn online.`
+      `… Khởi động lại xong. Uptime: 0 ngày, 0 giờ, 1 giây. Nói đùa thôi chứ server vẫn online.`
     : `[root@reactor ~]# ${cleanCmd}\n` +
       `Broadcast message from root@reactor (pts/0):\n` +
       `The system is going down for reboot NOW!\n` +
-      `... Rebooted cleanly. Uptime: 0 days, 0 hours, 1 second. Just kidding, still online.`;
+      `… Rebooted cleanly. Uptime: 0 days, 0 hours, 1 second. Just kidding, still online.`;
 }
 
 export function getPowerOutput(isVi) {

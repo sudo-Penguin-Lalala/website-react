@@ -40,7 +40,7 @@ export default function BlogList({ navigate }) {
 
   return (
     <div className="nc-blog-page" data-theme={theme}>
-      <div className="nc-blog-container">
+      <main id="main-content" className="nc-blog-container">
         {/* Navigation bar */}
         <nav className="nc-blog-nav" aria-label="Blog navigation">
           <div className="nc-blog-nav-left">
@@ -112,11 +112,14 @@ export default function BlogList({ navigate }) {
             <span className="nc-blog-search-glyph" aria-hidden="true">&gt;</span>
             <input
               type="text"
+              name="search"
               value={search}
               onInput={(e) => setSearch(e.target.value)}
-              placeholder="Filter posts by keyword or tag..."
+              placeholder="Filter posts by keyword or tag…"
               className="nc-blog-search-input"
               aria-label="Filter posts"
+              autoComplete="off"
+              spellCheck="false"
             />
             {search && (
               <button
@@ -222,7 +225,7 @@ export default function BlogList({ navigate }) {
             ))
           )}
         </div>
-      </div>
+      </main>
     </div>
   );
 }

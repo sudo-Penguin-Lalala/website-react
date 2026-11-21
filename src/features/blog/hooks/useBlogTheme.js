@@ -18,6 +18,9 @@ export function useBlogTheme() {
   });
 
   useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.style.colorScheme = theme;
+    }
     try {
       localStorage.setItem(STORAGE_KEY, theme);
     } catch {

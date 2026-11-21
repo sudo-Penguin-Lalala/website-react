@@ -30,7 +30,7 @@ class ErrorBoundary extends Component {
       return (
         <div className="error-boundary" role="alert">
           <div className="error-boundary__card">
-            <span className="error-boundary__code">500 · System Error</span>
+            <span className="error-boundary__code">500: System Error</span>
             <h1 className="error-boundary__title">Something went wrong</h1>
             <p className="error-boundary__msg">
               An unexpected error occurred while loading this page.

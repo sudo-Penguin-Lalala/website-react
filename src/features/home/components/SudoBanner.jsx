@@ -285,12 +285,13 @@ const SudoBanner = ({
           </span>
           <input
             type="text"
+            name="cmd"
             value={cmdInput}
             onChange={(e) => setCmdInput(e.target.value)}
             placeholder={
               isVi
-                ? "gõ lệnh (thử: help, uname -a, matrix, free -h, ls)..."
-                : "type command (try: help, uname -a, matrix, free -h, ls)..."
+                ? "gõ lệnh (thử: help, uname -a, matrix, free -h, ls)…"
+                : "type command (try: help, uname -a, matrix, free -h, ls)…"
             }
             className="nc-root-cmd-input"
             autoComplete="off"
@@ -304,7 +305,7 @@ const SudoBanner = ({
             disabled={isExecuting}
             aria-label={isVi ? "Thực thi lệnh" : "Execute command"}
           >
-            {isExecuting ? "..." : "run ↵"}
+            {isExecuting ? "…" : "run ↵"}
           </button>
         </form>
 
@@ -317,7 +318,6 @@ const SudoBanner = ({
               onClick={() => handleArrowScroll("left")}
               disabled={!canScrollLeft}
               aria-label={isVi ? "Cuộn lệnh sang trái" : "Scroll commands left"}
-              tabIndex={-1}
             >
               ‹
             </button>
@@ -350,7 +350,6 @@ const SudoBanner = ({
               onClick={() => handleArrowScroll("right")}
               disabled={!canScrollRight}
               aria-label={isVi ? "Cuộn lệnh sang phải" : "Scroll commands right"}
-              tabIndex={-1}
             >
               ›
             </button>
@@ -362,7 +361,7 @@ const SudoBanner = ({
         <div className="nc-root-executing" role="status" aria-live="polite">
           <span className="nc-spinner-glyph" aria-hidden="true">⚙</span>
           <span>
-            {isVi ? `Đang thực thi: ${executingCmd}...` : `Executing: ${executingCmd}...`}
+            {isVi ? `Đang thực thi: ${executingCmd}…` : `Executing: ${executingCmd}…`}
           </span>
         </div>
       )}

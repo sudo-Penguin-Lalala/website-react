@@ -81,7 +81,7 @@ const HomeV2 = ({
     >
       {showMatrix && <MatrixCanvas active={pageEffect === "matrix"} />}
 
-      <div className="nc-container">
+      <main id="main-content" className="nc-container">
         <BrandHeader
           isSudo={isSudo}
           handleBrandClick={handleBrandClick}
@@ -119,7 +119,7 @@ const HomeV2 = ({
         <ServicesGrid isSudo={isSudo} isVi={isVi} />
 
         <TerminalFooter isVi={isVi} />
-      </div>
+      </main>
     </div>
   );
 };

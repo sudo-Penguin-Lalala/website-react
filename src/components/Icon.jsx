@@ -20,7 +20,7 @@ const icons = {
   nnt,
 };
 
-const Icon = ({ name, ...props }) => {
+const Icon = ({ name, width = 24, height = 24, ...props }) => {
   const iconSrc = icons[name];
 
   if (!iconSrc) {
@@ -28,7 +28,16 @@ const Icon = ({ name, ...props }) => {
     return null;
   }
 
-  return <img src={iconSrc} alt="" aria-hidden="true" {...props} />;
+  return (
+    <img
+      src={iconSrc}
+      alt=""
+      aria-hidden="true"
+      width={width}
+      height={height}
+      {...props}
+    />
+  );
 };
 
 export default Icon;

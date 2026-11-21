@@ -67,8 +67,8 @@ Contact: ${getContactEmail()} | Discord: nnt2589
       const remaining = 5 - nextClicks;
       setSudoHint(
         isVi
-          ? `[còn ${remaining} lần click nữa...]`
-          : `[${remaining} more click${remaining > 1 ? "s" : ""}...]`
+          ? `[còn ${remaining} lần click nữa…]`
+          : `[${remaining} more click${remaining > 1 ? "s" : ""}…]`
       );
     }
   };
@@ -128,8 +128,8 @@ Contact: ${getContactEmail()} | Discord: nnt2589
         normalized === "open blog"
       ) {
         output = isVi
-          ? `[root@reactor ~]# ${cleanCmd}\nĐang chuyển hướng sang /blog...`
-          : `[root@reactor ~]# ${cleanCmd}\nNavigating to /blog...`;
+          ? `[root@reactor ~]# ${cleanCmd}\nĐang chuyển hướng sang /blog…`
+          : `[root@reactor ~]# ${cleanCmd}\nNavigating to /blog…`;
         if (navigate) {
           setTimeout(() => navigate("/blog"), 300);
         }
