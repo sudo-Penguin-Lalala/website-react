@@ -1,4 +1,5 @@
 import { useMemo, useState, useEffect } from "preact/hooks";
+import DOMPurify from "dompurify";
 import { getPostBySlug, formatPostDate } from "../utils/postLoader";
 import { renderMarkdown } from "../utils/markdownRenderer";
 import { useBlogTheme } from "../hooks/useBlogTheme";
@@ -211,7 +212,19 @@ export default function BlogPost({
             {/* Rendered Markdown Body */}
             <div
               className="nc-article-body"
-              dangerouslySetInnerHTML={{ __html: renderedHtml }}
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(renderedHtml, {
+                  ADD_TAGS: ["aside", "button"],
+                  ADD_ATTR: [
+                    "data-code",
+                    "data-lang",
+                    "target",
+                    "rel",
+                    "aria-hidden",
+                    "aria-label",
+                  ],
+                }),
+              }}
               onClick={handleBodyClick}
             />
 
