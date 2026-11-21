@@ -1,5 +1,6 @@
 import { marked } from "marked";
 import Prism from "prismjs";
+import DOMPurify from "dompurify";
 
 // Syntax highlighters
 import "prismjs/components/prism-bash.js";
@@ -168,9 +169,20 @@ marked.setOptions({
 });
 
 /**
- * Render Markdown content to safe HTML string
+ * Render Markdown content to safe HTML string with DOMPurify sanitization
  */
 export function renderMarkdown(markdownText) {
   if (!markdownText) return "";
-  return marked.parse(markdownText);
+  const rawHtml = marked.parse(markdownText);
+  return DOMPurify.sanitize(rawHtml, {
+    ADD_TAGS: ["aside", "button"],
+    ADD_ATTR: [
+      "data-code",
+      "data-lang",
+      "target",
+      "rel",
+      "aria-hidden",
+      "aria-label",
+    ],
+  });
 }
