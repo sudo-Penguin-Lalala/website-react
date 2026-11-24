@@ -35,17 +35,16 @@ export const FISH_SPECIES = [
 
 export const QUICK_COMMANDS = [
   { cmd: "help", label: "$ help" },
+  { cmd: "fastfetch", label: "$ fastfetch 💻" },
   { cmd: "uname -a", label: "$ uname -a" },
-  { cmd: "free -h", label: "$ free -h" },
+  { cmd: "free -h", label: "$ free -h 📊" },
+  { cmd: "uptime", label: "$ uptime ⏱" },
+  { cmd: "cat classified.env", label: "$ cat classified.env 🔑" },
   { cmd: "power", label: "$ power" },
   { cmd: "ls -la", label: "$ ls -la" },
   { cmd: "sl", label: "$ sl 🚂" },
   { cmd: "cat flag.txt", label: "$ cat flag.txt" },
-  { cmd: "matrix", label: "$ matrix 🟢" },
-  { cmd: "invert", label: "$ invert ☯" },
-  { cmd: "flip", label: "$ flip 🙃" },
-  { cmd: "party", label: "$ party 🪩" },
-  { cmd: "reset", label: "$ reset ✕" },
+  { cmd: "clear", label: "$ clear" },
   { cmd: "rm -rf /", label: "$ rm -rf /" },
 ];
 

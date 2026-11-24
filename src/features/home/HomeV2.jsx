@@ -3,7 +3,6 @@ import { useI18n } from "../../i18n/useI18n";
 import { profileData } from "../../config/links";
 import { useTerminalShell } from "./hooks/useTerminalShell";
 
-import MatrixCanvas from "./components/MatrixCanvas";
 import BrandHeader from "./components/BrandHeader";
 import SudoBanner from "./components/SudoBanner";
 import IdentityCard from "./components/IdentityCard";
@@ -31,9 +30,6 @@ const HomeV2 = ({
     setRootOutput,
     isExecuting,
     executingCmd,
-    pageEffect,
-    isReverting,
-    showMatrix,
     executeCommand,
   } = useTerminalShell(isVi, navigate);
 
@@ -74,14 +70,7 @@ const HomeV2 = ({
   }, [cycleTheme, toggle, handleExitSudo]);
 
   return (
-    <div
-      className={`nc-term ${pageEffect !== "none" ? `effect-${pageEffect}` : ""} ${
-        isReverting ? "is-reverting" : ""
-      }`}
-      data-theme={theme}
-    >
-      {showMatrix && <MatrixCanvas active={pageEffect === "matrix"} />}
-
+    <div className="nc-term" data-theme={theme}>
       <main id="main-content" className="nc-container">
         <BrandHeader
           isSudo={isSudo}

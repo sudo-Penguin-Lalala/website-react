@@ -1,12 +1,13 @@
 {
-  "name": "reacthtml",
+  "name": "nnt25-showcase",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "test": "vitest run",
     "preview": "npm run build && wrangler dev",
     "deploy": "npm run build && wrangler deploy"
   },
@@ -25,6 +26,7 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
     "vite": "^7.3.8",
+    "vitest": "^5.1.1",
     "wrangler": "^4.107.0"
   }
 }

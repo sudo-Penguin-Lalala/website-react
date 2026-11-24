@@ -49,14 +49,14 @@ export function parseFrontmatter(raw) {
       (val.startsWith("'") && val.endsWith("'"))
     ) {
       val = val.slice(1, -1);
-    } else if (val.startsWith("[") && val.endsWith("]")) {
-      // Parse array syntax [ "A", "B" ]
+    } else if (val.startsWith("[")) {
+      // Parse array syntax [ "A", "B" ] with graceful fallback for unclosed brackets or raw items
+      const inner = val.endsWith("]") ? val.slice(1, -1) : val.slice(1);
       try {
-        val = JSON.parse(val.replace(/'/g, '"'));
+        val = JSON.parse((val.endsWith("]") ? val : val + "]").replace(/'/g, '"'));
       } catch (err) {
         console.warn("Array parsing fallback in frontmatter:", err);
-        val = val
-          .slice(1, -1)
+        val = inner
           .split(",")
           .map((item) => item.trim().replace(/^["']|["']$/g, ""))
           .filter(Boolean);
@@ -104,6 +104,8 @@ export function formatPostDate(dateStr) {
     return trimmed;
   }
 }
+
+export const formatDateStr = formatPostDate;
 
 let cachedPosts = null;
 let cachedTags = null;

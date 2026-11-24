@@ -4,8 +4,8 @@
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  background-color: #0a0a0f;
-  color: #ffffff;
+  background-color: var(--bg-dark, #0a0a0f);
+  color: var(--text, #ffffff);
   font-family: "JetBrains Mono", system-ui, monospace;
   box-sizing: border-box;
 }
@@ -27,7 +27,7 @@
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: #ff6b6b;
+  color: var(--color-error, #ff6b6b);
   text-transform: uppercase;
   margin-bottom: 0.75rem;
 }

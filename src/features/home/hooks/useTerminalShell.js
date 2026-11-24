@@ -7,18 +7,10 @@ export function useTerminalShell(isVi, navigate) {
   const [isSudo, setIsSudo] = useState(false);
   const [sudoHint, setSudoHint] = useState("");
   const [rootOutput, setRootOutput] = useState("");
-  const [pageEffect, setPageEffect] = useState("none");
-  const [isReverting, setIsReverting] = useState(false);
-  const [showMatrix, setShowMatrix] = useState(false);
   const [isExecuting, setIsExecuting] = useState(false);
   const [executingCmd, setExecutingCmd] = useState("");
 
   const timersRef = useRef(new Set());
-  const pageEffectRef = useRef(pageEffect);
-
-  useEffect(() => {
-    pageEffectRef.current = pageEffect;
-  }, [pageEffect]);
 
   const registerTimeout = useCallback((fn, delay) => {
     const id = setTimeout(() => {
@@ -37,16 +29,6 @@ export function useTerminalShell(isVi, navigate) {
       timers.clear();
     };
   }, []);
-
-  // Smooth Matrix rain fade in/out
-  useEffect(() => {
-    if (pageEffect === "matrix") {
-      setShowMatrix(true);
-    } else if (showMatrix) {
-      const t = setTimeout(() => setShowMatrix(false), 550);
-      return () => clearTimeout(t);
-    }
-  }, [pageEffect, showMatrix]);
 
   // DevTools Console ASCII Art Banner on mount
   useEffect(() => {
@@ -99,18 +81,13 @@ Contact: ${getContactEmail()} | Discord: nnt2589
   }, [isSudo, isVi, registerTimeout]);
 
   const handleExitSudo = useCallback(() => {
-    if (pageEffectRef.current !== "none") {
-      setIsReverting(true);
-      registerTimeout(() => setIsReverting(false), 900);
-    }
     setIsSudo(false);
     setBrandClicks(0);
     setRootOutput("");
     setSudoHint("");
-    setPageEffect("none");
     setIsExecuting(false);
     setExecutingCmd("");
-  }, [registerTimeout]);
+  }, []);
 
   const executeCommand = useCallback((rawCmd) => {
     const cleanCmd = rawCmd.trim();
@@ -199,45 +176,20 @@ Contact: ${getContactEmail()} | Discord: nnt2589
         output = cmdUtils.getRebootOutput(cleanCmd, isVi);
       } else if (normalized === "power" || normalized === "dynamo") {
         output = cmdUtils.getPowerOutput(isVi);
+      } else if (normalized === "fastfetch" || normalized === "neofetch") {
+        output = cmdUtils.getFastfetchOutput();
+      } else if (normalized === "uptime") {
+        output = cmdUtils.getUptimeOutput();
       } else if (normalized === "sl") {
         output = cmdUtils.getSlOutput(isVi);
-      } else if (normalized === "matrix") {
-        setPageEffect((prev) => (prev === "matrix" ? "none" : "matrix"));
-        output =
-          `[root@reactor ~]# matrix\n` +
-          `🟢 Matrix digital stream toggle engaged. Green phosphor mode online.\n` +
-          `Type 'reset' to restore standard terminal display.`;
-      } else if (normalized === "invert") {
-        setPageEffect((prev) => (prev === "invert" ? "none" : "invert"));
-        output =
-          `[root@reactor ~]# invert\n` +
-          `⚡ Display color polarity inverted. Negative contrast mode active.\n` +
-          `Type 'reset' to restore standard terminal display.`;
-      } else if (normalized === "flip") {
-        setPageEffect((prev) => (prev === "flip" ? "none" : "flip"));
-        output =
-          `[root@reactor ~]# flip\n` +
-          `🙃 Viewport rotated 180 degrees (Australian mirror mode).\n` +
-          `Type 'reset' to restore standard terminal display.`;
-      } else if (normalized === "party") {
-        setPageEffect((prev) => (prev === "party" ? "none" : "party"));
-        output =
-          `[root@reactor ~]# party\n` +
-          `🪩 Reactor party mode activated! Rainbow spectrum strobe running.\n` +
-          `Type 'reset' to restore standard terminal display.`;
       } else if (
         normalized === "reset" ||
         normalized === "normal" ||
         normalized === "restore"
       ) {
-        if (pageEffectRef.current !== "none") {
-          setIsReverting(true);
-          registerTimeout(() => setIsReverting(false), 900);
-        }
-        setPageEffect("none");
         output =
           `[root@reactor ~]# reset\n` +
-          `✓ Visual effects reverted & display calibrated to default NetCheck terminal.`;
+          `✓ Terminal display state calibrated. Screen buffer reset.`;
       } else {
         output = `bash: ${cleanCmd}: command not found. Type 'help' to see available commands.`;
       }
@@ -257,9 +209,6 @@ Contact: ${getContactEmail()} | Discord: nnt2589
     setRootOutput,
     isExecuting,
     executingCmd,
-    pageEffect,
-    isReverting,
-    showMatrix,
     executeCommand,
   };
 }

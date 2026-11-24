@@ -38,7 +38,10 @@ const ServicesGrid = ({ isSudo, isVi }) => {
             <span className="nc-win-dot nc-win-min" />
             <span className="nc-win-dot nc-win-max" />
           </div>
-          <h2 className="nc-card-title">
+          <h2
+            className="nc-card-title"
+            style={{ overflowWrap: "break-word", minWidth: 0 }}
+          >
             <span className="nc-prompt-glyph">&gt;</span> projects_and_connect {isSudo ? "--root-access" : ""}
           </h2>
         </div>

@@ -7,7 +7,9 @@ export function getHelpOutput() {
     `  [System Info & Diagnostics]\n` +
     `  • uname -a            Print kernel version & CPU architecture\n` +
     `  • whoami              Show current operator privileges & UID/GID\n` +
+    `  • fastfetch           Display host system hardware & homelab specs\n` +
     `  • free -h             Check system memory & swap statistics\n` +
+    `  • uptime              Show system running duration & load average\n` +
     `  • power               Show logo spins & power stats\n` +
     `  • blog                Browse engineering logs & technical writeups\n` +
     `  • ls -la              List directory contents and file modes\n` +
@@ -18,13 +20,32 @@ export function getHelpOutput() {
     `  • rm -rf /            Test Reactor Homelab Safety Guard defense\n` +
     `  • systemctl reboot    Trigger simulated container node reboot\n` +
     `  • cat /etc/shadow     Read mock encrypted shadow file\n` +
-    `  • clear               Clear terminal screen buffer\n\n` +
-    `  [Visual Effects - Root Powers]\n` +
-    `  • matrix              Toggle Matrix digital rain & phosphor green\n` +
-    `  • invert              Reverse display color polarity\n` +
-    `  • flip                Australian 180° upside-down viewport\n` +
-    `  • party               Engage reactor disco spectrum strobe\n` +
-    `  • reset               Clear all visual effects & restore normal view`
+    `  • clear               Clear terminal screen buffer`
+  );
+}
+
+export function getFastfetchOutput() {
+  return (
+    `[root@reactor ~]# fastfetch\n` +
+    `       /\\         nnt@reactor\n` +
+    `      /  \\        -----------\n` +
+    `     /\\   \\       OS: GNU/Linux x86_64\n` +
+    `    /      \\      Host: Edge Ingress Node (Homelab)\n` +
+    `   /   ,,   \\     Kernel: 6.12.x-hardened-reactor\n` +
+    `  /   |  |  -\\    Uptime: 42 days, 13 hours, 37 mins\n` +
+    ` /_-''    ''-_\\   Packages: 1337 (dpkg), 42 (flatpak)\n` +
+    `                  Shell: /bin/bash (v2.0-root)\n` +
+    `                  Terminal: NetCheck Reactor Web Terminal\n` +
+    `                  CPU: AMD Ryzen / Homelab Node (16 Cores)\n` +
+    `                  Memory: 16.4 GiB / 64.0 GiB (25%)\n` +
+    `                  Disk (/): 142 GiB / 1.8 TiB (ZFS Pool)`
+  );
+}
+
+export function getUptimeOutput() {
+  return (
+    `[root@reactor ~]# uptime\n` +
+    ` 13:37:00 up 42 days, 13:37,  1 user,  load average: 0.15, 0.08, 0.05`
   );
 }
 

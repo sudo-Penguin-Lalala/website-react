@@ -9,6 +9,12 @@
   --radius:             3px;
   --radius-lg:          4px;
 
+  /* System Color & Background Tokens */
+  --color-error:        #ff6b6b;
+  --color-success:      #00ff66;
+  --matrix-green:       #00ff66;
+  --bg-dark:            #0a0a0f;
+
   /* Independent Brand Identity Colors for Services (Consistent across all themes) */
   --svc-netcheck:       #f59e0b;
   --svc-netcheck-soft:  rgba(245, 158, 11, 0.16);
@@ -550,13 +556,13 @@
 .nc-card.is-root-card {
   background: rgba(28, 12, 16, 0.75);
   border: 1px solid rgba(255, 107, 107, 0.4);
-  box-shadow: inset 0 1px 0 0 rgba(255, 107, 107, 0.2), 0 8px 30px rgba(0, 0, 0, 0.35), 0 0 16px rgba(255, 107, 107, 0.1);
+  box-shadow: inset 0 1px 0 0 rgba(255, 107, 107, 0.2), 0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .nc-card.is-root-card:hover {
     border-color: var(--danger);
-    box-shadow: inset 0 1px 0 0 rgba(255, 107, 107, 0.3), 0 14px 40px rgba(0, 0, 0, 0.45), 0 0 24px rgba(255, 107, 107, 0.2);
+    box-shadow: inset 0 1px 0 0 rgba(255, 107, 107, 0.3), 0 14px 40px rgba(0, 0, 0, 0.45);
     transform: translateY(-2px);
   }
 }
@@ -2090,78 +2096,6 @@
 }
 
 /* ============================================================
- * Page Altering Visual Effects (Triggered via Root Shell)
- * ============================================================ */
-.nc-term.effect-matrix {
-  --accent: #00ff66;
-  --accent-soft: rgba(0, 255, 102, 0.16);
-  --text: #c0ffce;
-  --border-strong: #008833;
-  --border: #00441a;
-  text-shadow: 0 0 4px rgba(0, 255, 102, 0.35);
-}
-
-.nc-term.effect-matrix .nc-card,
-.nc-term.effect-matrix .nc-service-cell,
-.nc-term.effect-matrix .nc-tag {
-  border-color: rgba(0, 255, 102, 0.35);
-  box-shadow: 0 0 10px rgba(0, 255, 102, 0.12);
-}
-
-.nc-matrix-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.nc-matrix-canvas.is-active {
-  opacity: 0.35;
-}
-
-.nc-matrix-canvas.is-leaving {
-  opacity: 0;
-}
-
-.nc-term.effect-invert {
-  filter: invert(1) hue-rotate(180deg);
-}
-
-.nc-term.effect-flip {
-  transform: rotate(180deg);
-}
-
-.nc-term.effect-party {
-  animation: nc-party-strobe 1.5s linear infinite;
-}
-
-@keyframes nc-party-strobe {
-  0% { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(360deg); }
-}
-
-/* Visual Reverting CRT Calibrate Pulse */
-.nc-term.is-reverting {
-  animation: nc-revert-pulse 0.85s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-@keyframes nc-revert-pulse {
-  0% {
-    box-shadow: inset 0 0 50px var(--accent-soft);
-  }
-  35% {
-    box-shadow: inset 0 0 70px rgba(106, 210, 127, 0.35);
-  }
-  100% {
-    box-shadow: inset 0 0 0px transparent;
-  }
-}
-
-/* ============================================================
  * Home Guardrails: Strictly Preserve Terminal ASCII Grid
  * ============================================================ */
 .nc-pre-output {
@@ -2273,13 +2207,5 @@
 
   .nc-fish-btn.wiggling {
     animation: none !important;
-  }
-
-  .nc-term.is-reverting {
-    animation: none !important;
-  }
-
-  .nc-matrix-canvas {
-    display: none !important;
   }
 }

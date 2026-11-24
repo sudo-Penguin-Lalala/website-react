@@ -18,7 +18,7 @@ export default function BlogPost({
 
   const post = useMemo(() => getPostBySlug(slug), [slug]);
 
-  // Memoize sanitized HTML strictly on post change — NEVER re-run DOMPurify on scroll or re-render
+  // Memoize sanitized HTML strictly on post change: NEVER re-run DOMPurify on scroll or re-render
   const sanitizedHtml = useMemo(() => {
     if (!post) return "";
     const raw = renderMarkdown(post.content);
@@ -124,7 +124,7 @@ export default function BlogPost({
             </a>
           </nav>
           <div style={{ textAlign: "center", padding: "4rem 1rem" }}>
-            <h1 className="nc-article-title">404 — Post Not Found</h1>
+            <h1 className="nc-article-title">404: Post Not Found</h1>
             <p style={{ color: "var(--text-dim)" }}>
               The article “{slug}” does not exist or has been moved.
             </p>
