@@ -16,11 +16,11 @@ if (typeof navigator !== "undefined" && "serviceWorker" in navigator) {
   try {
     navigator.serviceWorker.getRegistrations().then((regs) => {
       regs.forEach((reg) => reg.unregister());
-    }).catch(() => {
-      /* ignore */
+    }).catch((err) => {
+      console.warn("ServiceWorker unregistration failed:", err);
     });
-  } catch {
-    /* ignore */
+  } catch (err) {
+    console.warn("ServiceWorker getRegistrations failed:", err);
   }
 }
 
@@ -28,10 +28,10 @@ if (typeof window !== "undefined" && "caches" in window) {
   try {
     caches.keys().then((keys) => {
       keys.forEach((key) => caches.delete(key));
-    }).catch(() => {
-      /* ignore */
+    }).catch((err) => {
+      console.warn("Cache deletion failed:", err);
     });
-  } catch {
-    /* ignore */
+  } catch (err) {
+    console.warn("Cache access failed:", err);
   }
 }

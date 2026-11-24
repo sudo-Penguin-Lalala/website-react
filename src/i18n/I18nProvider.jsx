@@ -11,8 +11,8 @@ function detectInitialLang() {
   try {
     const stored = window.localStorage?.getItem(STORAGE_KEY);
     if (stored && supportedLanguages.includes(stored)) return stored;
-  } catch {
-    // Safari Private Browsing or restricted WebView might throw SecurityError
+  } catch (err) {
+    console.warn("LocalStorage access restricted in detectInitialLang:", err);
   }
 
   // 2. Walk the browser's full language preference list, in order.
@@ -47,8 +47,8 @@ export function I18nProvider({ children }) {
       if (typeof window !== "undefined" && window.localStorage) {
         window.localStorage.setItem(STORAGE_KEY, lang);
       }
-    } catch {
-      // Ignore write errors in restricted storage environments
+    } catch (err) {
+      console.warn("LocalStorage write failed in I18nProvider:", err);
     }
   }, [lang]);
 

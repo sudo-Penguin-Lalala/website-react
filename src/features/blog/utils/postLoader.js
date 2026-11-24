@@ -53,7 +53,8 @@ export function parseFrontmatter(raw) {
       // Parse array syntax [ "A", "B" ]
       try {
         val = JSON.parse(val.replace(/'/g, '"'));
-      } catch {
+      } catch (err) {
+        console.warn("Array parsing fallback in frontmatter:", err);
         val = val
           .slice(1, -1)
           .split(",")
@@ -98,7 +99,8 @@ export function formatPostDate(dateStr) {
     const mm = String(date.getUTCMonth() + 1).padStart(2, "0");
     const dd = String(date.getUTCDate()).padStart(2, "0");
     return `${yyyy}-${mm}-${dd}`;
-  } catch {
+  } catch (err) {
+    console.warn("Date formatting fallback for post:", dateStr, err);
     return trimmed;
   }
 }

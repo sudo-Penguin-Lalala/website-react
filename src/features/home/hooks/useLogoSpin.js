@@ -82,14 +82,16 @@ export function useLogoSpin() {
   const [lifetimeSpins, setLifetimeSpins] = useState(() => {
     try {
       return parseInt(localStorage.getItem(LIFETIME_KEY) || "0", 10) || 0;
-    } catch {
+    } catch (err) {
+      console.warn("LocalStorage read failed for lifetime spins:", err);
       return 0;
     }
   });
   const [bestRecord, setBestRecord] = useState(() => {
     try {
       return parseInt(localStorage.getItem(RECORD_KEY) || "0", 10) || 0;
-    } catch {
+    } catch (err) {
+      console.warn("LocalStorage read failed for record spins:", err);
       return 0;
     }
   });
@@ -123,8 +125,8 @@ export function useLogoSpin() {
       const nextLife = prev + 1;
       try {
         localStorage.setItem(LIFETIME_KEY, String(nextLife));
-      } catch {
-        // Ignore
+      } catch (err) {
+        console.warn("LocalStorage save failed for lifetime spins:", err);
       }
       return nextLife;
     });
@@ -133,8 +135,8 @@ export function useLogoSpin() {
       if (nextCount > prev) {
         try {
           localStorage.setItem(RECORD_KEY, String(nextCount));
-        } catch {
-          // Ignore
+        } catch (err) {
+          console.warn("LocalStorage save failed for record spins:", err);
         }
         return nextCount;
       }
@@ -165,8 +167,8 @@ export function useLogoSpin() {
       setCopied(true);
       if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
       copyTimerRef.current = setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Ignore
+    } catch (err) {
+      console.warn("Clipboard copy failed for spin receipt:", err);
     }
   };
 

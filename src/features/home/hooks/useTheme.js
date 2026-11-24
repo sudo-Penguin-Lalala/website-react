@@ -14,8 +14,8 @@ export const useTheme = () => {
       if (saved && THEMES.some((t) => t.id === saved)) {
         return saved;
       }
-    } catch {
-      // Ignore localStorage access restrictions
+    } catch (err) {
+      console.warn("LocalStorage read failed for theme:", err);
     }
     return "nord";
   });
@@ -24,8 +24,8 @@ export const useTheme = () => {
     document.documentElement.setAttribute("data-theme", theme);
     try {
       localStorage.setItem(THEME_KEY, theme);
-    } catch {
-      // Ignore
+    } catch (err) {
+      console.warn("LocalStorage write failed for theme:", err);
     }
   }, [theme]);
 

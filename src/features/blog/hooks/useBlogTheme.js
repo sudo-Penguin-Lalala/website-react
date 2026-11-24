@@ -12,7 +12,8 @@ export function useBlogTheme() {
       return window.matchMedia?.("(prefers-color-scheme: light)").matches
         ? "light"
         : "dark";
-    } catch {
+    } catch (err) {
+      console.warn("Storage or URL access restricted in useBlogTheme:", err);
       return "dark";
     }
   });
@@ -23,8 +24,8 @@ export function useBlogTheme() {
     }
     try {
       localStorage.setItem(STORAGE_KEY, theme);
-    } catch {
-      // Ignore storage errors in restricted contexts
+    } catch (err) {
+      console.warn("LocalStorage save failed for blog theme:", err);
     }
   }, [theme]);
 

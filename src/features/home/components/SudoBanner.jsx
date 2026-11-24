@@ -73,43 +73,28 @@ const SudoBanner = ({
     rafIdRef.current = requestAnimationFrame(tick);
   }, [updateScrollIndicators]);
 
-  // Strict boundary wheel lock: NEVER leaks scroll to parent page, smoothly glides horizontally
+  const mouseListenersRef = useRef(null);
+
+  // Initialize scroll indicators and respond to resize (Native browser scrolling, zero wheel hijacking)
   useEffect(() => {
-    const el = chipsRef.current;
-    if (!el) return;
-
-    const handleWheel = (e) => {
-      // 100% Trap wheel event on this element - page never scrolls while cursor is here!
-      e.preventDefault();
-
-      const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-      if (delta === 0) return;
-
-      const maxScroll = el.scrollWidth - el.clientWidth;
-      if (maxScroll <= 0) return;
-
-      if (!rafIdRef.current) {
-        targetScrollRef.current = el.scrollLeft;
-      }
-
-      // Smooth step with clamping
-      targetScrollRef.current = Math.max(0, Math.min(maxScroll, targetScrollRef.current + delta * 1.05));
-      startSmoothScroll();
-    };
-
-    el.addEventListener("wheel", handleWheel, { passive: false });
     updateScrollIndicators();
 
     const timer = setTimeout(updateScrollIndicators, 120);
     window.addEventListener("resize", updateScrollIndicators);
 
     return () => {
-      cancelAnimation();
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = null;
+      }
       clearTimeout(timer);
-      el.removeEventListener("wheel", handleWheel);
       window.removeEventListener("resize", updateScrollIndicators);
+      if (mouseListenersRef.current) {
+        mouseListenersRef.current();
+        mouseListenersRef.current = null;
+      }
     };
-  }, [updateScrollIndicators, startSmoothScroll]);
+  }, [updateScrollIndicators]);
 
   // Mouse drag-to-scroll with kinetic momentum throw
   const handleMouseDown = (e) => {
@@ -163,6 +148,7 @@ const SudoBanner = ({
     const handleMouseUp = () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
+      mouseListenersRef.current = null;
 
       if (!isDraggingRef.current) return;
       isDraggingRef.current = false;
@@ -219,6 +205,10 @@ const SudoBanner = ({
 
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
+    mouseListenersRef.current = () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
   };
 
   const handleChipClick = (cmd) => {

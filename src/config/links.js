@@ -14,8 +14,8 @@ export const getContactEmail = () => {
   if (typeof atob === "function") {
     try {
       return atob("Y29udGFjdEBubnQyNS5pby52bg==");
-    } catch {
-      /* fallback */
+    } catch (err) {
+      console.warn("atob base64 decoding failed, using fallback:", err);
     }
   }
   return ["contact", "nnt25.io.vn"].join(String.fromCharCode(64));

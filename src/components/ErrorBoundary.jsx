@@ -20,7 +20,8 @@ class ErrorBoundary extends Component {
       if (typeof window !== "undefined") {
         window.location.reload();
       }
-    } catch {
+    } catch (err) {
+      console.warn("Window reload failed, resetting error boundary state:", err);
       this.setState({ hasError: false, error: null });
     }
   };

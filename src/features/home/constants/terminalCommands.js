@@ -120,8 +120,8 @@ export function getPowerOutput(isVi) {
   try {
     lifetime = parseInt(localStorage.getItem("nnt:power_lifetime") || "0", 10) || 0;
     record = parseInt(localStorage.getItem("nnt:power_record") || "0", 10) || 0;
-  } catch {
-    // Ignore
+  } catch (err) {
+    console.warn("LocalStorage read failed in getPowerOutput:", err);
   }
 
   const estWh = Math.round(lifetime * 1.5);
