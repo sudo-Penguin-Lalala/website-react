@@ -101,3 +101,13 @@ pre, code, kbd, samp {
 .nc-spin-badge {
   font-variant-numeric: tabular-nums;
 }
+
+.nc-loading-screen {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text-dim, #8891a0);
+}

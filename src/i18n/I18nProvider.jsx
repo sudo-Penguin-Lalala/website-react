@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "preact/hooks";
+import { useEffect, useMemo, useState, useCallback } from "preact/hooks";
 import { I18nContext } from "./I18nContext";
 import { dictionary, supportedLanguages } from "./strings";
 
@@ -52,14 +52,18 @@ export function I18nProvider({ children }) {
     }
   }, [lang]);
 
+  const toggle = useCallback(() => {
+    setLang((prev) => (prev === "en" ? "vi" : "en"));
+  }, []);
+
   const value = useMemo(
     () => ({
       lang,
       t: dictionary[lang],
       setLang,
-      toggle: () => setLang((prev) => (prev === "en" ? "vi" : "en")),
+      toggle,
     }),
-    [lang]
+    [lang, toggle]
   );
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;

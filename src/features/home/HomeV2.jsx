@@ -1,8 +1,7 @@
-import { useEffect } from "preact/hooks";
+import { useEffect, useRef } from "preact/hooks";
 import { useI18n } from "../../i18n/useI18n";
 import { profileData } from "../../config/links";
 import { useTerminalShell } from "./hooks/useTerminalShell";
-import { useTheme } from "./hooks/useTheme";
 
 import MatrixCanvas from "./components/MatrixCanvas";
 import BrandHeader from "./components/BrandHeader";
@@ -16,16 +15,12 @@ import "./styles/HomeV2.css";
 
 const HomeV2 = ({
   navigate,
-  theme: propTheme,
-  cycleTheme: propCycleTheme,
-  currentTheme: propCurrentTheme,
+  theme = "nord",
+  cycleTheme,
+  currentTheme,
 }) => {
   const { lang, t, toggle } = useI18n();
   const isVi = lang === "vi";
-  const defaultTheme = useTheme();
-  const theme = propTheme || defaultTheme.theme;
-  const cycleTheme = propCycleTheme || defaultTheme.cycleTheme;
-  const currentTheme = propCurrentTheme || defaultTheme.currentTheme;
 
   const {
     isSudo,
@@ -41,6 +36,12 @@ const HomeV2 = ({
     showMatrix,
     executeCommand,
   } = useTerminalShell(isVi, navigate);
+
+  // Keep a stable ref to isSudo to avoid rebuilding keydown listener when isSudo toggles
+  const isSudoRef = useRef(isSudo);
+  useEffect(() => {
+    isSudoRef.current = isSudo;
+  }, [isSudo]);
 
   // Tactile Keyboard Shortcuts: 't' for theme, 'l' for lang, 'Esc' to exit root
   useEffect(() => {
@@ -62,7 +63,7 @@ const HomeV2 = ({
       } else if (e.key === "l" || e.key === "L") {
         toggle?.();
       } else if (e.key === "Escape") {
-        if (isSudo) {
+        if (isSudoRef.current) {
           handleExitSudo?.();
         }
       }
@@ -70,7 +71,7 @@ const HomeV2 = ({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [cycleTheme, toggle, isSudo, handleExitSudo]);
+  }, [cycleTheme, toggle, handleExitSudo]);
 
   return (
     <div

@@ -1,9 +1,9 @@
-import { useState, useEffect } from "preact/hooks";
+import { useState, useEffect, useRef, useCallback } from "preact/hooks";
 import * as cmdUtils from "../constants/terminalCommands";
 import { getContactEmail } from "../../../config/links";
 
 export function useTerminalShell(isVi, navigate) {
-  const [brandClicks, setBrandClicks] = useState(0);
+  const [, setBrandClicks] = useState(0);
   const [isSudo, setIsSudo] = useState(false);
   const [sudoHint, setSudoHint] = useState("");
   const [rootOutput, setRootOutput] = useState("");
@@ -12,6 +12,31 @@ export function useTerminalShell(isVi, navigate) {
   const [showMatrix, setShowMatrix] = useState(false);
   const [isExecuting, setIsExecuting] = useState(false);
   const [executingCmd, setExecutingCmd] = useState("");
+
+  const timersRef = useRef(new Set());
+  const pageEffectRef = useRef(pageEffect);
+
+  useEffect(() => {
+    pageEffectRef.current = pageEffect;
+  }, [pageEffect]);
+
+  const registerTimeout = useCallback((fn, delay) => {
+    const id = setTimeout(() => {
+      timersRef.current.delete(id);
+      fn();
+    }, delay);
+    timersRef.current.add(id);
+    return id;
+  }, []);
+
+  // Teardown all pending timers on unmount
+  useEffect(() => {
+    const timers = timersRef.current;
+    return () => {
+      timers.forEach((id) => clearTimeout(id));
+      timers.clear();
+    };
+  }, []);
 
   // Smooth Matrix rain fade in/out
   useEffect(() => {
@@ -45,38 +70,38 @@ Contact: ${getContactEmail()} | Discord: nnt2589
     );
   }, []);
 
-  const handleBrandClick = () => {
+  const handleBrandClick = useCallback(() => {
     if (isSudo) {
       setSudoHint(
         isVi
           ? "[Đang là root! Bấm nút 'exit' để thoát]"
           : "[Root mode active! Use 'exit' button to exit]"
       );
-      setTimeout(() => setSudoHint(""), 2500);
+      registerTimeout(() => setSudoHint(""), 2500);
       return;
     }
 
-    const nextClicks = brandClicks + 1;
-    setBrandClicks(nextClicks);
-
-    if (nextClicks >= 5) {
-      setIsSudo(true);
-      setBrandClicks(5);
-      setSudoHint("");
-    } else {
+    setBrandClicks((prev) => {
+      const nextClicks = prev + 1;
+      if (nextClicks >= 5) {
+        setIsSudo(true);
+        setSudoHint("");
+        return 5;
+      }
       const remaining = 5 - nextClicks;
       setSudoHint(
         isVi
           ? `[còn ${remaining} lần click nữa…]`
           : `[${remaining} more click${remaining > 1 ? "s" : ""}…]`
       );
-    }
-  };
+      return nextClicks;
+    });
+  }, [isSudo, isVi, registerTimeout]);
 
-  const handleExitSudo = () => {
-    if (pageEffect !== "none") {
+  const handleExitSudo = useCallback(() => {
+    if (pageEffectRef.current !== "none") {
       setIsReverting(true);
-      setTimeout(() => setIsReverting(false), 900);
+      registerTimeout(() => setIsReverting(false), 900);
     }
     setIsSudo(false);
     setBrandClicks(0);
@@ -85,9 +110,9 @@ Contact: ${getContactEmail()} | Discord: nnt2589
     setPageEffect("none");
     setIsExecuting(false);
     setExecutingCmd("");
-  };
+  }, [registerTimeout]);
 
-  const executeCommand = (rawCmd) => {
+  const executeCommand = useCallback((rawCmd) => {
     const cleanCmd = rawCmd.trim();
     if (!cleanCmd) return;
 
@@ -103,7 +128,7 @@ Contact: ${getContactEmail()} | Discord: nnt2589
     setIsExecuting(true);
     setExecutingCmd(cleanCmd);
 
-    setTimeout(() => {
+    registerTimeout(() => {
       let output = "";
 
       if (normalized === "help") {
@@ -131,7 +156,7 @@ Contact: ${getContactEmail()} | Discord: nnt2589
           ? `[root@reactor ~]# ${cleanCmd}\nĐang chuyển hướng sang /blog…`
           : `[root@reactor ~]# ${cleanCmd}\nNavigating to /blog…`;
         if (navigate) {
-          setTimeout(() => navigate("/blog"), 300);
+          registerTimeout(() => navigate("/blog"), 300);
         }
       } else if (
         normalized === "free -h" ||
@@ -205,9 +230,9 @@ Contact: ${getContactEmail()} | Discord: nnt2589
         normalized === "normal" ||
         normalized === "restore"
       ) {
-        if (pageEffect !== "none") {
+        if (pageEffectRef.current !== "none") {
           setIsReverting(true);
-          setTimeout(() => setIsReverting(false), 900);
+          registerTimeout(() => setIsReverting(false), 900);
         }
         setPageEffect("none");
         output =
@@ -221,7 +246,7 @@ Contact: ${getContactEmail()} | Discord: nnt2589
       setIsExecuting(false);
       setExecutingCmd("");
     }, 450);
-  };
+  }, [isExecuting, isVi, navigate, registerTimeout]);
 
   return {
     isSudo,

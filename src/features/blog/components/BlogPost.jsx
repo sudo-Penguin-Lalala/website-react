@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "preact/hooks";
+import { useMemo, useState, useEffect, useRef } from "preact/hooks";
 import DOMPurify from "dompurify";
 import { getPostBySlug, formatPostDate } from "../utils/postLoader";
 import { renderMarkdown } from "../utils/markdownRenderer";
@@ -13,28 +13,61 @@ export default function BlogPost({
 }) {
   const { theme, toggleTheme, isDark } = useBlogTheme();
   const [copiedLink, setCopiedLink] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const progressBarRef = useRef(null);
+  const copyTimerRef = useRef(null);
 
   const post = useMemo(() => getPostBySlug(slug), [slug]);
-  const renderedHtml = useMemo(() => {
-    return post ? renderMarkdown(post.content) : "";
+
+  // Memoize sanitized HTML strictly on post change — NEVER re-run DOMPurify on scroll or re-render
+  const sanitizedHtml = useMemo(() => {
+    if (!post) return "";
+    const raw = renderMarkdown(post.content);
+    return DOMPurify.sanitize(raw, {
+      ADD_TAGS: ["aside", "button"],
+      ADD_ATTR: [
+        "data-code",
+        "data-lang",
+        "target",
+        "rel",
+        "aria-hidden",
+        "aria-label",
+      ],
+    });
   }, [post]);
 
-  // Track reading progress
+  // Clean timer on unmount
   useEffect(() => {
-    const handleScroll = () => {
+    return () => {
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+    };
+  }, []);
+
+  // Track reading progress directly via DOM transform (zero component re-renders on scroll)
+  useEffect(() => {
+    let rafId = null;
+
+    const updateProgress = () => {
       const total = document.documentElement.scrollHeight - window.innerHeight;
-      if (total <= 0) {
-        setScrollProgress(0);
-        return;
+      const progress = total <= 0 ? 0 : Math.min(1, Math.max(0, window.scrollY / total));
+      if (progressBarRef.current) {
+        progressBarRef.current.style.transform = `scaleX(${progress})`;
       }
-      const current = window.scrollY;
-      const progress = Math.min(100, Math.max(0, (current / total) * 100));
-      setScrollProgress(progress);
+      rafId = null;
+    };
+
+    const handleScroll = () => {
+      if (!rafId) {
+        rafId = requestAnimationFrame(updateProgress);
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    updateProgress();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const handleBackToBlog = (e) => {
@@ -50,7 +83,8 @@ export default function BlogPost({
   const handleCopyLink = () => {
     navigator.clipboard?.writeText(window.location.href);
     setCopiedLink(true);
-    setTimeout(() => setCopiedLink(false), 2000);
+    if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+    copyTimerRef.current = setTimeout(() => setCopiedLink(false), 2000);
   };
 
   // Delegated event listener for copying code blocks
@@ -112,8 +146,9 @@ export default function BlogPost({
     <div className="nc-blog-page" data-theme={theme}>
       {/* Reading scroll progress bar */}
       <div
+        ref={progressBarRef}
         className="nc-reading-progress"
-        style={{ transform: `scaleX(${scrollProgress / 100})` }}
+        style={{ transform: "scaleX(0)" }}
         aria-hidden="true"
       />
 
@@ -213,17 +248,7 @@ export default function BlogPost({
             <div
               className="nc-article-body"
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(renderedHtml, {
-                  ADD_TAGS: ["aside", "button"],
-                  ADD_ATTR: [
-                    "data-code",
-                    "data-lang",
-                    "target",
-                    "rel",
-                    "aria-hidden",
-                    "aria-label",
-                  ],
-                }),
+                __html: sanitizedHtml,
               }}
               onClick={handleBodyClick}
             />

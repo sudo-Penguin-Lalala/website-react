@@ -103,10 +103,15 @@ export function formatPostDate(dateStr) {
   }
 }
 
+let cachedPosts = null;
+let cachedTags = null;
+
 /**
  * Retrieves all posts sorted by date descending (newest first)
  */
 export function getAllPosts() {
+  if (cachedPosts) return cachedPosts;
+
   const posts = [];
   const seenSlugs = new Set();
 
@@ -141,7 +146,8 @@ export function getAllPosts() {
     return dateB - dateA;
   });
 
-  return posts;
+  cachedPosts = posts;
+  return cachedPosts;
 }
 
 /**
@@ -157,6 +163,8 @@ export function getPostBySlug(slug) {
  * Retrieves all unique tags with count
  */
 export function getAllTags() {
+  if (cachedTags) return cachedTags;
+
   const posts = getAllPosts();
   const tagMap = new Map();
 
@@ -166,7 +174,9 @@ export function getAllTags() {
     }
   }
 
-  return Array.from(tagMap.entries())
+  cachedTags = Array.from(tagMap.entries())
     .map(([tag, count]) => ({ tag, count }))
     .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
+
+  return cachedTags;
 }

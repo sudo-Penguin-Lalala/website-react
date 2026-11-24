@@ -183,17 +183,28 @@ h4 {
   font-family: var(--font-code);
   font-size: 0.875rem;
   font-weight: 500;
-  padding: 0.45rem 0.85rem;
+  padding: 0.5rem 0.875rem;
+  min-height: 44px;
+  min-width: 44px;
   border-radius: var(--radius);
   cursor: pointer;
   text-decoration: none;
   transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
-.nc-blog-back-btn:hover {
-  background: var(--bg-hover);
-  border-color: var(--accent);
-  color: var(--accent);
+@media (pointer: fine) and (min-width: 641px) {
+  .nc-blog-back-btn {
+    min-height: 36px;
+    padding: 0.375rem 0.75rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nc-blog-back-btn:hover {
+    background: var(--bg-hover);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
 }
 
 .nc-blog-back-btn:active {
@@ -220,16 +231,27 @@ h4 {
   font-family: var(--font-code);
   font-size: 0.8125rem;
   font-weight: 500;
-  padding: 0.45rem 0.85rem;
+  padding: 0.5rem 0.875rem;
+  min-height: 44px;
+  min-width: 44px;
   border-radius: var(--radius);
   cursor: pointer;
   transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
-.nc-blog-theme-btn:hover {
-  background: var(--bg-hover);
-  border-color: var(--accent);
-  color: var(--accent);
+@media (pointer: fine) and (min-width: 641px) {
+  .nc-blog-theme-btn {
+    min-height: 36px;
+    padding: 0.375rem 0.75rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nc-blog-theme-btn:hover {
+    background: var(--bg-hover);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
 }
 
 .nc-blog-theme-btn:active {
@@ -354,9 +376,11 @@ h4 {
   transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
-.nc-blog-chip:hover {
-  border-color: var(--accent);
-  color: var(--text);
+@media (hover: hover) and (pointer: fine) {
+  .nc-blog-chip:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
 }
 
 .nc-blog-chip:active {
@@ -409,6 +433,10 @@ h4 {
     box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 8px 30px rgba(0, 0, 0, 0.25);
     transform: translateY(-2px);
   }
+
+  .nc-blog-post-card:hover .nc-blog-card-title {
+    color: var(--accent);
+  }
 }
 
 .nc-blog-post-card:active {
@@ -453,9 +481,6 @@ h4 {
   text-wrap: balance;
 }
 
-.nc-blog-post-card:hover .nc-blog-card-title {
-  color: var(--accent);
-}
 
 .nc-blog-card-summary {
   margin: 0;
@@ -689,9 +714,11 @@ h4 {
   font-weight: 400;
 }
 
-.nc-heading-anchor:hover {
-  opacity: 1;
-  color: var(--accent);
+@media (hover: hover) and (pointer: fine) {
+  .nc-heading-anchor:hover {
+    opacity: 1;
+    color: var(--accent);
+  }
 }
 
 /* ============================================================
@@ -813,8 +840,10 @@ h4 {
   word-break: break-all;
 }
 
-.nc-blog-link:hover {
-  color: var(--text);
+@media (hover: hover) and (pointer: fine) {
+  .nc-blog-link:hover {
+    color: var(--text);
+  }
 }
 
 /* Callout Box System (Notes, Quotes, Warnings) */
@@ -937,10 +966,12 @@ h4 {
   transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
-.nc-code-copy-btn:hover {
-  background: var(--bg-input);
-  border-color: var(--border);
-  color: var(--text);
+@media (hover: hover) and (pointer: fine) {
+  .nc-code-copy-btn:hover {
+    background: var(--bg-input);
+    border-color: var(--border);
+    color: var(--text);
+  }
 }
 
 .nc-code-copy-btn:active {

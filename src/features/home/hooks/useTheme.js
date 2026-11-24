@@ -1,4 +1,4 @@
-import { useState, useEffect } from "preact/hooks";
+import { useState, useEffect, useCallback, useMemo } from "preact/hooks";
 
 export const THEMES = [
   { id: "nord", name: "Nord", icon: "🏔️" },
@@ -29,11 +29,14 @@ export const useTheme = () => {
     }
   }, [theme]);
 
-  const cycleTheme = () => {
+  const cycleTheme = useCallback(() => {
     setTheme((prev) => (prev === "nord" ? "everforest" : "nord"));
-  };
+  }, []);
 
-  const currentTheme = THEMES.find((t) => t.id === theme) || THEMES[0];
+  const currentTheme = useMemo(
+    () => THEMES.find((t) => t.id === theme) || THEMES[0],
+    [theme]
+  );
 
   return {
     theme,
