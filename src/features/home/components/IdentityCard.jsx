@@ -9,7 +9,7 @@ const IdentityCard = ({
   isSudo,
   isVi,
   profileName,
-  altText = "Thien Nguyen — profile photo",
+  altText = "Thien Nguyen - profile photo",
 }) => {
   const [tagIndex, setTagIndex] = useState(0);
   const [showAlias, setShowAlias] = useState(false);

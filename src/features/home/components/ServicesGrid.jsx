@@ -5,46 +5,37 @@ import { getContactEmail } from "../../../config/links";
 const ServicesGrid = ({ isSudo, isVi }) => {
   const [copiedDiscord, setCopiedDiscord] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
-  const discordTimerRef = useRef(null);
-  const emailTimerRef = useRef(null);
+  const timersRef = useRef({ discord: null, email: null });
   const contactEmail = getContactEmail();
 
   useEffect(() => {
+    const timers = timersRef.current;
     return () => {
-      if (discordTimerRef.current) clearTimeout(discordTimerRef.current);
-      if (emailTimerRef.current) clearTimeout(emailTimerRef.current);
+      if (timers.discord) clearTimeout(timers.discord);
+      if (timers.email) clearTimeout(timers.email);
     };
   }, []);
 
-  const handleCopyDiscord = (e) => {
+  const copyWithFeedback = (e, text, setCopied, timerKey, label) => {
     e?.preventDefault();
     if (!navigator.clipboard?.writeText) return;
     navigator.clipboard
-      .writeText("nnt2589")
+      .writeText(text)
       .then(() => {
-        setCopiedDiscord(true);
-        if (discordTimerRef.current) clearTimeout(discordTimerRef.current);
-        discordTimerRef.current = setTimeout(() => setCopiedDiscord(false), 2000);
+        setCopied(true);
+        if (timersRef.current[timerKey]) clearTimeout(timersRef.current[timerKey]);
+        timersRef.current[timerKey] = setTimeout(() => setCopied(false), 2000);
       })
       .catch((err) => {
-        console.warn("Clipboard write failed for Discord:", err);
+        console.warn(`Clipboard write failed for ${label}:`, err);
       });
   };
 
-  const handleCopyEmail = (e) => {
-    e?.preventDefault();
-    if (!navigator.clipboard?.writeText) return;
-    navigator.clipboard
-      .writeText(contactEmail)
-      .then(() => {
-        setCopiedEmail(true);
-        if (emailTimerRef.current) clearTimeout(emailTimerRef.current);
-        emailTimerRef.current = setTimeout(() => setCopiedEmail(false), 2000);
-      })
-      .catch((err) => {
-        console.warn("Clipboard write failed for Email:", err);
-      });
-  };
+  const handleCopyDiscord = (e) =>
+    copyWithFeedback(e, "nnt2589", setCopiedDiscord, "discord", "Discord");
+
+  const handleCopyEmail = (e) =>
+    copyWithFeedback(e, contactEmail, setCopiedEmail, "email", "Email");
 
   const handleCellMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();

@@ -5,7 +5,7 @@ tags: ["Golang", "Docker", "Silly", "Optimization"]
 summary: "Tearing down a perfectly working 34MB Python app to build an 8.5MB bare scratch container. Did ping get any faster? Absolutely not lol."
 ---
 
-When I first built NetCheck, Python and FastAPI felt like the ultimate life hack. You glue together `dnspython` and `python-whois`, bind a cute little SQLite database to disk for caching, and boom—you are a 10x network engineer before dinner.
+When I first built NetCheck, Python and FastAPI felt like the ultimate life hack. You glue together `dnspython` and `python-whois`, bind a cute little SQLite database to disk for caching, and boom: you are a 10x network engineer before dinner.
 
 It worked. People self-hosted it. It solved the core problem: running network diagnostics from independent vantage points without exposing your own IP address.
 

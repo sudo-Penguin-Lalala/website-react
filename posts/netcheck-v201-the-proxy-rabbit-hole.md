@@ -28,7 +28,7 @@ Here was the comedy of errors that unfolded:
 2. Because it was local, Linux decided to use IPv6 loopback (`::1`), while Docker's bridge network routed traffic through gateway `172.17.0.1`.
 3. My config was strictly trusting `127.0.0.1`.
 4. NetCheck saw `::1`, panicked, shouted *"IMPOSTOR! UNTRUSTED PEER!"*, and tossed my real home IP straight into the shredder.
-5. Seeing a private IP, it then politely asked an external whoami service *"Hey bro, who am I?"*—which dutifully reported the public egress IP of the VPS host!
+5. Seeing a private IP, it then politely asked an external whoami service *"Hey bro, who am I?"*, which dutifully reported the public egress IP of the VPS host!
 
 Result: NetCheck thought I was the server it was currently running on. Poetic, but deeply unhelpful :D.
 
@@ -61,7 +61,7 @@ While pushing the hotfix, watching GitHub Actions spend **7 minutes** cross-comp
 
 So I moved the `build-and-push` pipeline to a dedicated ARM64 runner with a persistent cache:
 * Native compilation takes **31 seconds** instead of 5 minutes under QEMU software translation.
-* Mounted the vulnerability scanner database to a local cache volume—dropping security scans from 1m 30s down to **6 seconds**.
+* Mounted the vulnerability scanner database to a local cache volume, dropping security scans from 1m 30s down to **6 seconds**.
 
 Total CI time plummeted from **~7 minutes down to 1 minute 34 seconds** (4.5x faster). Now the build finishes before I can even walk to the kitchen to grab water.
 

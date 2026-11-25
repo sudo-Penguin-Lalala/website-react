@@ -41,7 +41,7 @@ export function useTerminalShell(isVi, navigate) {
  | |\\  | |\\  | | |  
  |_| \\_|_| \\_| |_|  
                     
-%c[ nnt@reactor ] %c— Linux Tinkerer & Self-Hosted Infrastructure
+%c[ nnt@reactor ] %c| Linux Tinkerer & Self-Hosted Infrastructure
 %cLooking under the hood? Source: https://github.com/sudo-Penguin-Lalala/website-react
 Contact: ${getContactEmail()} | Discord: nnt2589
 `;
