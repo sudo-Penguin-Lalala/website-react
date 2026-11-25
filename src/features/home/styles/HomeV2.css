@@ -12,7 +12,6 @@
   /* System Color & Background Tokens */
   --color-error:        #ff6b6b;
   --color-success:      #00ff66;
-  --matrix-green:       #00ff66;
   --bg-dark:            #0a0a0f;
 
   /* Independent Brand Identity Colors for Services (Consistent across all themes) */
@@ -122,8 +121,6 @@
   overflow-x: clip;
 
   transition:
-    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.55s cubic-bezier(0.16, 1, 0.3, 1),
     background-color 0.4s ease,
     color 0.4s ease;
 }
@@ -307,7 +304,8 @@
 
 @media (max-width: 640px) {
   .nc-hdr {
-    gap: 0.45rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
     padding-bottom: 0.85rem;
     margin-bottom: 1.15rem;
   }
@@ -317,7 +315,7 @@
   }
 
   .nc-brand-root {
-    font-size: 1.12rem;
+    font-size: 1.1rem;
   }
 
   .nc-sudo-hint {
@@ -325,6 +323,20 @@
     top: calc(100% + 4px);
     left: 0;
     z-index: 25;
+  }
+}
+
+@media (max-width: 420px) {
+  .nc-brand {
+    font-size: 1.2rem;
+  }
+
+  .nc-brand-root {
+    font-size: 1rem;
+  }
+
+  .nc-hdr-actions {
+    gap: 0.35rem;
   }
 }
 
@@ -1019,6 +1031,32 @@
     border-bottom: none;
     padding-bottom: 0;
   }
+}
+
+.nc-ff-label {
+  color: var(--accent);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.nc-ff-val {
+  color: var(--text);
+  word-break: break-word;
+}
+
+@media (max-width: 520px) {
+  .nc-ff-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+  }
+
+  .nc-ff-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
 
   .nc-ff-item-root {
     border-bottom-color: rgba(255, 107, 107, 0.2);
@@ -1038,27 +1076,6 @@
     line-height: 1.45;
     word-break: break-word;
   }
-
-  .nc-sushi-notice {
-    display: inline-block;
-    margin-top: 0.35rem;
-    margin-left: 0;
-    white-space: normal;
-    word-break: break-word;
-    line-height: 1.35;
-    transform-origin: top left;
-  }
-}
-
-.nc-ff-label {
-  color: var(--accent);
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.nc-ff-val {
-  color: var(--text);
-  word-break: break-word;
 }
 
 /* Services / Container Grid */
@@ -1307,7 +1324,7 @@
 }
 .nc-svc-btn-discord:active {
   background: var(--svc-discord);
-  color: var(--text);
+  color: #0b0e14;
   transform: translateY(1px) scale(0.98);
 }
 
@@ -1352,7 +1369,7 @@
 @media (hover: hover) and (pointer: fine) {
   .nc-svc-btn-discord:hover {
     background: var(--svc-discord);
-    color: var(--text);
+    color: #0b0e14;
     box-shadow: 0 0 16px rgba(129, 140, 248, 0.6);
     transform: translateY(-1px);
   }
@@ -1498,7 +1515,7 @@
 }
 
 .nc-root-cmd-input::placeholder {
-  color: #7a5050;
+  color: #b88484;
   font-style: italic;
 }
 
@@ -1774,6 +1791,18 @@
   flex-shrink: 0;
   transform-origin: left center;
   animation: nc-sushi-stay 5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (max-width: 520px) {
+  .nc-sushi-notice {
+    display: inline-block;
+    margin-top: 0.35rem;
+    margin-left: 0;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.35;
+    transform-origin: top left;
+  }
 }
 
 @keyframes nc-sushi-stay {
@@ -2103,9 +2132,8 @@
   font-family: inherit;
   font-size: 0.82rem;
   line-height: 1.55;
-  white-space: pre-wrap;
-  word-break: break-all;
-  text-wrap: wrap !important;
+  white-space: pre;
+  word-break: normal;
 }
 
 .nc-root-prompt,
@@ -2195,10 +2223,6 @@
 
   .nc-footer-logo-btn {
     transition: none !important;
-  }
-
-  .nc-term.effect-party {
-    animation: none !important;
   }
 
   .nc-spinner-glyph {

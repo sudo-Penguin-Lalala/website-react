@@ -162,14 +162,17 @@ export function useLogoSpin() {
       ? `Quay logo ${spinCount} vòng (${ach.wh}) trên nnt25.io.vn: [${ach.badge}] ${ach.title}.`
       : `Spun logo ${spinCount} times (${ach.wh}) on nnt25.io.vn: [${ach.badge}] ${ach.title}.`;
 
-    try {
-      navigator.clipboard?.writeText(text);
-      setCopied(true);
-      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
-      copyTimerRef.current = setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.warn("Clipboard copy failed for spin receipt:", err);
-    }
+    if (!navigator.clipboard?.writeText) return;
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        setCopied(true);
+        if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+        copyTimerRef.current = setTimeout(() => setCopied(false), 2000);
+      })
+      .catch((err) => {
+        console.warn("Clipboard copy failed for spin receipt:", err);
+      });
   };
 
   return {

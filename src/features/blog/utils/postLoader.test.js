@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import {
   parseFrontmatter,
   formatPostDate,
@@ -7,6 +7,9 @@ import {
 } from "./postLoader";
 
 describe("postLoader - Markdown Frontmatter & Date Utilities", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
   describe("parseFrontmatter", () => {
     it("extracts title, date, and tags from standard YAML frontmatter", () => {
       const rawMarkdown = `---
@@ -54,6 +57,7 @@ Content here`;
       expect(res1.content).toBe(noFrontmatter);
 
       // Malformed array in frontmatter (fallback regex/split parser kicks in)
+      const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
       const malformedYaml = `---
 title: Broken Array Post
 tags: [ unclosed, quotes', "mixed
@@ -61,8 +65,9 @@ tags: [ unclosed, quotes', "mixed
 Body text`;
       const res2 = parseFrontmatter(malformedYaml);
       expect(res2.data.title).toBe("Broken Array Post");
-      expect(Array.isArray(res2.data.tags)).toBe(true);
+      expect(res2.data.tags).toEqual(["unclosed", "quotes", "mixed"]);
       expect(res2.content).toBe("Body text");
+      expect(warnSpy).toHaveBeenCalled();
 
       // Non-string or null input
       expect(parseFrontmatter(null)).toEqual({ data: {}, content: "" });

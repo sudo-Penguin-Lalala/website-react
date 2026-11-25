@@ -58,6 +58,7 @@ const BrandHeader = ({
           href="/blog"
           className="nc-btn nc-blog-nav-btn"
           onClick={(e) => {
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
             if (navigate) {
               e.preventDefault();
               navigate("/blog");

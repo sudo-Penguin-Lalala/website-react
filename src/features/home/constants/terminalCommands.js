@@ -180,26 +180,26 @@ export function getSlOutput(isVi) {
   );
 }
 
-export function getBlogOutput(isVi) {
+export async function getBlogOutput(isVi) {
+  const { getAllPosts, formatPostDate } = await import("../../blog/utils/postLoader");
+  const posts = getAllPosts();
+  const entries = posts
+    .map((post) => {
+      const dateLabel = formatPostDate(post.date) || "undated";
+      const tagsLabel = post.tags.length ? post.tags.join(", ") : "general";
+      return (
+        `  • [${dateLabel}] ${post.title}\n` +
+        `    Tags: ${tagsLabel}\n` +
+        `    Link: /blog/${post.slug}`
+      );
+    })
+    .join("\n\n");
+
   return (
     `[root@reactor ~]# blog\n` +
     (isVi
-      ? `NNT's Blog (nơi đăng mấy thứ linh tinh ngớ ngẩn :D):\n\n` +
-        `  • [2026-11-10] Tearing Down 34MB of Python: Rewriting NetCheck from Scratch in Go 1.27\n` +
-        `    Tags: Golang, Docker, Architecture, Optimization\n` +
-        `    Link: /blog/netcheck-v2-the-go-rewrite\n\n` +
-        `  • [2026-11-10] The 2-Hour Hotfix: Why Cloudflare Tunnel Thought I Was Oracle (and How We Slashed CI to 94s)\n` +
-        `    Tags: Docker, Networking, CI/CD, Cloudflare\n` +
-        `    Link: /blog/netcheck-v201-the-proxy-rabbit-hole\n\n` +
-        `Gõ 'blog open' để chuyển hướng sang trang đọc bài.`
-      : `NNT's Blog (where i post all silly stuff :D):\n\n` +
-        `  • [2026-11-10] Tearing Down 34MB of Python: Rewriting NetCheck from Scratch in Go 1.27\n` +
-        `    Tags: Golang, Docker, Architecture, Optimization\n` +
-        `    Link: /blog/netcheck-v2-the-go-rewrite\n\n` +
-        `  • [2026-11-10] The 2-Hour Hotfix: Why Cloudflare Tunnel Thought I Was Oracle (and How We Slashed CI to 94s)\n` +
-        `    Tags: Docker, Networking, CI/CD, Cloudflare\n` +
-        `    Link: /blog/netcheck-v201-the-proxy-rabbit-hole\n\n` +
-        `Run 'blog open' to jump directly to the reading archive.`)
+      ? `NNT's Blog (nơi đăng mấy thứ linh tinh ngớ ngẩn :D):\n\n${entries}\n\nGõ 'blog open' để chuyển hướng sang trang đọc bài.`
+      : `NNT's Blog (where i post all silly stuff :D):\n\n${entries}\n\nRun 'blog open' to jump directly to the reading archive.`)
   );
 }
 

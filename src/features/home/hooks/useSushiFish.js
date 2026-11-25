@@ -8,16 +8,19 @@ export function useSushiFish(isVi) {
   const [fishNotice, setFishNotice] = useState("");
 
   const fishTimerRef = useRef(null);
+  const wiggleTimerRef = useRef(null);
 
   useEffect(() => {
     return () => {
       if (fishTimerRef.current) clearTimeout(fishTimerRef.current);
+      if (wiggleTimerRef.current) clearTimeout(wiggleTimerRef.current);
     };
   }, []);
 
   const handleFishClick = () => {
     setFishWiggling(true);
-    setTimeout(() => setFishWiggling(false), 400);
+    if (wiggleTimerRef.current) clearTimeout(wiggleTimerRef.current);
+    wiggleTimerRef.current = setTimeout(() => setFishWiggling(false), 400);
 
     const isLast = fishIndex >= FISH_SPECIES.length - 1;
     if (isLast) {
@@ -45,7 +48,7 @@ export function useSushiFish(isVi) {
       return;
     }
 
-    setFishIndex((prev) => prev + 1);
+    setFishIndex((prev) => Math.min(FISH_SPECIES.length - 1, prev + 1));
   };
 
   return {

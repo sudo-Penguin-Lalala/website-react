@@ -3,9 +3,6 @@ import { QUICK_COMMANDS } from "../constants/homelabData";
 
 const SudoBanner = ({
   handleExitSudo,
-  handleRunCommand,
-  cmdInput: propCmdInput,
-  setCmdInput: propSetCmdInput,
   isExecuting,
   executingCmd,
   executeCommand,
@@ -14,9 +11,7 @@ const SudoBanner = ({
   isVi,
 }) => {
   const chipsRef = useRef(null);
-  const [internalCmdInput, setInternalCmdInput] = useState("");
-  const cmdInput = propCmdInput !== undefined ? propCmdInput : internalCmdInput;
-  const setCmdInput = propSetCmdInput || setInternalCmdInput;
+  const [cmdInput, setCmdInput] = useState("");
   const [isDragging, setIsDragging] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -74,6 +69,7 @@ const SudoBanner = ({
   }, [updateScrollIndicators]);
 
   const mouseListenersRef = useRef(null);
+  const dragResetTimerRef = useRef(null);
 
   // Initialize scroll indicators and respond to resize (Native browser scrolling, zero wheel hijacking)
   useEffect(() => {
@@ -88,6 +84,10 @@ const SudoBanner = ({
         rafIdRef.current = null;
       }
       clearTimeout(timer);
+      if (dragResetTimerRef.current) {
+        clearTimeout(dragResetTimerRef.current);
+        dragResetTimerRef.current = null;
+      }
       window.removeEventListener("resize", updateScrollIndicators);
       if (mouseListenersRef.current) {
         mouseListenersRef.current();
@@ -103,6 +103,10 @@ const SudoBanner = ({
     if (!el) return;
 
     cancelAnimation();
+    if (dragResetTimerRef.current) {
+      clearTimeout(dragResetTimerRef.current);
+      dragResetTimerRef.current = null;
+    }
     isDraggingRef.current = true;
     hasDraggedRef.current = false;
     dragStartXRef.current = e.pageX;
@@ -145,10 +149,16 @@ const SudoBanner = ({
       }
     };
 
-    const handleMouseUp = () => {
+    const cleanupDragListeners = () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("blur", handleMouseUp);
+      window.removeEventListener("pointercancel", handleMouseUp);
       mouseListenersRef.current = null;
+    };
+
+    const handleMouseUp = () => {
+      cleanupDragListeners();
 
       if (!isDraggingRef.current) return;
       isDraggingRef.current = false;
@@ -197,7 +207,9 @@ const SudoBanner = ({
         }
 
         // Keep hasDraggedRef true briefly to swallow the synthetic click from the drag
-        setTimeout(() => {
+        if (dragResetTimerRef.current) clearTimeout(dragResetTimerRef.current);
+        dragResetTimerRef.current = setTimeout(() => {
+          dragResetTimerRef.current = null;
           hasDraggedRef.current = false;
         }, 80);
       }
@@ -205,10 +217,9 @@ const SudoBanner = ({
 
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
-    mouseListenersRef.current = () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
+    window.addEventListener("blur", handleMouseUp);
+    window.addEventListener("pointercancel", handleMouseUp);
+    mouseListenersRef.current = cleanupDragListeners;
   };
 
   const handleChipClick = (cmd) => {
@@ -236,9 +247,7 @@ const SudoBanner = ({
 
   const onFormSubmit = (e) => {
     e?.preventDefault();
-    if (handleRunCommand) {
-      handleRunCommand(e);
-    } else if (executeCommand) {
+    if (executeCommand) {
       const cmd = cmdInput.trim();
       if (!cmd || isExecuting) return;
       setCmdInput("");
@@ -286,7 +295,7 @@ const SudoBanner = ({
             className="nc-root-cmd-input"
             autoComplete="off"
             spellCheck="false"
-            disabled={isExecuting}
+            readOnly={isExecuting}
             aria-label={isVi ? "Nhập lệnh terminal" : "Terminal command input"}
           />
           <button

@@ -9,7 +9,7 @@ h4 {
   text-wrap: balance;
 }
 
-:root {
+.nc-blog-page {
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Helvetica Neue", Arial, sans-serif;
   --font-code: "JetBrains Mono", "Fira Code", monospace;
   --radius: 4px;
@@ -20,8 +20,8 @@ h4 {
 }
 
 /* 1. Dark Reading Mode (Midnight Paper / Non-fatiguing Dark) */
-:root,
-[data-theme="dark"] {
+.nc-blog-page,
+.nc-blog-page[data-theme="dark"] {
   --bg: #101317;
   --bg-mesh: none;
   --bg-elev: #161b21;
@@ -33,7 +33,7 @@ h4 {
 
   --text: #dbe1e8;
   --text-muted: #8e9cae;
-  --text-dim: #5c6c7f;
+  --text-dim: #7d8fa3;
 
   --accent: #3cb8f2;
   --accent-soft: rgba(60, 184, 242, 0.1);
@@ -41,7 +41,7 @@ h4 {
   --code-bg: #0b0e12;
   --code-hdr-bg: #12161c;
   --code-text: #c8d2de;
-  --code-comment: #66778b;
+  --code-comment: #7b8da3;
   --code-punct: #8d9bb0;
   --code-prop: #e8b838;
   --code-string: #7ed89d;
@@ -52,7 +52,7 @@ h4 {
 }
 
 /* 2. Light Reading Mode (Warm Book Paper / Kindle Ivory) */
-[data-theme="light"] {
+.nc-blog-page[data-theme="light"] {
   --bg: #f7f5ef;
   --bg-mesh: none;
   --bg-elev: #fffdf9;
@@ -64,7 +64,7 @@ h4 {
 
   --text: #1a222c;
   --text-muted: #3f4d5e;
-  --text-dim: #57677a;
+  --text-dim: #495869;
 
   --accent: #005bb5;
   --accent-soft: rgba(0, 91, 181, 0.08);
@@ -72,7 +72,7 @@ h4 {
   --code-bg: #ece8dd;
   --code-hdr-bg: #e3ded2;
   --code-text: #1a222c;
-  --code-comment: #66778b;
+  --code-comment: #4c5b6d;
   --code-punct: #3f4d5e;
   --code-prop: #9c4b00;
   --code-string: #157338;

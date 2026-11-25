@@ -54,6 +54,10 @@ const HomeV2 = ({
         return;
       }
 
+      if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) {
+        return;
+      }
+
       if (e.key === "t" || e.key === "T") {
         cycleTheme?.();
       } else if (e.key === "l" || e.key === "L") {

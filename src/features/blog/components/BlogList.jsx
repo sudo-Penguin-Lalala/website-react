@@ -25,11 +25,13 @@ export default function BlogList({ navigate }) {
   }, [posts, activeTag, search]);
 
   const handlePostClick = (e, slug) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
     e.preventDefault();
     navigate(`/blog/${slug}`);
   };
 
   const handleBackHome = (e) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
     e.preventDefault();
     navigate("/");
   };

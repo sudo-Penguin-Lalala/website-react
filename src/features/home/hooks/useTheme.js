@@ -22,6 +22,7 @@ export const useTheme = () => {
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
+    document.documentElement.style.colorScheme = "dark";
     try {
       localStorage.setItem(THEME_KEY, theme);
     } catch (err) {

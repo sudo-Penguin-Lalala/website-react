@@ -11,6 +11,7 @@ export function useTerminalShell(isVi, navigate) {
   const [executingCmd, setExecutingCmd] = useState("");
 
   const timersRef = useRef(new Set());
+  const isExecutingRef = useRef(false);
 
   const registerTimeout = useCallback((fn, delay) => {
     const id = setTimeout(() => {
@@ -21,14 +22,15 @@ export function useTerminalShell(isVi, navigate) {
     return id;
   }, []);
 
+  const clearAllTimers = useCallback(() => {
+    timersRef.current.forEach((id) => clearTimeout(id));
+    timersRef.current.clear();
+  }, []);
+
   // Teardown all pending timers on unmount
   useEffect(() => {
-    const timers = timersRef.current;
-    return () => {
-      timers.forEach((id) => clearTimeout(id));
-      timers.clear();
-    };
-  }, []);
+    return () => clearAllTimers();
+  }, [clearAllTimers]);
 
   // DevTools Console ASCII Art Banner on mount
   useEffect(() => {
@@ -81,13 +83,15 @@ Contact: ${getContactEmail()} | Discord: nnt2589
   }, [isSudo, isVi, registerTimeout]);
 
   const handleExitSudo = useCallback(() => {
+    clearAllTimers();
+    isExecutingRef.current = false;
     setIsSudo(false);
     setBrandClicks(0);
     setRootOutput("");
     setSudoHint("");
     setIsExecuting(false);
     setExecutingCmd("");
-  }, []);
+  }, [clearAllTimers]);
 
   const executeCommand = useCallback((rawCmd) => {
     const cleanCmd = rawCmd.trim();
@@ -100,12 +104,13 @@ Contact: ${getContactEmail()} | Discord: nnt2589
       return;
     }
 
-    if (isExecuting) return;
+    if (isExecutingRef.current) return;
 
+    isExecutingRef.current = true;
     setIsExecuting(true);
     setExecutingCmd(cleanCmd);
 
-    registerTimeout(() => {
+    registerTimeout(async () => {
       let output = "";
 
       if (normalized === "help") {
@@ -123,7 +128,7 @@ Contact: ${getContactEmail()} | Discord: nnt2589
         normalized === "posts" ||
         normalized === "logs"
       ) {
-        output = cmdUtils.getBlogOutput(isVi);
+        output = await cmdUtils.getBlogOutput(isVi);
       } else if (
         normalized === "blog open" ||
         normalized === "posts open" ||
@@ -194,11 +199,12 @@ Contact: ${getContactEmail()} | Discord: nnt2589
         output = `bash: ${cleanCmd}: command not found. Type 'help' to see available commands.`;
       }
 
+      isExecutingRef.current = false;
       setRootOutput(output);
       setIsExecuting(false);
       setExecutingCmd("");
     }, 450);
-  }, [isExecuting, isVi, navigate, registerTimeout]);
+  }, [isVi, navigate, registerTimeout]);
 
   return {
     isSudo,

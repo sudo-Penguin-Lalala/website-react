@@ -1,5 +1,4 @@
 import { useMemo, useState, useEffect, useRef } from "preact/hooks";
-import DOMPurify from "dompurify";
 import { getPostBySlug, formatPostDate } from "../utils/postLoader";
 import { renderMarkdown } from "../utils/markdownRenderer";
 import { useBlogTheme } from "../hooks/useBlogTheme";
@@ -15,30 +14,28 @@ export default function BlogPost({
   const [copiedLink, setCopiedLink] = useState(false);
   const progressBarRef = useRef(null);
   const copyTimerRef = useRef(null);
+  const codeCopyTimersRef = useRef(new Map());
 
   const post = useMemo(() => getPostBySlug(slug), [slug]);
 
-  // Memoize sanitized HTML strictly on post change: NEVER re-run DOMPurify on scroll or re-render
+  // Memoize rendered + DOMPurify-sanitized HTML strictly on post change
   const sanitizedHtml = useMemo(() => {
     if (!post) return "";
-    const raw = renderMarkdown(post.content);
-    return DOMPurify.sanitize(raw, {
-      ADD_TAGS: ["aside", "button"],
-      ADD_ATTR: [
-        "data-code",
-        "data-lang",
-        "target",
-        "rel",
-        "aria-hidden",
-        "aria-label",
-      ],
-    });
+    return renderMarkdown(post.content);
   }, [post]);
 
-  // Clean timer on unmount
+  // Reset copy state when navigating between articles
   useEffect(() => {
+    setCopiedLink(false);
+  }, [slug]);
+
+  // Clean all pending timers on unmount
+  useEffect(() => {
+    const codeTimers = codeCopyTimersRef.current;
     return () => {
       if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+      codeTimers.forEach((id) => clearTimeout(id));
+      codeTimers.clear();
     };
   }, []);
 
@@ -68,23 +65,32 @@ export default function BlogPost({
       window.removeEventListener("scroll", handleScroll);
       if (rafId) cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [slug]);
 
   const handleBackToBlog = (e) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
     e.preventDefault();
     navigate("/blog");
   };
 
   const handleBackHome = (e) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
     e.preventDefault();
     navigate("/");
   };
 
   const handleCopyLink = () => {
-    navigator.clipboard?.writeText(window.location.href);
-    setCopiedLink(true);
-    if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
-    copyTimerRef.current = setTimeout(() => setCopiedLink(false), 2000);
+    if (!navigator.clipboard?.writeText) return;
+    navigator.clipboard
+      .writeText(window.location.href)
+      .then(() => {
+        setCopiedLink(true);
+        if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+        copyTimerRef.current = setTimeout(() => setCopiedLink(false), 2000);
+      })
+      .catch((err) => {
+        console.warn("Clipboard write failed for article link:", err);
+      });
   };
 
   // Delegated event listener for copying code blocks
@@ -96,22 +102,38 @@ export default function BlogPost({
     const encoded = copyBtn.getAttribute("data-code");
     if (!encoded) return;
 
-    const rawCode = decodeURIComponent(encoded);
-    navigator.clipboard?.writeText(rawCode);
+    let rawCode;
+    try {
+      rawCode = decodeURIComponent(encoded);
+    } catch (err) {
+      console.warn("Failed to decode code snippet:", err);
+      return;
+    }
 
-    const textEl = copyBtn.querySelector(".nc-copy-text");
-    const glyphEl = copyBtn.querySelector(".nc-copy-glyph");
-    const origText = textEl ? textEl.textContent : "copy";
+    if (!navigator.clipboard?.writeText) return;
+    navigator.clipboard
+      .writeText(rawCode)
+      .then(() => {
+        const textEl = copyBtn.querySelector(".nc-copy-text");
+        const glyphEl = copyBtn.querySelector(".nc-copy-glyph");
+        const existingTimer = codeCopyTimersRef.current.get(copyBtn);
+        if (existingTimer) clearTimeout(existingTimer);
 
-    copyBtn.classList.add("is-copied");
-    if (textEl) textEl.textContent = "copied!";
-    if (glyphEl) glyphEl.textContent = "✓";
+        copyBtn.classList.add("is-copied");
+        if (textEl) textEl.textContent = "copied!";
+        if (glyphEl) glyphEl.textContent = "✓";
 
-    setTimeout(() => {
-      copyBtn.classList.remove("is-copied");
-      if (textEl) textEl.textContent = origText;
-      if (glyphEl) glyphEl.textContent = "⎘";
-    }, 2000);
+        const timerId = setTimeout(() => {
+          codeCopyTimersRef.current.delete(copyBtn);
+          copyBtn.classList.remove("is-copied");
+          if (textEl) textEl.textContent = "copy";
+          if (glyphEl) glyphEl.textContent = "⎘";
+        }, 2000);
+        codeCopyTimersRef.current.set(copyBtn, timerId);
+      })
+      .catch((err) => {
+        console.warn("Clipboard write failed for code block:", err);
+      });
   };
 
   if (!post) {

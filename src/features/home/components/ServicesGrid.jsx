@@ -1,24 +1,49 @@
-import { useState } from "preact/hooks";
+import { useState, useRef, useEffect } from "preact/hooks";
 import Icon from "../../../components/Icon";
 import { getContactEmail } from "../../../config/links";
 
 const ServicesGrid = ({ isSudo, isVi }) => {
   const [copiedDiscord, setCopiedDiscord] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const discordTimerRef = useRef(null);
+  const emailTimerRef = useRef(null);
   const contactEmail = getContactEmail();
+
+  useEffect(() => {
+    return () => {
+      if (discordTimerRef.current) clearTimeout(discordTimerRef.current);
+      if (emailTimerRef.current) clearTimeout(emailTimerRef.current);
+    };
+  }, []);
 
   const handleCopyDiscord = (e) => {
     e?.preventDefault();
-    navigator.clipboard?.writeText("nnt2589");
-    setCopiedDiscord(true);
-    setTimeout(() => setCopiedDiscord(false), 2000);
+    if (!navigator.clipboard?.writeText) return;
+    navigator.clipboard
+      .writeText("nnt2589")
+      .then(() => {
+        setCopiedDiscord(true);
+        if (discordTimerRef.current) clearTimeout(discordTimerRef.current);
+        discordTimerRef.current = setTimeout(() => setCopiedDiscord(false), 2000);
+      })
+      .catch((err) => {
+        console.warn("Clipboard write failed for Discord:", err);
+      });
   };
 
   const handleCopyEmail = (e) => {
     e?.preventDefault();
-    navigator.clipboard?.writeText(contactEmail);
-    setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2000);
+    if (!navigator.clipboard?.writeText) return;
+    navigator.clipboard
+      .writeText(contactEmail)
+      .then(() => {
+        setCopiedEmail(true);
+        if (emailTimerRef.current) clearTimeout(emailTimerRef.current);
+        emailTimerRef.current = setTimeout(() => setCopiedEmail(false), 2000);
+      })
+      .catch((err) => {
+        console.warn("Clipboard write failed for Email:", err);
+      });
   };
 
   const handleCellMouseMove = (e) => {

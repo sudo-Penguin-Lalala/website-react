@@ -1,8 +1,18 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { getSpinAchievement } from "./useLogoSpin";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { renderHook, act } from "@testing-library/preact";
+import { useLogoSpin, getSpinAchievement } from "./useLogoSpin";
 
-describe("useLogoSpin - Achievement & Energy Calculations", () => {
-  describe("Watt-hour & Energy Progression", () => {
+describe("useLogoSpin - Real Hook, Milestones & Storage Fault Tolerance", () => {
+  beforeEach(() => {
+    localStorage.clear();
+    vi.restoreAllMocks();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  describe("getSpinAchievement progression", () => {
     it("calculates correct energy tier for low spin counts", () => {
       const ach = getSpinAchievement(1, false);
       expect(ach.badge).toBe("Lv.1");
@@ -25,9 +35,9 @@ describe("useLogoSpin - Achievement & Energy Calculations", () => {
       const achEn = getSpinAchievement(300, false);
 
       expect(achVi.badge).toBe("MAX");
-      expect(achVi.title).toContain("Sạc xe máy điện");
+      expect(achVi.title).toBe("Sạc xe máy điện chạy 500m");
       expect(achVi.wh).toBe("~450 Wh");
-      expect(achEn.title).toContain("charge e-scooter");
+      expect(achEn.title).toBe("Enough to charge e-scooter");
     });
 
     it("awards 'Động cơ vĩnh cửu' at 1000 spins milestone", () => {
@@ -41,29 +51,49 @@ describe("useLogoSpin - Achievement & Energy Calculations", () => {
     });
   });
 
-  describe("LocalStorage Fault Tolerance", () => {
-    beforeEach(() => {
-      vi.restoreAllMocks();
+  describe("useLogoSpin() hook behavior & fault tolerance", () => {
+    it("falls back to 0 and warns cleanly when localStorage throws SecurityError/QuotaExceededError", () => {
+      const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+      vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => {
+        throw new DOMException("Restricted storage", "SecurityError");
+      });
+      vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
+        throw new DOMException("Quota exceeded", "QuotaExceededError");
+      });
+
+      const { result } = renderHook(() => useLogoSpin());
+      expect(result.current.spinCount).toBe(0);
+      expect(result.current.lifetimeSpins).toBe(0);
+      expect(result.current.bestRecord).toBe(0);
+
+      act(() => {
+        result.current.handleSpinLogo();
+      });
+
+      expect(result.current.spinCount).toBe(1);
+      expect(result.current.spinDeg).toBe(720);
+      expect(result.current.lifetimeSpins).toBe(1);
+      expect(result.current.bestRecord).toBe(1);
+      expect(warnSpy).toHaveBeenCalled();
     });
 
-    it("safely handles localStorage throwing SecurityError without breaking", () => {
-      const storageMock = {
-        getItem: vi.fn(() => {
-          throw new DOMException("The operation is insecure.", "SecurityError");
-        }),
-        setItem: vi.fn(() => {
-          throw new DOMException("Quota exceeded", "QuotaExceededError");
-        }),
-      };
+    it("only sets copied=true when clipboard writeText resolves, and does not fake success on reject", async () => {
+      const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+      Object.defineProperty(navigator, "clipboard", {
+        configurable: true,
+        value: {
+          writeText: vi.fn().mockRejectedValueOnce(new Error("Permission denied")),
+        },
+      });
 
-      // Ensure mock doesn't crash external callers
-      expect(() => {
-        try {
-          storageMock.getItem("nnt:power_lifetime");
-        } catch {
-          // safe fallback
-        }
-      }).not.toThrow();
+      const { result } = renderHook(() => useLogoSpin());
+      await act(async () => {
+        result.current.copyReceipt(false);
+        await Promise.resolve();
+      });
+
+      expect(result.current.copied).toBe(false);
+      expect(warnSpy).toHaveBeenCalled();
     });
   });
 });
